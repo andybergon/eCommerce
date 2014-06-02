@@ -9,14 +9,14 @@
 		transaction-type="JTA">
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<jta-data-source>eCommerceDS</jta-data-source>
-		<class>it.uniroma3.jpa.Address</class>
-		<class>it.uniroma3.jpa.Admin</class>
-		<class>it.uniroma3.jpa.Order</class>
-		<class>it.uniroma3.jpa.OrderLine</class>
-		<class>it.uniroma3.jpa.Product</class>
-		<class>it.uniroma3.jpa.ProductRegister</class>
-		<class>it.uniroma3.jpa.Provider</class>
-		<class>it.uniroma3.jpa.User</class>
+		<class>com.ecommerce.model.Address</class>
+		<class>com.ecommerce.model.Admin</class>
+		<class>com.ecommerce.model.Order</class>
+		<class>com.ecommerce.model.OrderLine</class>
+		<class>com.ecommerce.model.Product</class>
+		<class>com.ecommerce.model.ProductRegister</class>
+		<class>com.ecommerce.model.Provider</class>
+		<class>com.ecommerce.model.User</class>
 		<properties>
 			<property
 				name="openjpa.jdbc.SynchronizeMappings"
