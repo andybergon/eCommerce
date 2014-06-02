@@ -2,6 +2,7 @@ package com.ecommerce.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,18 +10,17 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class ProductRegister {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	@OneToOne
-	private Product product;
 
 	@Column(nullable = false)
 	private Integer quantity;
 
 	private Float currentPrice;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Product product;
 
 	public ProductRegister() {
 	}
@@ -45,5 +45,4 @@ public class ProductRegister {
 	public void setCurrentPrice(Float currentPrice) {
 		this.currentPrice = currentPrice;
 	}
-
 }

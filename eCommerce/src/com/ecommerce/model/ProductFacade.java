@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 
 @Stateless
 public class ProductFacade {
-
 	@PersistenceContext(unitName = "ecommerce-unit")
 	private EntityManager em;
 

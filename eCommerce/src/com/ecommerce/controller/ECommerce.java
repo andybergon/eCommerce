@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 
@@ -20,6 +21,7 @@ public class ECommerce {
 	private EntityManager em;
 
 	@OneToMany
+	@MapKey(name = "code")
 	private Map<Integer, ProductRegister> productRegisters;
 
 	@OneToMany
