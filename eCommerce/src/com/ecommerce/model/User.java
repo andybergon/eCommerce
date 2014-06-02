@@ -27,7 +27,11 @@ public class User {
 	@Column(nullable = false)
 	private String lastName;
 
+	@Column(nullable = false)
 	private String email;
+
+	@Column(nullable = false)
+	private String password;
 
 	private String phoneNumber;
 
@@ -47,16 +51,17 @@ public class User {
 
 	public User() {}
 
-	public User(String firstName, String lastName, String email, String phoneNumber, Date dateOfBirth,
+	public User(String firstName, String lastName, String email, String password, String phoneNumber, Date dateOfBirth,
 			Address address, List<Order> orders) {
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setEmail(email);
-		this.setPhoneNumber(phoneNumber);
-		this.setDateOfBirth(dateOfBirth);
-		this.setRegistrationDate(new Date());
-		this.setAddress(address);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.address = address;
 		this.orders = orders;
+		this.registrationDate = new Date();
 	}
 
 	public Long getId() {
@@ -85,6 +90,10 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setEmail(String email) {
