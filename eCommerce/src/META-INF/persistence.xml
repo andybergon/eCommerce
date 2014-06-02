@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence
+	version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="ecommerce-unit" transaction-type="JTA">
+	<persistence-unit
+		name="ecommerce-unit"
+		transaction-type="JTA">
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-		<jta-data-source>PostgreSQL Database</jta-data-source>
+		<jta-data-source>eCommerceDS</jta-data-source>
 		<class>it.uniroma3.jpa.Address</class>
-		<class>it.uniroma3.jpa.Customer</class>
+		<class>it.uniroma3.jpa.Admin</class>
 		<class>it.uniroma3.jpa.Order</class>
 		<class>it.uniroma3.jpa.OrderLine</class>
 		<class>it.uniroma3.jpa.Product</class>
 		<class>it.uniroma3.jpa.Provider</class>
+		<class>it.uniroma3.jpa.User</class>
 		<properties>
-  			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add,ForeignKeys=true)" /> 
+			<property
+				name="openjpa.jdbc.SynchronizeMappings"
+				value="buildSchema(SchemaAction=add,ForeignKeys=true)" />
 		</properties>
 	</persistence-unit>
 </persistence>
