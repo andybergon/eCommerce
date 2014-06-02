@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,6 +20,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "orders")
 public class Order {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -37,7 +39,8 @@ public class Order {
 	@OneToOne(fetch = FetchType.EAGER)
 	private User creator;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
 	public Order(User creator) {
@@ -76,4 +79,5 @@ public class Order {
 	public List<OrderLine> getOrderLines() {
 		return orderLines;
 	}
+
 }

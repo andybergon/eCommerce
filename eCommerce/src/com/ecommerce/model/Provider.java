@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Provider {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,13 +28,14 @@ public class Provider {
 
 	private String vatin;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Product> products;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Address address;
 
-	public Provider() {}
+	public Provider() {
+	}
 
 	public Provider(String name, String phoneNumber, String email, String vatin, Address address) {
 		this.setName(name);
@@ -86,4 +88,5 @@ public class Provider {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
 }

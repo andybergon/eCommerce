@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Address {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,7 +28,8 @@ public class Address {
 	@Column(nullable = false)
 	private String country;
 
-	public Address() {}
+	public Address() {
+	}
 
 	public Address(String street, String city, String state, String zipcode, String country) {
 		this.street = street;
@@ -80,4 +82,5 @@ public class Address {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
 }

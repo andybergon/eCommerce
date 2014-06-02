@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 @Entity
 @NamedQuery(name = "findAllProducts", query = "SELECT p FROM Product p")
 public class Product {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -36,7 +37,8 @@ public class Product {
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<Provider> providers;
 
-	public Product() {}
+	public Product() {
+	}
 
 	public Product(String code, String name, Float price, String description, ProductRegister register) {
 		this.code = code;
@@ -117,4 +119,5 @@ public class Product {
 		sb.append("}\n");
 		return sb.toString();
 	}
+
 }
