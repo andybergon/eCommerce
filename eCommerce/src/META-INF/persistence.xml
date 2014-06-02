@@ -14,6 +14,7 @@
 		<class>it.uniroma3.jpa.Order</class>
 		<class>it.uniroma3.jpa.OrderLine</class>
 		<class>it.uniroma3.jpa.Product</class>
+		<class>it.uniroma3.jpa.ProductRegister</class>
 		<class>it.uniroma3.jpa.Provider</class>
 		<class>it.uniroma3.jpa.User</class>
 		<properties>
