@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Product {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -29,14 +28,13 @@ public class Product {
 
 	private String description;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "product")
 	private ProductRegister register;
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<Provider> providers;
 
-	public Product() {
-	}
+	public Product() {}
 
 	public Product(String code, String name, Float price, String description, ProductRegister register) {
 		this.code = code;

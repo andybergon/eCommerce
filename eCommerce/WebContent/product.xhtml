@@ -8,29 +8,31 @@
 </h:head>
 <h:body>
 	<center>
-	<h1>Product details</h1>
-	<table class="ctable">
-		<tr>
-			<td>CODE:</td>
-			<td>#{eCommercePortal.currentProduct.code}</td>
-		</tr>
-		<tr>
-			<td>NAME:</td>
-			<td>#{eCommercePortal.currentProduct.name}</td>
-		</tr>
-		<tr>
-			<td>PRICE:</td>
-			<td>#{eCommercePortal.currentProduct.price}</td>
-		</tr>
-		<tr>
-			<td>DESCRIPTION:</td>
-			<td>#{eCommercePortal.currentProduct.description}</td>
-		</tr>
-		<tr>
-			<td>QUANTITY LEFT:</td>
-			<td>#{eCommercePortal.currentProduct.register.quantity}</td>
-		</tr>
-	</table>
+		<h1>Product details</h1>
+		<table class="ctable">
+			<tr>
+				<td>CODE:</td>
+				<td>#{eCommercePortal.currentProduct.code}</td>
+			</tr>
+			<tr>
+				<td>NAME:</td>
+				<td>#{eCommercePortal.currentProduct.name}</td>
+			</tr>
+			<tr>
+				<td>PRICE:</td>
+				<td>#{eCommercePortal.currentProduct.price}$</td>
+			</tr>
+			<tr>
+				<td>DESCRIPTION:</td>
+				<td>#{eCommercePortal.currentProduct.description}</td>
+			</tr>
+			<tr>
+				<td>QUANTITY LEFT:</td>
+				<td>#{eCommercePortal.currentProduct.register.quantity}</td>
+			</tr>
+		</table>
+		<br/>
+		<h:link outcome="products" value="Return to all products"/>
 	</center>
 </h:body>
 </html>
