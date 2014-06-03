@@ -9,12 +9,26 @@
 <h:body>
 	<center>
 	<h1>Product details</h1>
-	<table class="ctable" style="width: 500px; font-size: 20px">
+	<table class="ctable">
 		<tr>
-			<td width="100px">#{eCommercePortal.currentProduct.code}</td>
-			<td width="100px">#{eCommercePortal.currentProduct.name}</td>
-			<td width="100px">#{eCommercePortal.currentProduct.price}</td>
-			<td width="200px">#{eCommercePortal.currentProduct.description}</td>
+			<td>CODE:</td>
+			<td>#{eCommercePortal.currentProduct.code}</td>
+		</tr>
+		<tr>
+			<td>NAME:</td>
+			<td>#{eCommercePortal.currentProduct.name}</td>
+		</tr>
+		<tr>
+			<td>PRICE:</td>
+			<td>#{eCommercePortal.currentProduct.price}</td>
+		</tr>
+		<tr>
+			<td>DESCRIPTION:</td>
+			<td>#{eCommercePortal.currentProduct.description}</td>
+		</tr>
+		<tr>
+			<td>QUANTITY LEFT:</td>
+			<td>#{eCommercePortal.currentProduct.register.quantity}</td>
 		</tr>
 	</table>
 	</center>

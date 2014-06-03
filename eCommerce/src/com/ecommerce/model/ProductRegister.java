@@ -17,16 +17,13 @@ public class ProductRegister {
 	@Column(nullable = false)
 	private Integer quantity;
 
-	private Float currentPrice;
-
 	@OneToOne(fetch = FetchType.EAGER)
 	private Product product;
 
 	public ProductRegister() {}
 
-	public ProductRegister(Integer quantity, Float currentPrice) {
+	public ProductRegister(Integer quantity) {
 		this.quantity = quantity;
-		this.currentPrice = currentPrice;
 	}
 
 	public Integer getQuantity() {
@@ -35,13 +32,5 @@ public class ProductRegister {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-	}
-
-	public Float getCurrentPrice() {
-		return this.currentPrice;
-	}
-
-	public void setCurrentPrice(Float currentPrice) {
-		this.currentPrice = currentPrice;
 	}
 }

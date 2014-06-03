@@ -6,6 +6,7 @@ body {
 }
 
 .ctable-header,.ctable {
+	font-size: 22px;
 	border-collapse: collapse;
 }
 
@@ -16,7 +17,7 @@ body {
 }
 
 .ctable-header td,.ctable td {
-	padding-left: 10px;
+	padding: 10px;
 }
 
 .ctable tr:nth-child(odd) {
