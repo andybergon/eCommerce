@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 
 import com.ecommerce.model.Admin;
+import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductRegister;
 import com.ecommerce.model.User;
 
@@ -21,8 +22,8 @@ public class ECommerce {
 	private EntityManager em;
 
 	@OneToMany
-	@MapKey(name = "code")
-	private Map<Integer, ProductRegister> productRegisters;
+	@MapKey(name = "product")
+	private Map<Product, ProductRegister> productRegisters;
 
 	@OneToMany
 	private List<Admin> admins;
@@ -32,11 +33,11 @@ public class ECommerce {
 
 	public ECommerce() {}
 
-	public Map<Integer, ProductRegister> getProductRegisters() {
+	public Map<Product, ProductRegister> getProductRegisters() {
 		return productRegisters;
 	}
 
-	public void setProductRegisters(Map<Integer, ProductRegister> productRegisters) {
+	public void setProductRegisters(Map<Product, ProductRegister> productRegisters) {
 		this.productRegisters = productRegisters;
 	}
 

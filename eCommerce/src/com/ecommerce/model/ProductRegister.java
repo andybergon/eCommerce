@@ -22,8 +22,7 @@ public class ProductRegister {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Product product;
 
-	public ProductRegister() {
-	}
+	public ProductRegister() {}
 
 	public ProductRegister(Integer quantity, Float currentPrice) {
 		this.quantity = quantity;

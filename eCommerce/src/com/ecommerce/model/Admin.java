@@ -19,6 +19,8 @@ public class Admin {
 
 	@Column(nullable = false)
 	private String password;
+	
+	public Admin() {}
 
 	public Admin(String email, String password) {
 		this.email = email;

@@ -44,7 +44,6 @@ public class User {
 	private Date registrationDate;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	@Column(nullable = false)
 	private List<Order> orders;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -54,7 +53,7 @@ public class User {
 	public User() {}
 
 	public User(String firstName, String lastName, String email, String password, String phoneNumber, Date dateOfBirth,
-			Address address, List<Order> orders) {
+			Address address) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -62,7 +61,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
-		this.orders = orders;
 		this.registrationDate = new Date();
 	}
 

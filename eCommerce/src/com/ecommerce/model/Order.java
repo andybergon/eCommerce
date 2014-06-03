@@ -43,6 +43,8 @@ public class Order {
 	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
+	public Order() {}
+
 	public Order(User creator) {
 		this.creator = creator;
 		this.creationDate = new Date();
