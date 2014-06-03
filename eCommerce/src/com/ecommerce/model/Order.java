@@ -35,8 +35,8 @@ public class Order {
 	@Temporal(TemporalType.DATE)
 	private Date shipmentDate;
 
-	@Column(nullable = false)
 	@OneToOne(fetch = FetchType.EAGER)
+	@Column(nullable = false)
 	private User creator;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
