@@ -58,6 +58,10 @@ public class Order {
 		return creationDate;
 	}
 
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	public Date getConfirmationDate() {
 		return confirmationDate;
 	}
@@ -76,6 +80,10 @@ public class Order {
 
 	public User getCreator() {
 		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 
 	public List<OrderLine> getOrderLines() {
