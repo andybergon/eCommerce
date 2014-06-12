@@ -6,13 +6,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import com.ecommerce.facade.ProductFacade;
 import com.ecommerce.model.Product;
-import com.ecommerce.model.ProductFacade;
+import com.ecommerce.model.ProductRegister;
+import com.ecommerce.utils.Utils;
 
 @ManagedBean
 @SessionScoped
 public class ProductController {
-
 	// @ManagedProperty(value = "#{param.id}")
 	private Long id;
 	private String code;
@@ -26,27 +27,34 @@ public class ProductController {
 	private ProductFacade productFacade;
 
 	public String createProduct() {
-		this.product = this.productFacade.createProduct(this.code, this.name , this.price, this.description);
-		// return "product";
-		return "product" + "?faces-redirect=true";
+		//TODO: add ProductRegister
+		Product product = new Product(this.code, this.name , this.price, this.description, new ProductRegister());
+		this.productFacade.create(product);
+		this.product = product;
+		return "product" + Utils.REDIRECT;
 	}
 
 	public String listProducts() {
-		this.products = this.productFacade.getAllProducts();
-		// return "products";
-		return "products" + "?faces-redirect=true";
+		this.products = this.productFacade.findAll();
+		return "products" + Utils.REDIRECT;
 	}
 
 	public String findProduct() {
-		this.product = this.productFacade.getProduct(this.id);
-		// return "product";
-		return "product" + "?faces-redirect=true";
+		this.product = this.productFacade.find(this.id);
+		return "product" + Utils.REDIRECT;
+	}
+
+	public ProductFacade getProductFacade() {
+		return productFacade;
+	}
+
+	public void setProductFacade(ProductFacade productFacade) {
+		this.productFacade = productFacade;
 	}
 
 	public String findProduct(Long id) {
-		this.product = this.productFacade.getProduct(id);
-		// return "product";
-		return "product" + "?faces-redirect=true";
+		this.product = this.productFacade.find(id);
+		return "product" + Utils.REDIRECT;
 	}
 
 	public Long getId() {

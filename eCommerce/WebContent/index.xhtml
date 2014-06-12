@@ -11,7 +11,11 @@
 <h:body>
 	<center>
 		<h1>Welcome to eCommerce!</h1><br/><br/>
-		<h2>You are currently not signed in.</h2>
+		<h2>
+		<h:outputLabel value="#{userController.message}" rendered="#{userController.isSignedIn()}"/> 
+		<h:outputLabel value="You are currently not signed in." rendered="#{userController.isSignedIn() == false}"/>
+		
+		</h2>
 		<div>
 			<h:link outcome="user_signin" value="Sign in"/> or <h:link outcome="user_signup" value="sign up"/>.<br/>
 			If you are an admin, please sign in <h:link outcome="admin_signin" value="here"/>.<br/><br/><br/><br/>

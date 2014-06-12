@@ -7,6 +7,29 @@
 	<title>eCommerce</title>
 </h:head>
 <h:body>
+	<center>
 	<h1>Please fill in your credentials.</h1>
+	<h2 style="color: red;"><h:outputLabel value="#{userController.message}"/></h2>
+		<h:form>
+			<table class="ctable">
+				<tr>
+					<td>email:</td>
+					<td>
+						<h:inputText value="#{userController.credentials.email}" required="true" requiredMessage="Email is mandatory" id="email"></h:inputText>
+						<h:message for="email" styleClass="error"/>
+					</td>
+				</tr>
+				<tr>
+					<td>password:</td>
+					<td>
+						<h:inputSecret value="#{userController.credentials.password}" required="true" requiredMessage="Password is mandatory" id="password">
+						</h:inputSecret>
+						<h:message for="password" styleClass="error"/>
+					</td>
+				</tr>
+			</table>
+			<h:commandLink action="#{userController.signInUser}" value="Sign in"></h:commandLink>
+		</h:form>
+	</center>
 </h:body>
 </html>

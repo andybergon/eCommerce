@@ -1,4 +1,4 @@
-package com.ecommerce.model;
+package com.ecommerce.facade;
 
 import java.util.Date;
 import java.util.List;
@@ -12,20 +12,21 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-@Stateless
-public class OrderFacade {
+import com.ecommerce.model.Order;
+import com.ecommerce.model.User;
 
+@Stateless
+public class OrderFacade extends AbstractFacade<Order> {
 	@PersistenceContext(unitName = "ecommerce-unit")
 	private EntityManager em;
 
-	public Order getOrder(Long orderId) {
-		Order order = this.em.find(Order.class, orderId);
-		return order;
+	public OrderFacade() {
+		super(Order.class);
 	}
 
 	public User getCreator(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
-		User creator = order.getCreator(); // works??
+		User creator = order.getCreator(); //TODO: works??
 		return creator;
 	}
 
@@ -45,4 +46,8 @@ public class OrderFacade {
 		order.setShipmentDate(new Date());
 	}
 
+	@Override
+	protected EntityManager getEntityManager() {
+		return this.em;
+	}
 }

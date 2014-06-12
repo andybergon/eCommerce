@@ -64,6 +64,10 @@ public class User {
 		this.registrationDate = new Date();
 	}
 
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
+
 	public Long getId() {
 		return id;
 	}
