@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>eCommerce</title>
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="#{request.contextPath}/styles/style.css" />
+</h:head>
+
+<h:body>
+	<h1>My Orders</h1>
+	<h:dataTable
+		value="#{orderController.orderFacade.findAll()}"
+		var="order">
+
+		<h:column>
+			<f:facet name="header">Order Id</f:facet>
+			<!-- 			#{order.id} -->
+			<h:form>
+				<h:commandLink
+					action="#{orderController.findOrder(order.id)}"
+					value="#{order.id}"></h:commandLink>
+			</h:form>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Creation Date</f:facet>
+			<h:outputText value="#{order.creationDate}">
+				<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:outputText>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Confirmation Date</f:facet>
+			<h:outputText value="#{order.confirmationDate}">
+				<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:outputText>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Shipment Date</f:facet>
+
+			<h:outputText value="#{order.shipmentDate}">
+				<f:convertDateTime pattern="dd.MM.yyyy" />
+			</h:outputText>
+		</h:column>
+
+	</h:dataTable>
+
+</h:body>
+</html>
+
+<!-- 	<center> -->
+<!-- 		<table class="ctable-header" style="width: 500px;"> -->
+<!-- 			<tr> -->
+<!-- 				<td>Order</td> -->
+<!-- 				<td>Creation Date</td> -->
+<!-- 				<td>Confirmation Date</td> -->
+<!-- 				<td>Shipment Date</td> -->
+<!-- 			</tr> -->
+<!-- 		</table> -->
+<!-- 		<table class="ctable" style="width: 500px"> -->
+<!-- 			<ui:repeat var="order" value="#{orderController.orderFacade.findAll()}"> -->
+<!-- 				<tr> -->
+<!-- 					<td> -->
+<!-- 						to implement -->
+<!-- 						<h:form><h:commandLink action="#{orderController.findOrder(order.id)}" value="#{order.id}"></h:commandLink></h:form> -->
+<!-- 					</td> -->
+<!-- 					<td>#{order.creationDate}</td> -->
+<!-- 					<td>#{order.confirmationDate}</td> -->
+<!-- 					<td>#{order.shipmentDate}</td> -->
+<!-- 				</tr> -->
+<!-- 			</ui:repeat> -->
+<!-- 		</table> -->
+<!-- 		<h:link outcome="index" value="Return to home"/> -->
+<!-- 	</center> -->

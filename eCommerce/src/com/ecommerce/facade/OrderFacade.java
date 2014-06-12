@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.ecommerce.model.Order;
+import com.ecommerce.model.OrderLine;
 import com.ecommerce.model.User;
 
 @Stateless
@@ -26,7 +27,7 @@ public class OrderFacade extends AbstractFacade<Order> {
 
 	public User getCreator(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
-		User creator = order.getCreator(); //TODO: works??
+		User creator = order.getCreator();
 		return creator;
 	}
 
@@ -45,7 +46,14 @@ public class OrderFacade extends AbstractFacade<Order> {
 		Order order = this.em.find(Order.class, orderId);
 		order.setShipmentDate(new Date());
 	}
-
+	
+	
+	//not needed?
+	public List<OrderLine> getOrderLines(Long orderId) {
+		Order order = this.em.find(Order.class, orderId);
+		return order.getOrderLines();
+	}
+	
 	@Override
 	protected EntityManager getEntityManager() {
 		return this.em;
