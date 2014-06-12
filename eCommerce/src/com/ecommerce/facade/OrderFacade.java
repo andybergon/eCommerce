@@ -50,4 +50,9 @@ public class OrderFacade extends AbstractFacade<Order> {
 	protected EntityManager getEntityManager() {
 		return this.em;
 	}
+	
+	protected void setEntityManager(EntityManager em) {
+		this.em = em;
+	}
+	
 }
