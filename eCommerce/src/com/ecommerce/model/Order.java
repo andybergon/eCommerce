@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,11 +43,15 @@ public class Order {
 	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
-	public Order() {}
+	// no arg constructor can be used, or JPA/JSF will go mad?
+	public Order() {
+		this.orderLines = new ArrayList<OrderLine>();
+	}
 
 	public Order(User creator) {
 		this.creator = creator;
 		this.creationDate = new Date();
+		this.orderLines = new ArrayList<OrderLine>();
 	}
 
 	public Long getId() {
@@ -87,6 +92,14 @@ public class Order {
 
 	public List<OrderLine> getOrderLines() {
 		return orderLines;
+	}
+
+	public void addOrderLine(OrderLine orderLine) {
+		this.orderLines.add(orderLine);
+	}
+
+	public int countOrderLines() {
+		return this.orderLines.size();
 	}
 
 }

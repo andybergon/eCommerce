@@ -42,6 +42,10 @@ public class OrderFacade extends AbstractFacade<Order> {
 		return confirmedOrders;
 	}
 
+	public void confirmOrder(Order order) {
+		this.em.persist(order);
+	}
+	
 	public void shipOrder(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
 		order.setShipmentDate(new Date());
