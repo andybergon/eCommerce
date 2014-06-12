@@ -28,7 +28,7 @@ public class Product {
 
 	private String description;
 
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "product")
+	@OneToOne(mappedBy = "product", fetch = FetchType.EAGER)
 	private ProductRegister register;
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
