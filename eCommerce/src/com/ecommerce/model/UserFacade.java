@@ -5,7 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 @Stateless
 public class UserFacade {
@@ -18,9 +20,21 @@ public class UserFacade {
 		return user;
 	}
 
-	public User getUser(String email) {
-		User user = this.em.find(User.class, email);
+	public User getUser(Long id) {
+		User user = this.em.find(User.class, id);
 		return user;
+	}
+
+	public User findUser(String email) {
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+		CriteriaQuery<User> cq = cb.createQuery(User.class);
+		Root<User> root = cq.from(User.class);
+		cq.where(cb.equal(root.get("email"), email));
+		cq.select(cq.from(User.class));
+		List<User> result = this.em.createQuery(cq).getResultList();
+		if (!result.isEmpty())
+			return result.get(0);
+		return null;
 	}
 
 	public List<User> getAllUsers() {
