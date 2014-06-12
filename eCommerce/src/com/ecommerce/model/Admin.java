@@ -19,7 +19,7 @@ public class Admin {
 
 	@Column(nullable = false)
 	private String password;
-	
+
 	public Admin() {}
 
 	public Admin(String email, String password) {
@@ -37,6 +37,10 @@ public class Admin {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
 	}
 
 }

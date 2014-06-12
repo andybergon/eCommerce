@@ -43,7 +43,7 @@ public class UserController {
 				if (user.checkPassword(password)) {
 					this.signedInState = SignedInState.USER_SIGNED_IN;
 					this.currentUser = user;
-					this.message = "You have successfuly signed in.<br/>Welcome back, " + user.getFirstName() + "!";
+					this.message = "You have successfuly signed in. Welcome back, " + user.getFirstName() + "!";
 					return "index" + Utils.REDIRECT;
 				} else
 					this.message = "Incorrect password.";
@@ -53,6 +53,10 @@ public class UserController {
 			this.message = "You must be signed out to perform this action.";
 
 		return "user_signin" + Utils.REDIRECT;
+	}
+
+	public void clean() {
+		this.message = null;
 	}
 
 	public Enum<SignedInState> getSignedInState() {

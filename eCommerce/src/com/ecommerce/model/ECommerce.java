@@ -1,4 +1,4 @@
-package com.ecommerce.controller;
+package com.ecommerce.model;
 
 import java.util.List;
 import java.util.Map;
@@ -9,11 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
-
-import com.ecommerce.model.Admin;
-import com.ecommerce.model.Product;
-import com.ecommerce.model.ProductRegister;
-import com.ecommerce.model.User;
 
 @ManagedBean(eager=true)
 @ApplicationScoped
