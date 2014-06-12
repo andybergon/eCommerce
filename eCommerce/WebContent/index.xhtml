@@ -12,8 +12,8 @@
 	<center>
 		<h1>Welcome to eCommerce!</h1><br/><br/>
 		<h2>
-		<h:outputLabel value="#{eCommercePortal.message}" rendered="#{eCommercePortal.isSignedIn()}"/> 
-		<h:outputLabel value="You are currently not signed in." rendered="#{eCommercePortal.isSignedIn() == false}"/>
+		<h:outputLabel value="#{userController.message}" rendered="#{userController.isSignedIn()}"/> 
+		<h:outputLabel value="You are currently not signed in." rendered="#{userController.isSignedIn() == false}"/>
 		
 		</h2>
 		<div>

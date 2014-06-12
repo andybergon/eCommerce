@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import com.ecommerce.facade.OrderFacade;
+
 public class MockOrderFacade extends OrderFacade {
 
 	private EntityManager em;

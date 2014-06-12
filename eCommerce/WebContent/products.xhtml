@@ -19,10 +19,10 @@
 			</tr>
 		</table>
 		<table class="ctable" style="width: 500px">
-			<ui:repeat var="product" value="#{eCommercePortal.productFacade.getAllProducts()}">
+			<ui:repeat var="product" value="#{productController.productFacade.findAll()}">
 				<tr>
 					<td width="100px">
-						<h:form><h:commandLink action="#{eCommercePortal.findProduct(product.id)}" value="#{product.code}"></h:commandLink></h:form>
+						<h:form><h:commandLink action="#{productController.findProduct(product.id)}" value="#{product.code}"></h:commandLink></h:form>
 					</td>
 					<td width="100px">#{product.name}</td>
 					<td width="100px">#{product.price}</td>
@@ -30,6 +30,7 @@
 				</tr>
 			</ui:repeat>
 		</table>
+		<h:link outcome="index" value="Return to home"/>
 	</center>
 </h:body>
 </html>
