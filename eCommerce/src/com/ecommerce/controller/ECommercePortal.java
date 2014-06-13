@@ -4,13 +4,15 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseEvent;
 
 import com.ecommerce.facade.OrderFacade;
 import com.ecommerce.model.ECommerce;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.SignedInState;
 
-@ManagedBean(name="portal")
+@ManagedBean(name = "portal")
 @SessionScoped
 public class ECommercePortal {
 	@ManagedProperty(value = "#{eCommerce}")
@@ -29,8 +31,8 @@ public class ECommercePortal {
 		this.signedInState = SignedInState.NOT_SIGNED_IN;
 	}
 
-	public void clean() {
-		this.message = null;
+	public void clean(PhaseEvent event) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("message");
 	}
 
 	public ECommerce geteCommerce() {

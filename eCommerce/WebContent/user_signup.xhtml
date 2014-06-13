@@ -16,7 +16,7 @@
 				<tr>
 					<td>email:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.email}" required="true" requiredMessage="Email is mandatory" id="email">
+						<h:inputText id="email" value="#{userController.newUser.email}" required="true" requiredMessage="Email is mandatory" validatorMessage="Email name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
 						<h:message for="email" styleClass="error"/>
@@ -25,7 +25,7 @@
 				<tr>
 					<td>password:</td>
 					<td>
-						<h:inputSecret value="#{userController.newUser.password}" required="true" requiredMessage="Password is mandatory" id="password">
+						<h:inputSecret id="password" value="#{userController.newUser.password}" required="true" requiredMessage="Password is mandatory" validatorMessage="Password name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputSecret>
 						<h:message for="password" styleClass="error"/>
@@ -34,7 +34,7 @@
 				<tr>
 					<td>first name:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.firstName}" required="true" requiredMessage="First name is mandatory" id="firstName">
+						<h:inputText id="firstName" value="#{userController.newUser.firstName}" required="true" requiredMessage="First name is mandatory" validatorMessage="Frist name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
 						<h:message for="firstName" styleClass="error"/>
@@ -43,7 +43,7 @@
 				<tr>
 					<td>last name:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.lastName}" required="true" requiredMessage="Last name is mandatory" id="lastName">
+						<h:inputText id="lastName" value="#{userController.newUser.lastName}" required="true" requiredMessage="Last name is mandatory" validatorMessage="Last name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
 						<h:message for="lastName" styleClass="error"/>
@@ -52,15 +52,14 @@
 				<tr>
 					<td>phone number:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.phoneNumber}">
-							<f:validateLength minimum="3" maximum="50" />
+						<h:inputText id="phoneNumber" value="#{userController.newUser.phoneNumber}">
 						</h:inputText>
 					</td>
 				</tr>
 				<tr>
 					<td>date of birth:<br/>(dd-mm-yyyy)</td>
 					<td>
-						<h:inputText value="#{userController.newUser.dateOfBirth}">
+						<h:inputText id="dateOfBirth" value="#{userController.newUser.dateOfBirth}">
 							<f:convertDateTime pattern="dd-mm-yyyy"/>
 						</h:inputText>
 					</td>
@@ -69,7 +68,7 @@
 				<tr>
 					<td>country:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.address.country}" required="true" requiredMessage="Country is mandatory" id="country">
+						<h:inputText id="country" value="#{userController.newUser.address.country}" required="true" requiredMessage="Country is mandatory" validatorMessage="Country name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
 						<h:message for="country" styleClass="error"/>
@@ -78,7 +77,7 @@
 				<tr>
 					<td>state:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.address.state}" required="true" requiredMessage="State is mandatory" id="state">
+						<h:inputText id="state" value="#{userController.newUser.address.state}" required="true" requiredMessage="State is mandatory" validatorMessage="State name is too long">
 								<f:validateLength maximum="255" /></h:inputText>
 						<h:message for="state" styleClass="error"/>
 					</td>
@@ -86,7 +85,7 @@
 				<tr>
 					<td>city:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.address.city}" required="true" requiredMessage="City is mandatory" id="city">
+						<h:inputText id="city" value="#{userController.newUser.address.city}" required="true" requiredMessage="City is mandatory" validatorMessage="City name is too long">
 							<f:validateLength maximum="255" /></h:inputText>
 						<h:message for="city" styleClass="error"/>
 					</td>
@@ -94,15 +93,15 @@
 				<tr>
 					<td>zipcode:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.address.zipcode}" required="true" requiredMessage="Zipcode is mandatory" id="zipcode">
-							<f:validateLength maximum="255" /></h:inputText>
+						<h:inputText id="zipcode" value="#{userController.newUser.address.zipcode}" required="true" requiredMessage="Zipcode is mandatory" validatorMessage="Zipcode must be between 3 and 10 charachters in length">
+							<f:validateLength minimum="3" maximum="10" /></h:inputText>
 						<h:message for="zipcode" styleClass="error"/>
 					</td>
 				</tr>
 				<tr>
 					<td>street:</td>
 					<td>
-						<h:inputText value="#{userController.newUser.address.street}" required="true" requiredMessage="Street is mandatory" id="street">
+						<h:inputText id="street" value="#{userController.newUser.address.street}" required="true" requiredMessage="Street is mandatory" validatorMessage="Street name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
 						<h:message for="street" styleClass="error"/>
