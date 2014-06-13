@@ -94,8 +94,7 @@
 				<tr>
 					<td>zipcode:</td>
 					<td>
-						<h:inputText id="zipcode" value="#{userController.newUser.address.zipcode}" required="true" requiredMessage="Zipcode is mandatory" validatorMessage="Zipcode must be between 3 and 10 charachters in length">
-							<f:validateLength minimum="3" maximum="10" /></h:inputText>
+						<h:inputText id="zipcode" value="#{userController.newUser.address.zipcode}" required="true" requiredMessage="Zipcode is mandatory"></h:inputText>
 						<h:message for="zipcode" styleClass="error"/>
 					</td>
 				</tr>
