@@ -52,7 +52,9 @@
 				<tr>
 					<td>phone number:</td>
 					<td>
-						<h:inputText id="phoneNumber" value="#{userController.newUser.phoneNumber}"></h:inputText>
+						<h:inputText id="phoneNumber" value="#{userController.newUser.phoneNumber}" validatorMessage="Phone number be between 3 and 50 charachters in length">
+							<f:validateLength minimum="3" maximum="50" />
+						</h:inputText>
 						<h:message for="phoneNumber" styleClass="error"/>
 					</td>
 				</tr>
