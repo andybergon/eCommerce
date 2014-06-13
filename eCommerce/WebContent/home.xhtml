@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
+</h:head>
+<h:body>
+	<center>
+		<h1>My Home</h1><br/><br/>
+		<div>
+			<br/>
+			<h:form>
+				Make new <h:commandLink
+					action="#{orderController.createOrder()}"
+					value="order"></h:commandLink>
+			</h:form>
+<!-- 			Make new <h:link outcome="new_order" value="order"/> -->
+			<br/>
+			My <h:link outcome="orders" value="orders"/>
+		</div>
+	</center>
+</h:body>
+</html>

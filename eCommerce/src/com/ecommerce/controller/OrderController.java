@@ -8,7 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.OrderFacade;
+import com.ecommerce.facade.ProductFacade;
+import com.ecommerce.model.Address;
 import com.ecommerce.model.Order;
+import com.ecommerce.model.OrderLine;
+import com.ecommerce.model.Product;
+import com.ecommerce.model.User;
 import com.ecommerce.utils.Utils;
 
 @ManagedBean
@@ -24,8 +29,16 @@ public class OrderController {
 
 	@EJB
 	private OrderFacade orderFacade;
+	
+	@EJB
+	private ProductFacade productFacade;
 
 	public String createOrder() {
+		this.order = new Order();
+		// User currentUser = eCommercePortal.getCurrentUser(); //TODO
+		User currentUser = new User("a", "a", "a", "a", "a", new Date(), new Address("", "", "", "", ""));
+		this.order.setCreator(currentUser);
+		this.order.setCreationDate(new Date());
 		return "new_order" + Utils.REDIRECT;
 	}
 
@@ -39,6 +52,21 @@ public class OrderController {
 		return "order" + Utils.REDIRECT;
 	}
 
+	public String addProductToOrder(Long productId) {
+		Product product = this.productFacade.find(productId);
+		//TODO quantity > 1
+		Float unitPrice = product.getPrice();
+		OrderLine orderLine = new OrderLine(1, unitPrice, product);
+		this.order.addOrderLine(orderLine);
+		return "new_order" + Utils.REDIRECT;
+	}
+	
+	public void confirmOrder() {
+		this.order.setConfirmationDate(new Date());
+		this.orderFacade.confirmOrder(this.order); //check CASCADE persist of order/orderlines
+	}
+	
+	//getter & setter
 	public OrderFacade getOrderFacade() {
 		return orderFacade;
 	}
