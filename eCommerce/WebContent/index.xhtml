@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
+</h:head>
+<h:body>
+	<f:view afterPhase="#{portal.clean}">
+		<ui:include src="templates/info-box.xhtml"/>
+		<center>
+			<h1>Welcome to eCommerce!</h1><br/><br/>
+			<h2>
+			<h:outputLabel value="#{portal.message}" rendered="#{portal.isSignedIn()}"/>
+			<h:outputLabel value="You are currently not signed in." rendered="#{portal.isSignedIn() == false}"/>
+			
+			</h2>
+			<div>
+				<h:link outcome="user_signin" value="Sign in"/> or <h:link outcome="user_signup" value="sign up"/>.<br/>
+				If you are an admin, please sign in <h:link outcome="admin_signin" value="here"/>.<br/><br/><br/><br/>
+				To view the product catalog, please click <h:link outcome="products" value="here"/>.
+			</div>
+			<div>
+				<br/><br/>
+				<h:panelGroup rendered="#{userController.isSignedIn()}">
+					To view all your orders, please click <h:link outcome="orders" value="here"/>.
+				</h:panelGroup>
+				<h:panelGroup rendered="#{adminController.isSignedIn()}">
+					To add a product, please click <h:link outcome="new_product" value="here"/>.
+				</h:panelGroup>
+			</div>
+		</center>
+	</f:view>
+</h:body>
+</html>

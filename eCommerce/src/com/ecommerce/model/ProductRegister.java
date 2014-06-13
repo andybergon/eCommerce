@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,13 +18,19 @@ public class ProductRegister {
 	@Column(nullable = false)
 	private Integer quantity;
 
+	@JoinColumn
 	@OneToOne(fetch = FetchType.EAGER)
 	private Product product;
 
-	public ProductRegister() {}
+	public ProductRegister() {
+	}
 
-	public ProductRegister(Integer quantity) {
-		this.quantity = quantity;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getQuantity() {
@@ -32,5 +39,13 @@ public class ProductRegister {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

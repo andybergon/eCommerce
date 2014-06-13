@@ -10,21 +10,27 @@ import com.ecommerce.model.ECommerce;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.SignedInState;
 
-@ManagedBean
+@ManagedBean(name="portal")
 @SessionScoped
 public class ECommercePortal {
 	@ManagedProperty(value = "#{eCommerce}")
 	private ECommerce eCommerce;
 
+	private String message;
+
 	private Product currentProduct;
 
-	private Enum<SignedInState> signedInState;
+	private SignedInState signedInState;
 
 	@EJB
 	private OrderFacade orderFacade;
 
 	public ECommercePortal() {
 		this.signedInState = SignedInState.NOT_SIGNED_IN;
+	}
+
+	public void clean() {
+		this.message = null;
 	}
 
 	public ECommerce geteCommerce() {
@@ -55,7 +61,19 @@ public class ECommercePortal {
 		return this.signedInState != SignedInState.NOT_SIGNED_IN;
 	}
 
+	public SignedInState getSignedInState() {
+		return signedInState;
+	}
+
 	public void setSignedInState(SignedInState signedInState) {
 		this.signedInState = signedInState;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

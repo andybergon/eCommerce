@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Provider {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -22,13 +21,16 @@ public class Provider {
 	@Column(nullable = false)
 	private String name;
 
+	@Column
 	private String phoneNumber;
 
+	@Column
 	private String email;
 
+	@Column
 	private String vatin;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Product> products;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })

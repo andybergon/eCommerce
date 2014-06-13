@@ -46,21 +46,21 @@ public class OrderFacade extends AbstractFacade<Order> {
 		Order order = this.em.find(Order.class, orderId);
 		order.setShipmentDate(new Date());
 	}
-	
-	
+
+
 	//not needed?
 	public List<OrderLine> getOrderLines(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
 		return order.getOrderLines();
 	}
-	
+
 	@Override
 	protected EntityManager getEntityManager() {
 		return this.em;
 	}
-	
+
 	protected void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
-	
+
 }

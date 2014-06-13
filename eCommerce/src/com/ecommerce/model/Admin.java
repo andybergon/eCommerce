@@ -8,10 +8,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Admin {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(nullable = false)
 	private Long id;
 
 	@Column(nullable = false)
@@ -20,7 +18,8 @@ public class Admin {
 	@Column(nullable = false)
 	private String password;
 
-	public Admin() {}
+	public Admin() {
+	}
 
 	public Admin(String email, String password) {
 		this.email = email;

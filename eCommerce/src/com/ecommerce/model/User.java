@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,22 +36,27 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 
+	@Column
 	private String phoneNumber;
 
+	@Column
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
 
+	@Column
 	@Temporal(TemporalType.DATE)
 	private Date registrationDate;
 
 	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Order> orders;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@Column(nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Address address;
 
 	public User() {
+		this.orders = new ArrayList<Order>();
+		this.address = new Address();
 	}
 
 	public User(String firstName, String lastName, String email, String password, String phoneNumber, Date dateOfBirth,
@@ -122,6 +128,10 @@ public class User {
 		return email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -166,4 +176,7 @@ public class User {
 		return orders;
 	}
 
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 }

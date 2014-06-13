@@ -8,12 +8,12 @@ import com.ecommerce.model.Product;
 
 @Stateless
 public class ProductFacade extends AbstractFacade<Product> {
+	@PersistenceContext(unitName = "ecommerce-unit")
+	private EntityManager em;
+
 	public ProductFacade() {
 		super(Product.class);
 	}
-
-	@PersistenceContext(unitName = "ecommerce-unit")
-	private EntityManager em;
 
 	@Override
 	protected EntityManager getEntityManager() {

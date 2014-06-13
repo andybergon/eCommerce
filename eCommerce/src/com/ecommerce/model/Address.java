@@ -17,13 +17,13 @@ public class Address {
 	private String street;
 
 	@Column(nullable = false)
+	private String zipcode;
+
+	@Column(nullable = false)
 	private String city;
 
 	@Column(nullable = false)
 	private String state;
-
-	@Column(nullable = false)
-	private String zipcode;
 
 	@Column(nullable = false)
 	private String country;
@@ -41,6 +41,10 @@ public class Address {
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getStreet() {

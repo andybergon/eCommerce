@@ -1,47 +1,60 @@
 package com.ecommerce.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.ProductFacade;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductRegister;
+import com.ecommerce.model.Provider;
+import com.ecommerce.model.SignedInState;
 import com.ecommerce.utils.Utils;
 
 @ManagedBean
 @SessionScoped
 public class ProductController {
-	// @ManagedProperty(value = "#{param.id}")
-	private Long id;
-	private String code;
-	private String name;
-	private Float price;
-	private String description;
-	private Product product;
-	private List<Product> products;
-
 	@EJB
 	private ProductFacade productFacade;
 
+	@ManagedProperty(value = "#{portal}")
+	private ECommercePortal portal;
+
+	private Product currentProduct;
+
+	private Product newProduct;
+
+	private List<Product> products;
+
+	public ProductController() {
+		ProductRegister productRegister = new ProductRegister();
+		this.newProduct = new Product();
+
+		this.newProduct.setRegister(productRegister);
+		this.newProduct.setProviders(new ArrayList<Provider>());
+
+		productRegister.setProduct(newProduct);
+	}
+
 	public String createProduct() {
-		//TODO: add ProductRegister
-		Product product = new Product(this.code, this.name , this.price, this.description, new ProductRegister());
-		this.productFacade.create(product);
-		this.product = product;
-		return "product" + Utils.REDIRECT;
+		if (this.portal.getSignedInState().equals(SignedInState.ADMIN_SIGNED_IN)) {
+			this.productFacade.create(newProduct);
+			this.currentProduct = newProduct;
+			//TODO: and object instance variables: this.newProduct = new Product();
+			return "product" + Utils.REDIRECT;
+		} else {
+			this.portal.setMessage("You must be an admin to perform this action.");
+			return "new_product" + Utils.REDIRECT;
+		}
 	}
 
 	public String listProducts() {
 		this.products = this.productFacade.findAll();
 		return "products" + Utils.REDIRECT;
-	}
-
-	public String findProduct() {
-		this.product = this.productFacade.find(this.id);
-		return "product" + Utils.REDIRECT;
 	}
 
 	public ProductFacade getProductFacade() {
@@ -52,57 +65,25 @@ public class ProductController {
 		this.productFacade = productFacade;
 	}
 
+	public ECommercePortal getPortal() {
+		return portal;
+	}
+
+	public void setPortal(ECommercePortal portal) {
+		this.portal = portal;
+	}
+
 	public String findProduct(Long id) {
-		this.product = this.productFacade.find(id);
+		this.newProduct = this.productFacade.find(id);
 		return "product" + Utils.REDIRECT;
 	}
 
-	public Long getId() {
-		return this.id;
+	public Product getNewProduct() {
+		return this.newProduct;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Float getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(Float price) {
-		this.price = price;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getCode() {
-		return this.code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setNewProduct(Product product) {
+		this.newProduct = product;
 	}
 
 	public List<Product> getProducts() {
@@ -113,4 +94,11 @@ public class ProductController {
 		this.products = products;
 	}
 
+	public Product getCurrentProduct() {
+		return currentProduct;
+	}
+
+	public void setCurrentProduct(Product currentProduct) {
+		this.currentProduct = currentProduct;
+	}
 }

@@ -2,7 +2,6 @@ package com.ecommerce.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,28 +23,27 @@ public class Product {
 	@Column(nullable = false)
 	private String name;
 
+	@Column
 	private Float price;
 
+	@Column
 	private String description;
 
 	@OneToOne(mappedBy = "product", fetch = FetchType.EAGER)
 	private ProductRegister register;
 
-	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
 	private List<Provider> providers;
 
-	public Product() {}
-
-	public Product(String code, String name, Float price, String description, ProductRegister register) {
-		this.code = code;
-		this.name = name;
-		this.price = price;
-		this.description = description;
-		this.register = register;
+	public Product() {
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCode() {
@@ -90,6 +88,10 @@ public class Product {
 
 	public List<Provider> getProviders() {
 		return providers;
+	}
+
+	public void setProviders(List<Provider> providers) {
+		this.providers = providers;
 	}
 
 	@Override

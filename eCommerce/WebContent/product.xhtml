@@ -5,30 +5,32 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
 </h:head>
 <h:body>
+	<ui:include src="templates/info-box.xhtml"/>
 	<center>
 		<h1>Product details</h1>
 		<table class="ctable">
 			<tr>
 				<td>CODE:</td>
-				<td>#{productController.product.code}</td>
+				<td>#{productController.currentProduct.code}</td>
 			</tr>
 			<tr>
 				<td>NAME:</td>
-				<td>#{productController.product.name}</td>
+				<td>#{productController.currentProduct.name}</td>
 			</tr>
 			<tr>
 				<td>PRICE:</td>
-				<td>#{productController.product.price}$</td>
+				<td>#{productController.currentProduct.price}$</td>
 			</tr>
 			<tr>
 				<td>DESCRIPTION:</td>
-				<td>#{productController.product.description}</td>
+				<td>#{productController.currentProduct.description}</td>
 			</tr>
 			<tr>
 				<td>QUANTITY LEFT:</td>
-				<td>#{productController.product.register.quantity}</td>
+				<td>#{productController.currentProduct.register.quantity}</td>
 			</tr>
 		</table>
 		<br/>

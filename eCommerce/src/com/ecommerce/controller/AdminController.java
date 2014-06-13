@@ -17,44 +17,47 @@ public class AdminController {
 	@EJB
 	private AdminFacade adminFacade;
 
-	@ManagedProperty(value="#{eCommercePortal}")
-	private ECommercePortal eCommercePortal;
+	@ManagedProperty(value="#{portal}")
+	private ECommercePortal portal;
 
 	private Admin currentAdmin;
 
 	private Credentials credentials;
 
-	private String message;
-
-
 	public AdminController() {
 		this.credentials = new Credentials();
 	}
 
-	public String signInAdmin() {
+	public String signIn() {
 		String password = credentials.getPassword();
 		credentials.setPassword("");
 
-		if (!eCommercePortal.isSignedIn()) {
-			Admin admin = adminFacade.findAdmin(credentials.getEmail());
+		if (!portal.isSignedIn()) {
+			Admin admin = adminFacade.findAdmin(this.credentials.getEmail());
 			if (admin != null) {
 				if (admin.checkPassword(password)) {
-					this.eCommercePortal.setSignedInState(SignedInState.ADMIN_SIGNED_IN);
+					this.portal.setSignedInState(SignedInState.ADMIN_SIGNED_IN);
 					this.currentAdmin = admin;
-					this.message = "You have successfuly signed in.";
+					this.portal.setMessage("You have successfuly signed in.");
 					return "index" + Utils.REDIRECT;
 				} else
-					this.message = "Incorrect password.";
+					this.portal.setMessage("Incorrect password.");
 			} else
-				this.message = "Email provided is not registered.";
+				this.portal.setMessage("Email provided is not registered.");
 		} else
-			this.message = "You must be signed out to perform this action.";
+			this.portal.setMessage("You must be signed out to perform this action.");
 
 		return "admin_signin" + Utils.REDIRECT;
 	}
 
-	public void clean() {
-		this.message = null;
+	public String signOut() {
+		this.currentAdmin = null;
+		this.portal.setSignedInState(SignedInState.NOT_SIGNED_IN);
+		return "index" + Utils.REDIRECT;
+	}
+
+	public boolean isSignedIn() {
+		return this.portal.getSignedInState() == SignedInState.ADMIN_SIGNED_IN;
 	}
 
 	public Credentials getCredentials() {
@@ -73,19 +76,19 @@ public class AdminController {
 		this.adminFacade = adminFacade;
 	}
 
+	public ECommercePortal getPortal() {
+		return portal;
+	}
+
+	public void setPortal(ECommercePortal portal) {
+		this.portal = portal;
+	}
+
 	public Admin getCurrentAdmin() {
 		return currentAdmin;
 	}
 
-	public void setCurrentadmin(Admin currentAdmin) {
+	public void setCurrentAdmin(Admin currentAdmin) {
 		this.currentAdmin = currentAdmin;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }

@@ -10,7 +10,7 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 
-@ManagedBean(eager=true)
+@ManagedBean(eager = true)
 @ApplicationScoped
 public class ECommerce {
 	@PersistenceContext(unitName = "ecommerce-unit")
@@ -26,7 +26,8 @@ public class ECommerce {
 	@OneToMany
 	private List<User> users;
 
-	public ECommerce() {}
+	public ECommerce() {
+	}
 
 	public Map<Product, ProductRegister> getProductRegisters() {
 		return productRegisters;

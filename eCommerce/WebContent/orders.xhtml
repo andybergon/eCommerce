@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>eCommerce</title>
-	<link
-		rel="stylesheet"
-		type="text/css"
-		href="#{request.contextPath}/styles/style.css" />
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css" />
 </h:head>
 
 <h:body>
+	<ui:include src="templates/info-box.xhtml"/>
 	<h1>My Orders</h1>
-	<h:dataTable
-		value="#{orderController.orderFacade.findAll()}"
+	<h:dataTable value="#{orderController.orderFacade.findAll()}"
 		var="order">
 
 		<h:column>
 			<f:facet name="header">Order Id</f:facet>
 			<!-- 			#{order.id} -->
 			<h:form>
-				<h:commandLink
-					action="#{orderController.findOrder(order.id)}"
+				<h:commandLink action="#{orderController.findOrder(order.id)}"
 					value="#{order.id}"></h:commandLink>
 			</h:form>
 		</h:column>
@@ -53,7 +48,8 @@
 		</h:column>
 
 	</h:dataTable>
-
+	<br />
+	<h:link outcome="index" value="Return to home" />
 </h:body>
 </html>
 

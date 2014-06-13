@@ -5,9 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
 
 import com.ecommerce.model.User;
 
@@ -21,14 +19,11 @@ public class UserFacade extends AbstractFacade<User> {
 	}
 
 	public User findUser(String email) {
-		CriteriaBuilder cb = this.em.getCriteriaBuilder();
-		CriteriaQuery<User> cq = cb.createQuery(User.class);
-		Root<User> root = cq.from(User.class);
-		cq.where(cb.equal(root.get("email"), email));
-		cq.select(cq.from(User.class));
-		List<User> result = this.em.createQuery(cq).getResultList();
+		TypedQuery<User> q = this.em.createQuery("SELECT u FROM User u WHERE u.email='" + email + "'", User.class)
+				.setMaxResults(1);
+		List<User> result = q.getResultList();
 		if (!result.isEmpty())
-			return result.get(0);
+			return q.getResultList().get(0);
 		return null;
 	}
 
