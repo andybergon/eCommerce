@@ -53,6 +53,7 @@
 					<td>phone number:</td>
 					<td>
 						<h:inputText id="phoneNumber" value="#{userController.newUser.phoneNumber}"></h:inputText>
+						<h:message for="phoneNumber" styleClass="error"/>
 					</td>
 				</tr>
 				<tr>
@@ -61,6 +62,7 @@
 						<h:inputText id="dateOfBirth" value="#{userController.newUser.dateOfBirth}">
 							<f:convertDateTime pattern="dd-mm-yyyy"/>
 						</h:inputText>
+						<h:message for="dateOfBirth" styleClass="error"/>
 					</td>
 				</tr>
 				<tr><td><br/>ADDRESS</td></tr>
