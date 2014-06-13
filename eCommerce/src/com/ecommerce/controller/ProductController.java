@@ -74,7 +74,7 @@ public class ProductController {
 	}
 
 	public String findProduct(Long id) {
-		this.newProduct = this.productFacade.find(id);
+		this.currentProduct = this.productFacade.find(id);
 		return "product" + Utils.REDIRECT;
 	}
 
