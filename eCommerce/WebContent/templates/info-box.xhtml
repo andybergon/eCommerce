@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<div align="right">
+		<div>
+			<h:outputLabel value="Signed in as " rendered="#{portal.isSignedIn()}" />
+			<span style="font-weight: bold;">
+				<h:outputLabel value="USER" rendered="#{userController.isSignedIn()}" />
+			</span>
+			<span style="color: blue; font-weight: bold;">
+				<h:outputLabel value="ADMIN" rendered="#{adminController.isSignedIn()}" />
+			</span>
+			<span style="background-color: yellow">
+				<h:outputLabel value="#{userController.currentUser.firstName}" rendered="#{portal.isSignedIn()}" />
+				<h:outputLabel value="#{adminController.currentAdmin.email}" rendered="#{portal.isSignedIn()}" />
+			</span>
+			<h:form rendered="#{portal.isSignedIn()}">
+				<h:commandLink action="#{userController.signOut}" value="Sign out" rendered="#{userController.isSignedIn()}"></h:commandLink>
+				<h:commandLink action="#{adminController.signOut}" value="Sign out" rendered="#{adminController.isSignedIn()}"></h:commandLink>
+			</h:form>
+		</div>
+	</div>
+</ui:composition>
