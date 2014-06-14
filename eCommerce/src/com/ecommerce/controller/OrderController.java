@@ -94,9 +94,14 @@ public class OrderController {
 	}
 	
 	public String confirmOrder() {
-		this.order.setConfirmationDate(new Date());
-		this.orderFacade.confirmOrder(this.order); //check CASCADE persist of order/orderlines
-		return "orders" + Utils.REDIRECT;
+		if (!this.order.isEmpty()) {
+			this.order.setConfirmationDate(new Date());
+			// check CASCADE persist of order/orderlines
+			this.orderFacade.confirmOrder(this.order);
+			return "orders" + Utils.REDIRECT;
+		} else {
+			return "new_order" + Utils.REDIRECT;
+		}
 	}
 	
 	//getter & setter

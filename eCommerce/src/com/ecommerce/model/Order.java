@@ -44,7 +44,6 @@ public class Order {
 	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
-	// no arg constructor can be used, or JPA/JSF will go mad?
 	public Order() {
 		this.orderLines = new ArrayList<OrderLine>();
 	}
@@ -88,6 +87,11 @@ public class Order {
 		return total;
 	}
 
+	public boolean isEmpty() {
+		return this.orderLines.isEmpty();
+	}
+
+	
 	//getters & setters
 	public Long getId() {
 		return id;

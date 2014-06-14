@@ -28,14 +28,14 @@
 		<h:column>
 			<f:facet name="header">Creation Date</f:facet>
 			<h:outputText value="#{order.creationDate}">
-				<f:convertDateTime pattern="dd.MM.yyyy" />
+				<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 			</h:outputText>
 		</h:column>
 
 		<h:column>
 			<f:facet name="header">Confirmation Date</f:facet>
 			<h:outputText value="#{order.confirmationDate}">
-				<f:convertDateTime pattern="dd.MM.yyyy" />
+				<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 			</h:outputText>
 		</h:column>
 
@@ -43,7 +43,7 @@
 			<f:facet name="header">Shipment Date</f:facet>
 
 			<h:outputText value="#{order.shipmentDate}">
-				<f:convertDateTime pattern="dd.MM.yyyy" />
+				<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 			</h:outputText>
 		</h:column>
 
