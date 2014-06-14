@@ -27,7 +27,7 @@ public class OrderFacade extends AbstractFacade<Order> {
 
 	public List<Order> findConfirmedOrders() {
 		TypedQuery<Order> result = this.em.createQuery(
-				"SELECT o FROM Order o WHERE o.shipmentDate IS NOT NULL ORDER BY o.confirmationDate DESC", Order.class);
+				"SELECT o FROM Order o WHERE (o.confirmationDate IS NOT NULL AND o.shipmentDate IS NULL) ORDER BY o.confirmationDate", Order.class);
 		return result.getResultList();
 	}
 

@@ -31,7 +31,7 @@ public class Product {
 	@Column
 	private String description;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
 	private List<ProductSupply> supplies;
 
 
