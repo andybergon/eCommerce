@@ -51,7 +51,7 @@ public class User {
 	private List<Order> orders;
 
 	@Column(nullable = false)
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Address address;
 
 	public User() {
@@ -98,6 +98,14 @@ public class User {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
+				+ phoneNumber + ", dateOfBirth=" + dateOfBirth + ", registrationDate=" + registrationDate
+				+ ", address=" + address + "]";
 	}
 
 	public Long getId() {
@@ -180,11 +188,4 @@ public class User {
 		this.orders = orders;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth
-				+ ", registrationDate=" + registrationDate + ", orders=" + orders + ", address=" + address + "]";
-	}
-	
 }
