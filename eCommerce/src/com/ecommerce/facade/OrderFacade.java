@@ -25,6 +25,17 @@ public class OrderFacade extends AbstractFacade<Order> {
 		super(Order.class);
 	}
 
+	public List<Order> findConfirmedOrders() {
+		TypedQuery<Order> result = this.em.createQuery("SELECT o FROM Order o WHERE o.shipmentDate IS NOT NULL", Order.class);
+		return result.getResultList();
+	}
+
+	public List<Order> findAllOrders(Long userId) {
+		TypedQuery<Order> result = this.em.createQuery("SELECT o FROM Order o WHERE o.creator.id=" + userId,
+				Order.class);
+		return result.getResultList();
+	}
+
 	public User getCreator(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
 		User creator = order.getCreator();
@@ -45,14 +56,13 @@ public class OrderFacade extends AbstractFacade<Order> {
 	public void confirmOrder(Order order) {
 		this.em.persist(order);
 	}
-	
+
 	public void shipOrder(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
 		order.setShipmentDate(new Date());
 	}
 
-
-	//not needed?
+	// not needed?
 	public List<OrderLine> getOrderLines(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
 		return order.getOrderLines();
@@ -63,8 +73,7 @@ public class OrderFacade extends AbstractFacade<Order> {
 		return this.em;
 	}
 
-	protected void setEntityManager(EntityManager em) {
+	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
-
 }

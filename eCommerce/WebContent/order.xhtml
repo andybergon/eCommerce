@@ -11,8 +11,12 @@
 	<ui:include src="templates/info-box.xhtml"/>
 	<center>
 		<h1>Order Details</h1>
-		<h3>order ID: #{orderController.order.id}</h3>
-		<table class="ctable-header" style="width: 500px;">
+		<h3>
+			order ID: #{orderController.order.id}
+			<br/>
+			total price: #{orderController.order.total}$
+		</h3>
+		<table class="ctable-header" style="width: 400px;">
 			<tr>
 				<td width="100px">PRODUCT CODE</td>
 				<td width="100px">NAME</td>
@@ -20,7 +24,7 @@
 				<td width="100px">QUANTITY</td>
 			</tr>
 		</table>
-		<table class="ctable" style="width: 500px">
+		<table class="ctable" style="width: 400px">
 			<!-- from order or from orderFacade? -->
 			<ui:repeat var="orderLine" value="#{orderController.order.getOrderLines()}">
 				<tr>
@@ -34,7 +38,7 @@
 			</ui:repeat>
 		</table>
 		<br/>
-		<h:link outcome="orders" value="Return to all orders"/>
+		<h:link outcome="my_orders" value="Return to all orders"/>
 		<br/>
 		<h:link outcome="index" value="Return to home"/>
 	</center>

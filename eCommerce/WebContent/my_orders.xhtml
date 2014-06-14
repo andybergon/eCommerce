@@ -12,9 +12,10 @@
 
 <h:body>
 	<ui:include src="templates/info-box.xhtml"/>
-	<h:panelGroup rendered="#{adminController.isSignedIn()}">
-		<h1>All Orders</h1>
-		<h:dataTable value="#{orderController.orders}" var="order">
+	<h:panelGroup rendered="#{userController.isSignedIn()}">
+		<h1>My Orders</h1>
+		<h:dataTable var="order" value="#{orderController.orders}">
+	
 			<h:column>
 				<f:facet name="header">Order Id</f:facet>
 				<h:form>
@@ -37,6 +38,15 @@
 					<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 				</h:outputText>
 			</h:column>
+	
+			<h:column>
+				<f:facet name="header">Shipment Date</f:facet>
+	
+				<h:outputText value="#{order.shipmentDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+				</h:outputText>
+			</h:column>
+	
 		</h:dataTable>
 		<br />
 		<h:link outcome="index" value="Return to home" />

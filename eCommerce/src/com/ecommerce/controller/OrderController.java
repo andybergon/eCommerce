@@ -26,16 +26,17 @@ public class OrderController {
 	private Date shipmentDate;
 
 	private Order order;
+
 	private List<Order> orders;
-	
+
 	private String quantity;
 
 	@EJB
 	private OrderFacade orderFacade;
-	
+
 	@EJB
 	private ProductFacade productFacade;
-	
+
 	@ManagedProperty(value = "#{userController}")
 	private UserController userController;
 
@@ -47,14 +48,19 @@ public class OrderController {
 		return "new_order" + Utils.REDIRECT;
 	}
 
-	public String listOrders() {
-		this.orders = this.orderFacade.findAll();
+	public String findConfirmedOrders() {
+		this.orders = this.orderFacade.findConfirmedOrders();
 		return "orders" + Utils.REDIRECT;
 	}
 
 	public String findOrder(Long orderId) {
 		this.order = this.orderFacade.find(orderId);
 		return "order" + Utils.REDIRECT;
+	}
+
+	public String findOrders(Long userId) {
+		this.orders = this.orderFacade.findAllOrders(userId);
+		return "my_orders" + Utils.REDIRECT;
 	}
 
 	public String addProductToOrder(Long productId) {
@@ -92,18 +98,18 @@ public class OrderController {
 		}
 		return "new_order" + Utils.REDIRECT;
 	}
-	
+
 	public String confirmOrder() {
 		if (!this.order.isEmpty()) {
 			this.order.setConfirmationDate(new Date());
 			// check CASCADE persist of order/orderlines
 			this.orderFacade.confirmOrder(this.order);
-			return "orders" + Utils.REDIRECT;
+			return "my_orders" + Utils.REDIRECT;
 		} else {
 			return "new_order" + Utils.REDIRECT;
 		}
 	}
-	
+
 	//getter & setter
 	public OrderFacade getOrderFacade() {
 		return orderFacade;
@@ -184,5 +190,5 @@ public class OrderController {
 	public void setProductFacade(ProductFacade productFacade) {
 		this.productFacade = productFacade;
 	}
-	
+
 }

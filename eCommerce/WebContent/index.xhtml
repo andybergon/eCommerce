@@ -10,7 +10,6 @@
 	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
 </h:head>
 <h:body>
-
 	<b:navBar brand="eCommerce" brandHref="index.xhtml" fixed="top" inverse="true">
 			<b:navbarLinks>
 				<b:navLink value="Home" href="index.xhtml"></b:navLink>
@@ -58,7 +57,7 @@
 					<br/>
 					<br/>
 					<h:form>Make new <h:commandLink action="#{orderController.createOrder()}" value="order"></h:commandLink>.</h:form>
-					My <h:link outcome="orders" value="orders" />.
+					<h:form>My <h:commandLink action="#{orderController.findOrders(userController.currentUser.id)}" value="orders"></h:commandLink>.</h:form>
 					<br/>
 					View <h:link outcome="products" value="product catalog" />.
 				</h:panelGroup>
@@ -66,6 +65,9 @@
 				<h:panelGroup rendered="#{adminController.isSignedIn()}">
 					To add a product, please click <h:link outcome="new_product" value="here"/>.<br/>
 					To view providers, please click <h:link outcome="providers" value="here"/>.
+					<h:form>To view all orders, please click 
+						<h:commandLink action="#{orderController.findConfirmedOrders()}" value="here"></h:commandLink>.
+					</h:form>
 				</h:panelGroup>
 			</div>
 		</center>
