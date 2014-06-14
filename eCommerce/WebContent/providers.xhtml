@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
+</h:head>
+<h:body>
+	<ui:include src="templates/info-box.xhtml" />
+	<h:panelGroup rendered="#{adminController.isSignedIn()}">
+		<center>
+			<h1>List of providers</h1>
+			<table class="ctable-header" style="width: 500px;">
+				<tr>
+					<td width="100px">CODE</td>
+					<td width="100px">NAME</td>
+					<td width="100px">EMAIL</td>
+					<td width="100px">PHONE NUMBER</td>
+					<td width="100px">VATIN</td>
+				</tr>
+			</table>
+			<table class="ctable" style="width: 500px">
+				<ui:repeat var="provider" value="#{providerController.providerFacade.findAll()}">
+					<tr>
+						<td width="100px">
+							<h:form>
+								<h:commandLink action="#{providerController.findProvider(provider.id)}" value="#{provider.code}">
+								</h:commandLink>
+							</h:form>
+						</td>
+						<td width="100px">#{provider.name}</td>
+						<td width="100px">#{provider.email}</td>
+						<td width="100px">#{provider.phoneNumber}</td>
+						<td width="100px">#{provider.vatin}</td>
+					</tr>
+				</ui:repeat>
+			</table>
+			<br/>
+			<h:link outcome="index" value="Return to home"/>
+		</center>
+	</h:panelGroup>
+</h:body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
+</h:head>
+<h:body>
+	<ui:include src="templates/info-box.xhtml"/>
+	<h:panelGroup rendered="#{adminController.isSignedIn()}">
+		<center>
+			<h3 style="color: red;"><h:outputLabel value="#{portal.message}"/></h3>
+			<h1>Provider details</h1>
+			<table class="ctable">
+				<tr>
+					<td>CODE:</td>
+					<td>#{providerController.currentProvider.code}</td>
+				</tr>
+				<tr>
+					<td>NAME:</td>
+					<td>#{providerController.currentProvider.name}</td>
+				</tr>
+				<tr>
+					<td>EMAIL:</td>
+					<td>#{providerController.currentProvider.email}$</td>
+				</tr>
+				<tr>
+					<td>PHONE NUMBER:</td>
+					<td>#{providerController.currentProvider.phoneNumber}</td>
+				</tr>
+				<tr>
+					<td>VATIN:</td>
+					<td>#{providerController.currentProvider.vatin}</td>
+				</tr>
+				<tr>
+					<td>VATIN:</td>
+					<td>#{providerController.currentProvider.vatin}</td>
+				</tr>
+			</table><br/>
+			<table class="ctable">
+				<tr>
+					<td>COUNTRY:</td>
+					<td>#{providerController.currentProvider.address.country}</td>
+				</tr>
+				<tr>
+					<td>STATE:</td>
+					<td>#{providerController.currentProvider.address.state}</td>
+				</tr>
+				<tr>
+					<td>CITY:</td>
+					<td>#{providerController.currentProvider.address.city}$</td>
+				</tr>
+				<tr>
+					<td>ZIPCODE:</td>
+					<td>#{providerController.currentProvider.address.zipcode}</td>
+				</tr>
+				<tr>
+					<td>STREET:</td>
+					<td>#{providerController.currentProvider.address.street}</td>
+				</tr>
+			</table>
+			<br/>
+			Current provided products:
+			<table class="ctable">
+				<ui:repeat var="product"
+					value="#{providerController.providerFacade.findAllProducts(providerController.currentProvider.id)}">
+					<tr>
+						<td>CODE:</td>
+						<td>
+							<h:form>
+								<h:commandLink action="#{productController.findProduct(product.id)}" value="#{product.code}">
+								</h:commandLink>
+							</h:form>
+						</td>
+					</tr>
+					<tr>
+						<td>NAME:</td>
+						<td>#{product.name}</td>
+					</tr>
+					<tr>
+						<td>PRICE:</td>
+						<td>#{product.price}</td>
+					</tr>
+				</ui:repeat>
+			</table>
+			<br/>
+			<h:form>
+				CODE: 
+				<h:inputText id="code" value="prodivderController.newProductCode" required="true"
+					requiredMessage="Code is mandatory"></h:inputText>
+				<h:commandButton action="#{prodivderController.addProduct}" value="Add product"></h:commandButton>
+				<h:message for="code" styleClass="error"/>
+			</h:form>
+			<br/>
+			<br/>
+			<h:link outcome="providers" value="Return to all providers"/>
+		</center>
+	</h:panelGroup>
+</h:body>
+</html>
