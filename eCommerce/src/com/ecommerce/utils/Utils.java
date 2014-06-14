@@ -7,7 +7,6 @@ public class Utils {
 		return input.matches("[0-9]+");
 	}
 
-
 	public static float round(float value, int decimalPrecision) {
 		float n = (float) Math.pow(10, decimalPrecision);
 		return Math.round(value * n) / n;

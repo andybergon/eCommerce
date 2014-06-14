@@ -24,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>EMAIL:</td>
-					<td>#{providerController.currentProvider.email}$</td>
+					<td>#{providerController.currentProvider.email}</td>
 				</tr>
 				<tr>
 					<td>PHONE NUMBER:</td>
@@ -35,11 +35,8 @@
 					<td>#{providerController.currentProvider.vatin}</td>
 				</tr>
 				<tr>
-					<td>VATIN:</td>
-					<td>#{providerController.currentProvider.vatin}</td>
+					<td>ADDRESS</td>
 				</tr>
-			</table><br/>
-			<table class="ctable">
 				<tr>
 					<td>COUNTRY:</td>
 					<td>#{providerController.currentProvider.address.country}</td>
@@ -50,7 +47,7 @@
 				</tr>
 				<tr>
 					<td>CITY:</td>
-					<td>#{providerController.currentProvider.address.city}$</td>
+					<td>#{providerController.currentProvider.address.city}</td>
 				</tr>
 				<tr>
 					<td>ZIPCODE:</td>
@@ -61,34 +58,36 @@
 					<td>#{providerController.currentProvider.address.street}</td>
 				</tr>
 			</table>
-			<br/>
+			<br/><br/>
 			Current provided products:
-			<table class="ctable">
-				<ui:repeat var="product"
-					value="#{providerController.providerFacade.findAllProducts(providerController.currentProvider.id)}">
+			<table class="ctable-header" style="width: 400px;">
+				<tr>
+					<td width="100px">CODE</td>
+					<td width="100px">NAME</td>
+					<td width="100px">PRICE</td>
+					<td width="100px">QUANTITY</td>
+				</tr>
+			</table>
+			<table class="ctable" style="width: 500px">
+				<ui:param name="inventories"
+					value="#{providerController.providerFacade.findAllProducts(providerController.currentProvider.id)}" />
+				<ui:repeat var="product" value="#{inventories.keySet().toArray()}">
 					<tr>
-						<td>CODE:</td>
-						<td>
+						<td width="100px">
 							<h:form>
 								<h:commandLink action="#{productController.findProduct(product.id)}" value="#{product.code}">
 								</h:commandLink>
 							</h:form>
 						</td>
-					</tr>
-					<tr>
-						<td>NAME:</td>
-						<td>#{product.name}</td>
-					</tr>
-					<tr>
-						<td>PRICE:</td>
-						<td>#{product.price}</td>
+						<td width="100px">#{product.name}</td>
+						<td width="100px">#{product.price}</td>
+						<td width="100px">#{inventories[product].quantity}</td>
 					</tr>
 				</ui:repeat>
 			</table>
-			<br/>
-			<h:form>
+			<br/><h:form>
 				CODE: 
-				<h:inputText id="code" value="prodivderController.newProductCode" required="true"
+				<h:inputText id="code" value="#{prodivderController.newProductCode}" required="true"
 					requiredMessage="Code is mandatory"></h:inputText>
 				<h:commandButton action="#{prodivderController.addProduct}" value="Add product"></h:commandButton>
 				<h:message for="code" styleClass="error"/>

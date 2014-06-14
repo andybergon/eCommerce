@@ -26,7 +26,7 @@
 			<div>
 				<br/><br/>
 				<h:panelGroup rendered="#{userController.isSignedIn()}">
-					To make a new order, please click <h:form><h:commandLink action="#{orderController.createOrder()}" value="here"></h:commandLink></h:form>.
+					<h:form>To make a new order, please click <h:commandLink action="#{orderController.createOrder()}" value="here"></h:commandLink>.</h:form>
 				</h:panelGroup>
 				<br/>
 				<h:panelGroup rendered="#{userController.isSignedIn()}">

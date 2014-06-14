@@ -59,18 +59,6 @@ public class User {
 		this.address = new Address();
 	}
 
-	public User(String firstName, String lastName, String email, String password, String phoneNumber, Date dateOfBirth,
-			Address address) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.phoneNumber = phoneNumber;
-		this.dateOfBirth = dateOfBirth;
-		this.address = address;
-		this.registrationDate = new Date();
-	}
-
 	public boolean checkPassword(String password) {
 		return this.password.equals(password);
 	}
@@ -186,5 +174,5 @@ public class User {
 				+ ", password=" + password + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth
 				+ ", registrationDate=" + registrationDate + ", orders=" + orders + ", address=" + address + "]";
 	}
-	
+
 }

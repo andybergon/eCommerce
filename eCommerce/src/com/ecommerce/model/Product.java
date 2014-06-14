@@ -1,5 +1,9 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +18,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Basic
 	@Column(unique = true, nullable = false)
 	private String code;
 
@@ -27,12 +32,11 @@ public class Product {
 	private String description;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	private ProductSupply supplies;
+	private List<ProductSupply> supplies;
 
 
 	public Product() {
-		this.supplies = new ProductSupply();
-		this.supplies.setProduct(this);
+		this.supplies = new ArrayList<ProductSupply>();
 	}
 
 	public Long getId() {
@@ -75,11 +79,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public ProductSupply getSupplies() {
+	public List<ProductSupply> getSupplies() {
 		return supplies;
 	}
 
-	public void setSupplies(ProductSupply supplies) {
+	public void setSupplies(List<ProductSupply> supplies) {
 		this.supplies = supplies;
 	}
 
