@@ -8,8 +8,9 @@
 </h:head>
 <h:body>
 
-	<h1>Products</h1>
+	<h1>Add Products to current Order</h1>
 	
+	<h3>Products in Store:</h3>
 	<h:dataTable
 		value="#{productController.productFacade.findAll()}"
 		var="product">
@@ -18,8 +19,8 @@
 			<f:facet name="header">Name</f:facet>
 			<h:form>
 				<h:commandLink
-					action="#{productController.findProduct(product.id)}"
-					value="#{product.name}"></h:commandLink>
+					value="#{product.name}"
+					action="#{productController.findProduct(product.id)}"></h:commandLink>
 			</h:form>
 		</h:column>
 
@@ -54,13 +55,81 @@
 					action="#{orderController.addProductToOrder(product.id)}" />
 			</h:form>
 		</h:column>
+		
+	</h:dataTable>
+	
+	<hr/>
+	
+	<h3>Current Order:</h3>
+		<h:dataTable
+		value="#{orderController.order.getOrderLines()}"
+		var="orderLine">
+
+		<h:column>
+			<f:facet name="header">Name</f:facet>
+			<h:form>
+				<h:commandLink
+					action="#{productController.findProduct(orderLine.product.id)}"
+					value="#{orderLine.product.name}"></h:commandLink>
+			</h:form>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Unit Price</f:facet>
+			<h:outputText value="#{orderLine.product.price}">
+			</h:outputText>
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Quantity</f:facet>
+			<h:outputText value="#{orderLine.quantity}">
+			</h:outputText>
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">Total Price</f:facet>
+			<h:outputText value="#{orderLine.getPrice()}">
+			</h:outputText>
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">Quantity</f:facet>
+			<h:form>
+				<h:selectOneMenu value="#{orderController.quantity}">
+					<f:selectItem
+						itemValue="0"
+						itemLabel="-" />
+					<f:selectItem
+						itemValue="1"
+						itemLabel="1" />
+					<f:selectItem
+						itemValue="2"
+						itemLabel="2" />
+					<f:selectItem
+						itemValue="3"
+						itemLabel="3" />
+				</h:selectOneMenu>
+				<h:commandButton
+					value="remove"
+					action="#{orderController.removeProductFromOrder(orderLine.product.id)}" />
+			</h:form>
+		</h:column>
 
 	</h:dataTable>
+	Total Price: <h:outputText value="#{orderController.order.getTotal()}"></h:outputText>
+	<h:form>
+		<h:commandLink
+			value="Confirm current order"
+			action="#{orderController.confirmOrder()}">
+		</h:commandLink>
+	</h:form>
+	<hr/>
+	
+	<br/><br/>
+	(to Debug)Current order size: <h:outputText value="#{orderController.order.countProducts()}"></h:outputText>
 	<br/>
-	Current order size: <h:outputText value="#{orderController.order.countOrderLines()}"></h:outputText>
-	<br/>
-	this.order.creator: <h:outputText value="#{orderController.order.creator}"></h:outputText>
-	<br/>
+	(to Debug)Order Creator: <h:outputText value="#{orderController.order.creator}"></h:outputText>
+	<br/><br/>
 	<h:link outcome="home" value="Return Home" />
 
 </h:body>

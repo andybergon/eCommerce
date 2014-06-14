@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -57,16 +58,45 @@ public class OrderController {
 	}
 
 	public String addProductToOrder(Long productId) {
-		Product product = this.productFacade.find(productId);
-		Float unitPrice = product.getPrice();
-		OrderLine orderLine = new OrderLine(Integer.parseInt(this.quantity), unitPrice, product);
-		this.order.addOrderLine(orderLine);
+		Integer quantity = Integer.parseInt(this.quantity);
+		if (quantity > 0) {
+			Product product = this.productFacade.find(productId);
+			Float unitPrice = product.getPrice();
+			boolean alreadyPresent = false;
+			for (OrderLine orderLine : this.order.getOrderLines()) {
+				if (orderLine.getProduct().getId().equals(productId)) {
+					alreadyPresent = true;
+					// change existing order line
+					orderLine.addQuantity(quantity);
+				}
+			}
+			if (!alreadyPresent) {
+				OrderLine orderLine = new OrderLine(quantity, unitPrice, product);
+				this.order.addOrderLine(orderLine);
+			}
+		}
+		return "new_order" + Utils.REDIRECT;
+	}
+
+	public String removeProductFromOrder(Long productId) {
+		for (OrderLine orderLine : this.order.getOrderLines()) {
+			if (orderLine.getProduct().getId().equals(productId)) {
+				orderLine.removeQuantity(Integer.parseInt(this.quantity));
+			}
+		}
+		for (Iterator<OrderLine> iterator = this.order.getOrderLines().listIterator(); iterator.hasNext();) {
+			OrderLine currentOrderLine = iterator.next();
+			if (currentOrderLine.getQuantity() <= 0) {
+				iterator.remove();
+			}
+		}
 		return "new_order" + Utils.REDIRECT;
 	}
 	
-	public void confirmOrder() {
+	public String confirmOrder() {
 		this.order.setConfirmationDate(new Date());
 		this.orderFacade.confirmOrder(this.order); //check CASCADE persist of order/orderlines
+		return "orders" + Utils.REDIRECT;
 	}
 	
 	//getter & setter

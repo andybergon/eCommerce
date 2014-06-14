@@ -42,14 +42,6 @@ public class Provider {
 	public Provider() {
 	}
 
-	public Provider(String name, String phoneNumber, String email, String vatin, Address address) {
-		this.setName(name);
-		this.setPhoneNumber(phoneNumber);
-		this.setEmail(email);
-		this.setVatin(vatin);
-		this.setAddress(address);
-	}
-
 	public Long getId() {
 		return id;
 	}

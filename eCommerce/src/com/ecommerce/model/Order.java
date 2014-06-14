@@ -2,6 +2,7 @@ package com.ecommerce.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -53,7 +54,41 @@ public class Order {
 		this.creationDate = new Date();
 		this.orderLines = new ArrayList<OrderLine>();
 	}
+	
+	public void addOrderLine(OrderLine orderLine) {
+		this.orderLines.add(orderLine);
+	}
 
+	public void removeOrderLine(OrderLine orderLine) {
+		for (Iterator<OrderLine> iterator = this.orderLines.listIterator(); iterator.hasNext();) {
+			OrderLine currentOrderLine = iterator.next();
+			if (currentOrderLine.equals(orderLine)) {
+				iterator.remove();
+			}
+		}
+	}
+
+	public int countOrderLines() {
+		return this.orderLines.size();
+	}
+
+	public int countProducts() {
+		int count = 0;
+		for (OrderLine orderLine : this.orderLines) {
+			count += orderLine.getQuantity();
+		}
+		return count;
+	}
+
+	public float getTotal() {
+		float total = 0;
+		for (OrderLine orderLine : this.orderLines) {
+			total += orderLine.getPrice();
+		}
+		return total;
+	}
+
+	//getters & setters
 	public Long getId() {
 		return id;
 	}
@@ -94,18 +129,12 @@ public class Order {
 		this.creator = creator;
 	}
 
-	public void addOrderLine(OrderLine orderLine) {
-		this.orderLines.add(orderLine);
-	}
-
 	public List<OrderLine> getOrderLines() {
 		return orderLines;
 	}
+
 	public void setOrderLines(List<OrderLine> orderLines) {
 		this.orderLines = orderLines;
 	}
 
-	public int countOrderLines() {
-		return this.orderLines.size();
-	}
 }
