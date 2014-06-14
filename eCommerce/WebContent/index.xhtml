@@ -26,8 +26,13 @@
 			<div>
 				<br/><br/>
 				<h:panelGroup rendered="#{userController.isSignedIn()}">
+					To make a new order, please click <h:form><h:commandLink action="#{orderController.createOrder()}" value="here"></h:commandLink></h:form>.
+				</h:panelGroup>
+				<br/>
+				<h:panelGroup rendered="#{userController.isSignedIn()}">
 					To view all your orders, please click <h:link outcome="orders" value="here"/>.
 				</h:panelGroup>
+				<br/>
 				<h:panelGroup rendered="#{adminController.isSignedIn()}">
 					To add a product, please click <h:link outcome="new_product" value="here"/>.
 				</h:panelGroup>

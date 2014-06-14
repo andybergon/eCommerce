@@ -9,6 +9,7 @@
 <h:body>
 
 	<h1>Products</h1>
+	
 	<h:dataTable
 		value="#{productController.productFacade.findAll()}"
 		var="product">
@@ -30,23 +31,35 @@
 
 		<h:column>
 			<f:facet name="header">Quantity</f:facet>
-			<h:outputText value="#{product.price}">
-			</h:outputText>
-		</h:column>
-
-		<h:column>
-			<f:facet name="header">Add to current order</f:facet>
 			<h:form>
-				<h:commandLink
+				<h:selectOneMenu value="#{orderController.quantity}">
+					<f:selectItem
+						itemValue="0"
+						itemLabel="-" />
+					<f:selectItem
+						itemValue="1"
+						itemLabel="1" />
+					<f:selectItem
+						itemValue="2"
+						itemLabel="2" />
+					<f:selectItem
+						itemValue="3"
+						itemLabel="3" />
+					<f:selectItem
+						itemValue="5"
+						itemLabel="5" />
+				</h:selectOneMenu>
+				<h:commandButton
 					value="add"
-					action="#{orderController.addProductToOrder(product.id)}">
-				</h:commandLink>
+					action="#{orderController.addProductToOrder(product.id)}" />
 			</h:form>
 		</h:column>
 
 	</h:dataTable>
-	
+	<br/>
 	Current order size: <h:outputText value="#{orderController.order.countOrderLines()}"></h:outputText>
+	<br/>
+	this.order.creator: <h:outputText value="#{orderController.order.creator}"></h:outputText>
 	<br/>
 	<h:link outcome="home" value="Return Home" />
 

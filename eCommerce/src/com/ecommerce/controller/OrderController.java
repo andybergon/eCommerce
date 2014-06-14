@@ -5,11 +5,11 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.OrderFacade;
 import com.ecommerce.facade.ProductFacade;
-import com.ecommerce.model.Address;
 import com.ecommerce.model.Order;
 import com.ecommerce.model.OrderLine;
 import com.ecommerce.model.Product;
@@ -26,17 +26,21 @@ public class OrderController {
 
 	private Order order;
 	private List<Order> orders;
+	
+	private String quantity;
 
 	@EJB
 	private OrderFacade orderFacade;
 	
 	@EJB
 	private ProductFacade productFacade;
+	
+	@ManagedProperty(value = "#{userController}")
+	private UserController userController;
 
 	public String createOrder() {
 		this.order = new Order();
-		// User currentUser = eCommercePortal.getCurrentUser(); //TODO
-		User currentUser = new User("a", "a", "a", "a", "a", new Date(), new Address("", "", "", "", ""));
+		User currentUser = this.userController.getCurrentUser();
 		this.order.setCreator(currentUser);
 		this.order.setCreationDate(new Date());
 		return "new_order" + Utils.REDIRECT;
@@ -54,9 +58,8 @@ public class OrderController {
 
 	public String addProductToOrder(Long productId) {
 		Product product = this.productFacade.find(productId);
-		//TODO quantity > 1
 		Float unitPrice = product.getPrice();
-		OrderLine orderLine = new OrderLine(1, unitPrice, product);
+		OrderLine orderLine = new OrderLine(Integer.parseInt(this.quantity), unitPrice, product);
 		this.order.addOrderLine(orderLine);
 		return "new_order" + Utils.REDIRECT;
 	}
@@ -123,4 +126,28 @@ public class OrderController {
 		this.orders = orders;
 	}
 
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+	public UserController getUserController() {
+		return userController;
+	}
+
+	public void setUserController(UserController userController) {
+		this.userController = userController;
+	}
+
+	public ProductFacade getProductFacade() {
+		return productFacade;
+	}
+
+	public void setProductFacade(ProductFacade productFacade) {
+		this.productFacade = productFacade;
+	}
+	
 }
