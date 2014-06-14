@@ -1,14 +1,12 @@
 package com.ecommerce.facade;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductSupply;
 import com.ecommerce.model.Provider;
 
@@ -22,18 +20,18 @@ public class ProviderFacade extends AbstractFacade<Provider> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<Product, ProductSupply> findAllProducts(Long id) {
+	public List<ProductSupply> findInventories(Long id) {
 		List<Object[]> results = this.em.createQuery(
-				"SELECT prod, ps "
+				"SELECT prod.code, ps "
 						+ "FROM Provider prov, ProductSupply ps, Product prod "
 						+ "WHERE prov.id = ps.id AND ps.id=prod.id AND prov.id=" + id).getResultList();
 
-		Map<Product, ProductSupply> products = new HashMap<Product, ProductSupply>();
+		List<ProductSupply> inventories = new ArrayList<ProductSupply>();
 
 		for(Object[] result : results)
-			products.put((Product) result[0], (ProductSupply) result[1]);
+			;//TODO: inventories.add((String) result[0], (ProductSupply) result[1]);
 
-		return products;
+		return inventories;
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import com.ecommerce.facade.ProductFacade;
 import com.ecommerce.facade.ProviderFacade;
 import com.ecommerce.model.Product;
+import com.ecommerce.model.ProductSupply;
 import com.ecommerce.model.Provider;
 import com.ecommerce.utils.Utils;
 
@@ -31,8 +32,9 @@ public class ProviderController {
 
 	private String newProductCode;
 
+	private int newProductQuantity;
+
 	public ProviderController() {
-		this.currentProvider = new Provider();
 	}
 
 	public String findProvider(Long id) {
@@ -47,9 +49,28 @@ public class ProviderController {
 
 	public String addProduct() {
 		Product product = this.productFacade.find(this.newProductCode);
+
 		if (product != null) {
-			//TODO: this.currentProvider.getInventories().add(product);
+			boolean supplyExists = false;
+			for (ProductSupply ps : this.currentProvider.getInventories()) {
+				if (ps.getProduct().getCode().equals(newProductCode)) {
+					ps.incrementQuantity(newProductQuantity);
+					supplyExists = true;
+					break;
+				}
+			}
+
+			if (!supplyExists) {
+				ProductSupply productSupply = new ProductSupply(newProductQuantity);
+				productSupply.setProduct(product);
+				productSupply.setProvider(currentProvider);
+
+				this.currentProvider.getInventories().add(productSupply);
+			}
+
 			this.providerFacade.update(currentProvider);
+			this.newProductCode = null;
+			this.newProductQuantity = 0;
 		} else {
 			this.portal.setMessage("Code provided does not correspond to any product.");
 		}
@@ -94,5 +115,13 @@ public class ProviderController {
 
 	public void setNewProductCode(String newProductCode) {
 		this.newProductCode = newProductCode;
+	}
+
+	public Integer getNewProductQuantity() {
+		return newProductQuantity;
+	}
+
+	public void setNewProductQuantity(Integer newProductQuantity) {
+		this.newProductQuantity = newProductQuantity;
 	}
 }

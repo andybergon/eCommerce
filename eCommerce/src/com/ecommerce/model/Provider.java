@@ -1,6 +1,6 @@
 package com.ecommerce.model;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,8 +33,8 @@ public class Provider {
 	@Column
 	private String vatin;
 
-	@OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
-	private Map<Product, ProductSupply> inventories;
+	@OneToMany(mappedBy = "provider", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<ProductSupply> inventories;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;
@@ -90,11 +90,11 @@ public class Provider {
 		this.vatin = vatin;
 	}
 
-	public Map<Product, ProductSupply> getInventories() {
+	public List<ProductSupply> getInventories() {
 		return inventories;
 	}
 
-	public void setInventories(Map<Product, ProductSupply> inventories) {
+	public void setInventories(List<ProductSupply> inventories) {
 		this.inventories = inventories;
 	}
 

@@ -68,29 +68,49 @@
 					<td width="100px">QUANTITY</td>
 				</tr>
 			</table>
-			<table class="ctable" style="width: 500px">
-				<ui:param name="inventories"
-					value="#{providerController.providerFacade.findAllProducts(providerController.currentProvider.id)}" />
-				<ui:repeat var="product" value="#{inventories.keySet().toArray()}">
+			<table class="ctable" style="width: 400px">
+				<ui:param name="inventories" value="#{providerController.currentProvider.inventories}" />
+				<ui:repeat var="productIventory" value="#{providerController.currentProvider.inventories}">
 					<tr>
 						<td width="100px">
 							<h:form>
-								<h:commandLink action="#{productController.findProduct(product.id)}" value="#{product.code}">
+								<h:commandLink action="#{productController.findProduct(productIventory.product.id)}"
+									value="#{productIventory.product.code}">
 								</h:commandLink>
 							</h:form>
 						</td>
-						<td width="100px">#{product.name}</td>
-						<td width="100px">#{product.price}</td>
-						<td width="100px">#{inventories[product].quantity}</td>
+						<td width="100px">#{productIventory.product.name}</td>
+						<td width="100px">#{productIventory.product.price}</td>
+						<td width="100px">#{productIventory.quantity}</td>
 					</tr>
 				</ui:repeat>
 			</table>
-			<br/><h:form>
-				CODE: 
-				<h:inputText id="code" value="#{prodivderController.newProductCode}" required="true"
-					requiredMessage="Code is mandatory"></h:inputText>
-				<h:commandButton action="#{prodivderController.addProduct}" value="Add product"></h:commandButton>
-				<h:message for="code" styleClass="error"/>
+			<br/><br/>
+			Add a product:
+			<h:form>
+				<table>
+					<tr>
+						<td>CODE:</td>
+						<td>
+							<h:inputText id="code" value="#{providerController.newProductCode}" required="true"
+								requiredMessage="Code is mandatory"></h:inputText>
+							<h:message for="code" styleClass="error"/>
+						</td>
+					</tr>
+					<tr>
+						<td>QUANTITY:</td>
+						<td>
+							<h:inputText value="#{providerController.newProductQuantity}"></h:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:commandButton action="#{providerController.addProduct}" value="Add product"></h:commandButton>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
 			</h:form>
 			<br/>
 			<br/>

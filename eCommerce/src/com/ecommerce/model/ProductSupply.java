@@ -26,6 +26,18 @@ public class ProductSupply {
 	public ProductSupply() {
 	}
 
+	public ProductSupply(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public void incrementQuantity(Integer quantity) {
+		this.quantity += quantity;
+	}
+
+	public void decrementQuantity(Integer quantity) {
+		this.quantity -= quantity;
+	}
+
 	public Long getId() {
 		return id;
 	}
