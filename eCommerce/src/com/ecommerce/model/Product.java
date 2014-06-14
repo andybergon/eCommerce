@@ -3,6 +3,7 @@ package com.ecommerce.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Basic
 	@Column(unique = true, nullable = false)
 	private String code;
 
@@ -76,7 +78,6 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
 	public List<ProductSupply> getSupplies() {
 		return supplies;

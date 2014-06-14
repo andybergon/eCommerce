@@ -34,20 +34,12 @@ public class Provider {
 	private String vatin;
 
 	@OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
-	private Map<String,ProductSupply> inventories;
+	private Map<Product, ProductSupply> inventories;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;
 
 	public Provider() {
-	}
-
-	public Provider(String name, String phoneNumber, String email, String vatin, Address address) {
-		this.setName(name);
-		this.setPhoneNumber(phoneNumber);
-		this.setEmail(email);
-		this.setVatin(vatin);
-		this.setAddress(address);
 	}
 
 	public Long getId() {
@@ -98,12 +90,11 @@ public class Provider {
 		this.vatin = vatin;
 	}
 
-
-	public Map<String, ProductSupply> getInventories() {
+	public Map<Product, ProductSupply> getInventories() {
 		return inventories;
 	}
 
-	public void setInventories(Map<String, ProductSupply> inventories) {
+	public void setInventories(Map<Product, ProductSupply> inventories) {
 		this.inventories = inventories;
 	}
 

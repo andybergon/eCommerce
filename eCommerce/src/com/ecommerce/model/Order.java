@@ -40,7 +40,7 @@ public class Order {
 	@Column(nullable = false)
 	private User creator;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "orders_id")
 	private List<OrderLine> orderLines;
 
