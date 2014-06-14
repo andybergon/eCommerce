@@ -1,6 +1,5 @@
 package com.ecommerce.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,8 +9,6 @@ import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.ProductFacade;
 import com.ecommerce.model.Product;
-import com.ecommerce.model.ProductRegister;
-import com.ecommerce.model.Provider;
 import com.ecommerce.model.SignedInState;
 import com.ecommerce.utils.Utils;
 
@@ -31,20 +28,14 @@ public class ProductController {
 	private List<Product> products;
 
 	public ProductController() {
-		ProductRegister productRegister = new ProductRegister();
 		this.newProduct = new Product();
-
-		this.newProduct.setRegister(productRegister);
-		this.newProduct.setProviders(new ArrayList<Provider>());
-
-		productRegister.setProduct(newProduct);
 	}
 
 	public String createProduct() {
 		if (this.portal.getSignedInState().equals(SignedInState.ADMIN_SIGNED_IN)) {
 			this.productFacade.create(newProduct);
 			this.currentProduct = newProduct;
-			//TODO: and object instance variables: this.newProduct = new Product();
+			this.newProduct = new Product();
 			return "product" + Utils.REDIRECT;
 		} else {
 			this.portal.setMessage("You must be an admin to perform this action.");

@@ -8,23 +8,20 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.ecommerce.model.Product;
+import com.ecommerce.model.Provider;
 
 @Stateless
-public class ProductFacade extends AbstractFacade<Product> {
+public class ProviderFacade extends AbstractFacade<Provider> {
 	@PersistenceContext(unitName = "ecommerce-unit")
 	private EntityManager em;
 
-	public ProductFacade() {
-		super(Product.class);
+	public ProviderFacade() {
+		super(Provider.class);
 	}
 
-	public Product find(String productCode) {
-		TypedQuery<Product> q = this.em.createQuery("SELECT p FROM Product p WHERE p.code = '" + productCode + "'",
-				Product.class).setMaxResults(1);
-		List<Product> result = q.getResultList();
-		if (!result.isEmpty())
-			return result.get(0);
-		return null;
+	public List<Product> findAllProducts(Long id) {
+		TypedQuery<Product> q = this.em.createQuery("SELECT p.products FROM Provider p WHERE p.id = " + id, Product.class);
+		return q.getResultList();
 	}
 
 	@Override

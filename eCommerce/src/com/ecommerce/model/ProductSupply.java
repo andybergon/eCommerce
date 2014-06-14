@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ProductRegister {
+public class ProductSupply {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -22,7 +22,11 @@ public class ProductRegister {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Product product;
 
-	public ProductRegister() {
+	@JoinColumn
+	@OneToOne(fetch = FetchType.EAGER)
+	private Provider provider;
+
+	public ProductSupply() {
 	}
 
 	public Long getId() {
@@ -47,5 +51,13 @@ public class ProductRegister {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
 	}
 }
