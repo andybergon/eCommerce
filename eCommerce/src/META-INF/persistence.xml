@@ -14,7 +14,7 @@
 		<class>com.ecommerce.model.Order</class>
 		<class>com.ecommerce.model.OrderLine</class>
 		<class>com.ecommerce.model.Product</class>
-		<class>com.ecommerce.model.ProductRegister</class>
+		<class>com.ecommerce.model.ProductSupply</class>
 		<class>com.ecommerce.model.Provider</class>
 		<class>com.ecommerce.model.User</class>
 		<properties>

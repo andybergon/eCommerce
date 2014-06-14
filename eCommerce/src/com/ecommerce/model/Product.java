@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -29,13 +29,15 @@ public class Product {
 	@Column
 	private String description;
 
-	@OneToOne(mappedBy = "product", fetch = FetchType.EAGER)
-	private ProductRegister register;
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	private ProductSupply supplies;
 
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
 	private List<Provider> providers;
 
 	public Product() {
+		this.supplies = new ProductSupply();
+		this.supplies.setProduct(this);
 	}
 
 	public Long getId() {
@@ -78,12 +80,12 @@ public class Product {
 		this.description = description;
 	}
 
-	public ProductRegister getRegister() {
-		return register;
+	public ProductSupply getSupplies() {
+		return supplies;
 	}
 
-	public void setRegister(ProductRegister register) {
-		this.register = register;
+	public void setSupplies(ProductSupply supplies) {
+		this.supplies = supplies;
 	}
 
 	public List<Provider> getProviders() {

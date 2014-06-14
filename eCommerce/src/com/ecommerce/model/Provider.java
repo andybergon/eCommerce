@@ -19,6 +19,9 @@ public class Provider {
 	private Long id;
 
 	@Column(nullable = false)
+	private String code;
+
+	@Column(nullable = false)
 	private String name;
 
 	@Column
@@ -45,6 +48,22 @@ public class Provider {
 		this.setEmail(email);
 		this.setVatin(vatin);
 		this.setAddress(address);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getName() {
@@ -81,6 +100,10 @@ public class Provider {
 
 	public List<Product> getProducts() {
 		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	public Address getAddress() {
