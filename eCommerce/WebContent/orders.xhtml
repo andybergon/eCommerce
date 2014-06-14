@@ -14,7 +14,7 @@
 	<ui:include src="templates/info-box.xhtml"/>
 	<h:panelGroup rendered="#{adminController.isSignedIn()}">
 		<h1>All Orders</h1>
-		<h:dataTable value="#{orderController.orders}" var="order">
+		<h:dataTable var="order" value="#{orderController.orders}">
 			<h:column>
 				<f:facet name="header">Order Id</f:facet>
 				<h:form>
@@ -36,6 +36,13 @@
 				<h:outputText value="#{order.confirmationDate}">
 					<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 				</h:outputText>
+			</h:column>
+	
+			<h:column>
+				<h:form>
+					<h:commandButton action="#{orderController.shipOrder(order.id)}" value="ship"
+						disabled="#{order.isSupplied()}"></h:commandButton>
+				</h:form>
 			</h:column>
 		</h:dataTable>
 		<br />

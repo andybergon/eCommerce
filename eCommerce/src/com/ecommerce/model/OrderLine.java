@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ public class OrderLine {
 
 	private Float unitPrice;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Product product;
 
 	public OrderLine() {}
@@ -28,6 +29,13 @@ public class OrderLine {
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 		this.product = product;
+	}
+
+	public boolean isSupplied() {
+		for (ProductSupply ps : this.product.getSupplies())
+			if (ps.getQuantity() >= this.quantity)
+				return true;
+		return false;
 	}
 
 	public Float getPrice() {
@@ -97,5 +105,4 @@ public class OrderLine {
 		return "OrderLine [id=" + id + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", product=" + product
 				+ "]";
 	}
-	
 }

@@ -53,7 +53,7 @@ public class Order {
 		this.creationDate = new Date();
 		this.orderLines = new ArrayList<OrderLine>();
 	}
-	
+
 	public void addOrderLine(OrderLine orderLine) {
 		this.orderLines.add(orderLine);
 	}
@@ -87,12 +87,18 @@ public class Order {
 		return total;
 	}
 
+	public boolean isSupplied() {
+		for (OrderLine ol : this.getOrderLines())
+			if (!ol.isSupplied())
+				return false;
+		return true;
+	}
+
 	public boolean isEmpty() {
 		return this.orderLines.isEmpty();
 	}
 
-	
-	//getters & setters
+	// getters & setters
 	public Long getId() {
 		return id;
 	}
