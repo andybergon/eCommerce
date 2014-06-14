@@ -12,6 +12,7 @@
 	
 	<h3>Products in Store:</h3>
 	<h:dataTable
+		id = "table_products"
 		value="#{productController.productFacade.findAll()}"
 		var="product">
 
@@ -62,6 +63,7 @@
 	
 	<h3>Current Order:</h3>
 		<h:dataTable
+		id = "table_current_order"
 		value="#{orderController.order.getOrderLines()}"
 		var="orderLine">
 
@@ -108,6 +110,9 @@
 					<f:selectItem
 						itemValue="3"
 						itemLabel="3" />
+					<f:selectItem
+						itemValue="5"
+						itemLabel="5" />
 				</h:selectOneMenu>
 				<h:commandButton
 					value="remove"
@@ -124,13 +129,12 @@
 		</h:commandLink>
 	</h:form>
 	<hr/>
-	
-	<br/><br/>
+	<br/>
 	(to Debug)Current order size: <h:outputText value="#{orderController.order.countProducts()}"></h:outputText>
 	<br/>
 	(to Debug)Order Creator: <h:outputText value="#{orderController.order.creator}"></h:outputText>
 	<br/><br/>
-	<h:link outcome="home" value="Return Home" />
+	<h:link outcome="index" value="Return Home" />
 
 </h:body>
 </html>
