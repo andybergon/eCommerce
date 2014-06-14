@@ -1,14 +1,11 @@
 package com.ecommerce.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -29,11 +26,9 @@ public class Product {
 	@Column
 	private String description;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private ProductSupply supplies;
 
-	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-	private List<Provider> providers;
 
 	public Product() {
 		this.supplies = new ProductSupply();
@@ -86,14 +81,6 @@ public class Product {
 
 	public void setSupplies(ProductSupply supplies) {
 		this.supplies = supplies;
-	}
-
-	public List<Provider> getProviders() {
-		return providers;
-	}
-
-	public void setProviders(List<Provider> providers) {
-		this.providers = providers;
 	}
 
 	@Override

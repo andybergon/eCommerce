@@ -6,8 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductSupply {
@@ -18,12 +17,10 @@ public class ProductSupply {
 	@Column(nullable = false)
 	private Integer quantity;
 
-	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Product product;
 
-	@JoinColumn
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Provider provider;
 
 	public ProductSupply() {

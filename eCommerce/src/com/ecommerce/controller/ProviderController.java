@@ -48,7 +48,7 @@ public class ProviderController {
 	public String addProduct() {
 		Product product = this.productFacade.find(this.newProductCode);
 		if (product != null) {
-			this.currentProvider.getProducts().add(product);
+			//TODO: this.currentProvider.getInventories().add(product);
 			this.providerFacade.update(currentProvider);
 		} else {
 			this.portal.setMessage("Code provided does not correspond to any product.");

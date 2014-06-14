@@ -1,7 +1,5 @@
 package com.ecommerce.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -33,8 +31,8 @@ public class Provider {
 	@Column
 	private String vatin;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Product> products;
+	@OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
+	private ProductSupply inventories;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private Address address;
@@ -98,12 +96,12 @@ public class Provider {
 		this.vatin = vatin;
 	}
 
-	public List<Product> getProducts() {
-		return products;
+	public ProductSupply getInventories() {
+		return inventories;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setInventories(ProductSupply inventories) {
+		this.inventories = inventories;
 	}
 
 	public Address getAddress() {
@@ -113,5 +111,4 @@ public class Provider {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
 }
