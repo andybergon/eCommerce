@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -70,6 +71,7 @@ public class UserController {
 		if (this.portal.isSignedIn())
 			this.portal.setMessage("You must be signed out to perform this action.");
 		else {
+			this.newUser.setRegistrationDate(new Date());
 			this.userFacade.create(newUser);
 			this.credentials.setEmail(newUser.getEmail());
 			this.credentials.setPassword(newUser.getPassword());
