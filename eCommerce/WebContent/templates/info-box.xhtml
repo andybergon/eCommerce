@@ -4,14 +4,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<div align="right">
 		<div>
-			<h:outputLabel value="Signed in as " rendered="#{portal.isSignedIn()}" />
-			<span style="font-weight: bold;">
+			<span style="color: white;">
+				<h:outputLabel value="Signed in as " rendered="#{portal.isSignedIn()}" />
+			</span>
+			<span style="color: white; font-weight: bold;">
 				<h:outputLabel value="USER" rendered="#{userController.isSignedIn()}" />
 			</span>
-			<span style="color: blue; font-weight: bold;">
+			<span style="color: white; font-weight: bold;">
 				<h:outputLabel value="ADMIN" rendered="#{adminController.isSignedIn()}" />
 			</span>
-			<span style="background-color: yellow">
+			<span style="color: yellow">
 				<h:outputLabel value="#{userController.currentUser.firstName}" rendered="#{portal.isSignedIn()}" />
 				<h:outputLabel value="#{adminController.currentAdmin.email}" rendered="#{portal.isSignedIn()}" />
 			</span>
