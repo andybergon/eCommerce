@@ -105,9 +105,16 @@ public class TestUtils {
 		product2.setPrice(new Float(10.0));
 		product2.setDescription("A normal keyboard!");
 		
+		Product product3 = new Product();
+		product3.setCode("ms01");
+		product3.setName("Mouse A");
+		product3.setPrice(new Float(8.0));
+		product3.setDescription("A gaming mouse!");
+		
 		tx.begin();
 		em.persist(product1);
 		em.persist(product2);
+		em.persist(product3);
 		tx.commit();
 		
 		OrderLine orderLine1 = new OrderLine();
@@ -120,6 +127,11 @@ public class TestUtils {
 		orderLine2.setProduct(product2);
 		orderLine2.setUnitPrice(product2.getPrice());
 		
+		OrderLine orderLine3 = new OrderLine();
+		orderLine3.setQuantity(new Integer(3));
+		orderLine3.setProduct(product3);
+		orderLine3.setUnitPrice(product3.getPrice());
+		
 		Order order1 = new Order();
 		order1.setCreationDate(new Date());
 		order1.setConfirmationDate(new Date());
@@ -129,9 +141,18 @@ public class TestUtils {
 		orderLines1.add(orderLine2);
 		order1.setOrderLines(orderLines1);
 
+		Order order2 = new Order();
+		order2.setCreationDate(new Date());
+		order2.setConfirmationDate(new Date());
+		order2.setCreator(user2);
+		List<OrderLine> orderLines2 = new ArrayList<OrderLine>();
+		orderLines2.add(orderLine3);
+		order2.setOrderLines(orderLines2);
+		
 		tx.begin();
 		// orderlines are in cascade persist
 		em.persist(order1);
+		em.persist(order2);
 		tx.commit();
 
 	}
