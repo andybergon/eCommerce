@@ -26,10 +26,9 @@ public class OrderController {
 	private Date shipmentDate;
 
 	private Order order;
-
 	private List<Order> orders;
-
 	private String quantity;
+	private User creator;
 
 	@EJB
 	private OrderFacade orderFacade;
@@ -50,7 +49,7 @@ public class OrderController {
 
 	public String findConfirmedOrders() {
 		this.orders = this.orderFacade.findConfirmedOrders();
-		return "orders" + Utils.REDIRECT;
+		return "orders_confirmed" + Utils.REDIRECT;
 	}
 
 	public String findOrder(Long orderId) {
@@ -61,6 +60,11 @@ public class OrderController {
 	public String findOrders(Long userId) {
 		this.orders = this.orderFacade.findAllOrders(userId);
 		return "my_orders" + Utils.REDIRECT;
+	}
+	
+	public String findAllOrders() {
+		this.orders = this.orderFacade.findAllOrders();
+		return "orders_all" + Utils.REDIRECT;
 	}
 
 	public String addProductToOrder(Long productId) {
@@ -117,8 +121,15 @@ public class OrderController {
 		//TODO: finish (reduce supplies)
 		return "orders";
 	}
+	
+	public String getCreatorDetails(Long orderId) {
+		this.order = this.orderFacade.find(orderId);
+		// fetch eager is ok?
+		// this.creator = this.order.getCreator();
+		return "order_creator";
+	}
 
-	//getter & setter
+	//getters & setters
 	public OrderFacade getOrderFacade() {
 		return orderFacade;
 	}
@@ -197,6 +208,14 @@ public class OrderController {
 
 	public void setProductFacade(ProductFacade productFacade) {
 		this.productFacade = productFacade;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 
 }
