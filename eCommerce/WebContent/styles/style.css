@@ -53,6 +53,6 @@ table.ctable {
 	white-space: nowrap !important;
 }
 
-.navbar-nav button:HOVER,.navbar-nav button:FOCUS,.navbar-nav button:ACTIVE {
-	color: #F5F5F5;
+.navbar-nav button:hover,.navbar-nav button:focus,.navbar-nav button:active {
+	background-color: #F5F5F5;
 }
