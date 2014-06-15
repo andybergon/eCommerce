@@ -112,10 +112,11 @@ public class OrderController {
 
 	public String shipOrder(Long orderId) {
 		Order order = this.orderFacade.find(orderId);
+		for (OrderLine ol : order.getOrderLines())
+			ol.shipOrderLine();
 		order.setShipmentDate(new Date());
 		this.orderFacade.update(order);
-		//TODO: finish (reduce supplies)
-		return "orders";
+		return "orders" + Utils.REDIRECT;
 	}
 
 	//getter & setter

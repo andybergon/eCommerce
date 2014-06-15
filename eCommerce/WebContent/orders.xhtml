@@ -41,7 +41,7 @@
 			<h:column>
 				<h:form>
 					<h:commandButton action="#{orderController.shipOrder(order.id)}" value="ship"
-						disabled="#{order.isSupplied()}"></h:commandButton>
+						disabled="#{order.isSupplied() == false}"></h:commandButton>
 				</h:form>
 			</h:column>
 		</h:dataTable>
