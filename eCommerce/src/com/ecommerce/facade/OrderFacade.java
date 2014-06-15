@@ -36,6 +36,11 @@ public class OrderFacade extends AbstractFacade<Order> {
 				Order.class);
 		return result.getResultList();
 	}
+	
+	public List<Order> findAllOrders() {
+		TypedQuery<Order> result = this.em.createQuery("SELECT o FROM Order o", Order.class);
+		return result.getResultList();
+	}
 
 	public User getCreator(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);

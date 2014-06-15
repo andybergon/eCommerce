@@ -10,70 +10,56 @@
 	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
 </h:head>
 <h:body>
-	<b:navBar brand="eCommerce" brandHref="#" fixed="top" inverse="true">
-			<b:navbarLinks>
-				<b:navLink value="Home" href="index.xhtml"></b:navLink>
-				<b:navLink value="About" href="about.xhtml"></b:navLink>
-				<b:navLink value="Contact" href="contact.xhtml"></b:navLink>
-			</b:navbarLinks>
-		<ui:include src="templates/info-box.xhtml"/>
-	</b:navBar>
-	
-	<b:container>
-		<b:jumbotron>
-			<h1>Welcome to eCommerce!</h1>
-			<p>A wonderful site where you can buy all you want.</p>
-			<p>
-				<a
-					href="products.xhtml"
-					class="btn btn-lg btn-info">Products »
-				</a>
-			</p>
-		</b:jumbotron>
-	</b:container>
+	<div id="header">
+	<ui:include src="templates/nav-bar.xhtml"/>
+	</div>	
+	<div id ="container">
+		<b:container>
+			<b:jumbotron>
+				<h1>Welcome to eCommerce!</h1>
+				<p>A wonderful site where you can buy all you want.</p>
+				<p><a href="products.xhtml" class="btn btn-lg btn-info">Products »</a></p>
 
-
-	<f:view afterPhase="#{portal.clean}">
-		<center>
-			<h2>
-				<h:outputLabel value="#{portal.message}" rendered="#{portal.isSignedIn()}"/>
-			</h2>
-			
-			<div>
-				<h:panelGroup rendered="#{portal.isSignedIn() == false}">
-					<h:outputLabel value="You are currently not signed in."/>
-					<br/>
-					<h:link outcome="user_signin" value="Sign in"/> or <h:link outcome="user_signup" value="sign up"/>.<br/>
-					If you are an admin, please sign in <h:link outcome="admin_signin" value="here"/>.<br/><br/><br/><br/>
-				</h:panelGroup>
-			</div>
-			
-			<div>
-				To view the product catalog, please click <h:link outcome="products" value="here"/>.
-			</div>
-			
-			<div>
-				<h:panelGroup rendered="#{userController.isSignedIn()}">
-					<br/>
-					<br/>
-					<h:form>Make new <h:commandLink action="#{orderController.createOrder()}" value="order"></h:commandLink>.</h:form>
-					<h:form>My <h:commandLink action="#{orderController.findOrders(userController.currentUser.id)}" value="orders"></h:commandLink>.</h:form>
-					<br/>
-					View <h:link outcome="products" value="product catalog" />.
-				</h:panelGroup>
-				
-				<h:panelGroup rendered="#{adminController.isSignedIn()}">
-					To add a product, please click <h:link outcome="new_product" value="here"/>.<br/>
-					To view providers, please click <h:link outcome="providers" value="here"/>.
-					<h:form>To view all orders, please click 
-						<h:commandLink action="#{orderController.findConfirmedOrders()}" value="here"></h:commandLink>.
-					</h:form>
-				</h:panelGroup>
-			</div>
-		</center>
-	</f:view>
-	
-	<hr></hr>
-    <p> © eCommerce 2014</p>
+				<f:view afterPhase="#{portal.clean}">
+						<h2>
+							<h:outputLabel value="#{portal.message}" rendered="#{portal.isSignedIn()}"/>
+						</h2>
+						
+						<div>
+							<h:panelGroup rendered="#{portal.isSignedIn() == false}">
+								<h:outputLabel value="You are currently not signed in."/>
+								<br/>
+								<h:link outcome="user_signin" value="Sign in"/> or <h:link outcome="user_signup" value="sign up"/>.<br/>
+								If you are an admin, please sign in <h:link outcome="admin_signin" value="here"/>.<br/><br/><br/><br/>
+							</h:panelGroup>
+						</div>
+						
+						<div>
+							<h:panelGroup rendered="#{userController.isSignedIn()}">
+								<br/>
+								<br/>
+								<h:form>Make new <h:commandLink action="#{orderController.createOrder()}" value="order"></h:commandLink>.</h:form>
+								<h:form>My <h:commandLink action="#{orderController.findOrders(userController.currentUser.id)}" value="orders"></h:commandLink>.</h:form>
+							</h:panelGroup>
+							
+							<h:panelGroup rendered="#{adminController.isSignedIn()}">
+								To add a product, please click <h:link outcome="new_product" value="here"/>.<br/>
+								To view providers, please click <h:link outcome="providers" value="here"/>.
+								<h:form>To view all confirmed orders, please click 
+									<h:commandLink action="#{orderController.findConfirmedOrders()}" value="here"></h:commandLink>.
+								</h:form>
+								<h:form>To view all orders, please click 
+									<h:commandLink action="#{orderController.findAllOrders()}" value="here"></h:commandLink>.
+								</h:form>
+							</h:panelGroup>
+						</div>
+				</f:view>
+			</b:jumbotron>
+		</b:container>
+    </div>
+	<div id="footer">
+		<hr></hr>
+	    <p> © eCommerce 2014</p>
+	</div>
 </h:body>
 </html>

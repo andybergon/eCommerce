@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<title>eCommerce</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
+</h:head>
+<h:body>
+	<div id="header">
+	<ui:include src="templates/info-box.xhtml"/>
+	</div>
+	<div id ="container">
+		<b:container>
+			<b:jumbotron>
+				<h:panelGroup rendered="#{adminController.isSignedIn()}">
+					<b:row><h1>Order Creator Details</h1></b:row>
+					<b:row>First Name: #{orderController.order.creator.firstName}</b:row>
+					<b:row>Last Name: #{orderController.order.creator.firstName}</b:row>
+					<b:row>eMail: #{orderController.order.creator.email}</b:row>
+					<b:row>Telephone: #{orderController.order.creator.phoneNumber}</b:row>
+					<b:row>Date of Birth: #{orderController.order.creator.dateOfBirth}</b:row>
+					<br/>
+					<b:row>Address: #{orderController.order.creator.address.street}</b:row>
+					<b:row>City: #{orderController.order.creator.address.city}</b:row>
+					<b:row>Zip Code: #{orderController.order.creator.address.zipcode}</b:row>
+					<b:row>State: #{orderController.order.creator.address.state}</b:row>
+					<b:row>Country: #{orderController.order.creator.address.country}</b:row>
+				</h:panelGroup>
+			</b:jumbotron>
+		</b:container>
+    </div>
+</h:body>
+</html>
