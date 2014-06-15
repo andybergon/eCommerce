@@ -11,7 +11,7 @@
 </h:head>
 
 <h:body>
-	<ui:include src="templates/info-box.xhtml"/>
+	<ui:include src="templates/nav-bar.xhtml"/>
 	<h:panelGroup rendered="#{userController.isSignedIn()}">
 		<h1>My Orders</h1>
 		<h:dataTable var="order" value="#{orderController.orders}">

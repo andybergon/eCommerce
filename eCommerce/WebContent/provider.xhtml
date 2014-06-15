@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
 </h:head>
 <h:body>
-	<ui:include src="templates/info-box.xhtml"/>
+	<ui:include src="templates/nav-bar.xhtml"/>
 	<h:panelGroup rendered="#{adminController.isSignedIn()}">
 		<center>
 			<h3 style="color: red;"><h:outputLabel value="#{portal.message}"/></h3>
