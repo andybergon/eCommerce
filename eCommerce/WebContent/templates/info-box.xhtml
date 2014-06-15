@@ -1,26 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<div align="right">
-		<div>
-			<span style="color: white;">
-				<h:outputLabel value="Signed in as " rendered="#{portal.isSignedIn()}" />
-			</span>
-			<span style="color: white; font-weight: bold;">
-				<h:outputLabel value="USER" rendered="#{userController.isSignedIn()}" />
-			</span>
-			<span style="color: white; font-weight: bold;">
-				<h:outputLabel value="ADMIN" rendered="#{adminController.isSignedIn()}" />
-			</span>
-			<span style="color: yellow">
-				<h:outputLabel value="#{userController.currentUser.firstName}" rendered="#{portal.isSignedIn()}" />
-				<h:outputLabel value="#{adminController.currentAdmin.email}" rendered="#{portal.isSignedIn()}" />
-			</span>
-			<h:form rendered="#{portal.isSignedIn()}">
-				<h:commandLink action="#{userController.signOut}" value="Sign out" rendered="#{userController.isSignedIn()}"></h:commandLink>
-				<h:commandLink action="#{adminController.signOut}" value="Sign out" rendered="#{adminController.isSignedIn()}"></h:commandLink>
-			</h:form>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+	<b:navBar brand="eCommerce" brandHref="index.xhtml" fixed="top" inverse="true">
+		<b:navbarLinks>
+			<b:navLink value="Home" href="index.xhtml"></b:navLink>
+			<b:navLink value="About" href="about.xhtml"></b:navLink>
+			<b:navLink value="Contact" href="contact.xhtml"></b:navLink>
+		</b:navbarLinks>
+		<div align="right">
+			<div>
+				<span style="color: white;">
+					<h:outputLabel value="Signed in as " rendered="#{portal.isSignedIn()}" />
+				</span>
+				<span style="color: white; font-weight: bold;">
+					<h:outputLabel value="USER" rendered="#{userController.isSignedIn()}" />
+				</span>
+				<span style="color: white; font-weight: bold;">
+					<h:outputLabel value="ADMIN" rendered="#{adminController.isSignedIn()}" />
+				</span>
+				<span style="color: yellow">
+					<h:outputLabel value="#{userController.currentUser.firstName}" rendered="#{portal.isSignedIn()}" />
+					<h:outputLabel value="#{adminController.currentAdmin.email}" rendered="#{portal.isSignedIn()}" />
+				</span>
+				<h:form rendered="#{portal.isSignedIn()}">
+					<h:commandLink action="#{userController.signOut}" value="Sign out" rendered="#{userController.isSignedIn()}"></h:commandLink>
+					<h:commandLink action="#{adminController.signOut}" value="Sign out" rendered="#{adminController.isSignedIn()}"></h:commandLink>
+				</h:form>
+			</div>
 		</div>
-	</div>
+	</b:navBar>
 </ui:composition>
