@@ -1,8 +1,10 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,9 +21,12 @@ public class OrderLine {
 
 	private Float unitPrice;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@Column(nullable = false)
 	private Product product;
+
+	@OneToOne
+	private Provider confirmedProvider;
 
 	public OrderLine() {
 	}
@@ -59,6 +64,22 @@ public class OrderLine {
 		this.quantity -= quantity;
 	}
 
+	public void shipOrderLine() {
+		List<ProductSupply> supplyCandidates = new ArrayList<ProductSupply>();
+
+		for (ProductSupply ps : this.product.getSupplies()) {
+			if (ps.getQuantity() >= this.quantity)
+				supplyCandidates.add(ps);
+		}
+
+		int n = (int) (Math.random() * supplyCandidates.size());
+
+		ProductSupply randomSupply = supplyCandidates.get(n);
+
+		randomSupply.decrementQuantity(this.quantity);
+		this.setConfirmedProvider(randomSupply.getProvider());
+	}
+
 	// getters & setters
 	public Integer getQuantity() {
 		return quantity;
@@ -82,6 +103,14 @@ public class OrderLine {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Provider getConfirmedProvider() {
+		return confirmedProvider;
+	}
+
+	public void setConfirmedProvider(Provider confirmedProvider) {
+		this.confirmedProvider = confirmedProvider;
 	}
 
 	@Override
