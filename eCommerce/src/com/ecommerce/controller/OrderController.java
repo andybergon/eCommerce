@@ -32,9 +32,6 @@ public class OrderController {
 	@ManagedProperty(value = "#{userController}")
 	private UserController userController;
 
-	@ManagedProperty(value = "#{portal}")
-	private ECommercePortal portal;
-
 	private Long id;
 	private Date creationDate;
 	private Date confirmationDate;
@@ -103,8 +100,6 @@ public class OrderController {
 		boolean allProductsHaveProvider = true;
 		for (OrderLine ol : this.order.getOrderLines())
 			if (!ol.getProduct().hasProvider()) {
-				Product p = ol.getProduct();
-				this.portal.setMessage("Sorry, product " + p.getCode() + " (" + p.getName() + ") does not have any providers.");
 				allProductsHaveProvider = false;
 				break;
 			}
@@ -214,14 +209,6 @@ public class OrderController {
 
 	public void setProductSupplyFacade(ProductSupplyFacade productSupplyFacade) {
 		this.productSupplyFacade = productSupplyFacade;
-	}
-
-	public ECommercePortal getPortal() {
-		return portal;
-	}
-
-	public void setPortal(ECommercePortal portal) {
-		this.portal = portal;
 	}
 
 	public User getCreator() {

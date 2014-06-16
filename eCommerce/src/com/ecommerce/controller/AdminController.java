@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.PhaseEvent;
 
 import com.ecommerce.facade.AdminFacade;
 import com.ecommerce.model.Admin;
@@ -21,8 +22,8 @@ public class AdminController {
 	private ECommercePortal portal;
 
 	private Admin currentAdmin;
-
 	private Credentials credentials;
+	private String message;
 
 	public AdminController() {
 	}
@@ -42,14 +43,14 @@ public class AdminController {
 				if (admin.checkPassword(password)) {
 					this.portal.setSignedInState(SignedInState.ADMIN_SIGNED_IN);
 					this.currentAdmin = admin;
-					this.portal.setMessage("You have successfuly signed in.");
+					this.setMessage("You have successfuly signed in.");
 					return "index" + Utils.REDIRECT;
 				} else
-					this.portal.setMessage("Incorrect password.");
+					this.setMessage("Incorrect password.");
 			} else
-				this.portal.setMessage("E-mail provided is not registered.");
+				this.setMessage("E-mail provided is not registered.");
 		} else
-			this.portal.setMessage("You must be signed out to perform this action.");
+			this.setMessage("You must be signed out to perform this action.");
 
 		return "admin_signin" + Utils.REDIRECT;
 	}
@@ -64,12 +65,24 @@ public class AdminController {
 		return this.portal.getSignedInState() == SignedInState.ADMIN_SIGNED_IN;
 	}
 
+	public void clean(PhaseEvent event) {
+		this.message = null;
+	}
+
 	public Credentials getCredentials() {
 		return credentials;
 	}
 
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public AdminFacade getAdminFacade() {

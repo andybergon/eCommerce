@@ -6,34 +6,36 @@
 	template="templates/default.xhtml">
 	<ui:define name="content">
 		<div class="hero-unit">
-			<h1>Administration sign in</h1>
-			<br />
-			<h2>Please fill in your credentials.</h2>
-			<h3>You must be an administrator to continue.</h3>
-			<h2><h:outputLabel value="#{portal.message}" style="color: red;"/></h2>
-			<br />
-			<h:form>
-				<table>
-					<tr>
-						<td>E-mail</td>
-						<td>
-							<h:inputText value="#{adminController.credentials.email}" required="true" requiredMessage="Email is mandatory" id="email"></h:inputText>
-							<h:message for="email" styleClass="error"/>
-						</td>
-					</tr>
-					<tr>
-						<td>Password&#160;&#160;&#160;</td>
-						<td>
-							<h:inputSecret value="#{adminController.credentials.password}" required="true" requiredMessage="Password is mandatory" id="password">
-							</h:inputSecret>
-							<h:message for="password" styleClass="error"/>
-						</td>
-					</tr>
-				</table>
+			<f:view afterPhase="#{adminController.clean}">
+				<h1>Administration sign in</h1>
 				<br />
-				<h:commandButton styleClass="btn btn-inverse btn-large"
-					action="#{adminController.signIn}" value="Sign in »"></h:commandButton>
-			</h:form>
+				<h2>Please fill in your credentials.</h2>
+				<h3>You must be an administrator to continue.</h3>
+				<br />
+				<h:outputLabel value="#{adminController.message}" style="font-size: 18px; color: red;"/>
+				<h:form>
+					<table>
+						<tr>
+							<td>E-mail</td>
+							<td>
+								<h:inputText value="#{adminController.credentials.email}" required="true" requiredMessage="Email is mandatory" id="email"></h:inputText>
+								<h:message for="email" styleClass="error"/>
+							</td>
+						</tr>
+						<tr>
+							<td>Password&#160;&#160;&#160;</td>
+							<td>
+								<h:inputSecret value="#{adminController.credentials.password}" required="true" requiredMessage="Password is mandatory" id="password">
+								</h:inputSecret>
+								<h:message for="password" styleClass="error"/>
+							</td>
+						</tr>
+					</table>
+					<br />
+					<h:commandButton styleClass="btn btn-inverse btn-large"
+						action="#{adminController.signIn}" value="Sign in »"></h:commandButton>
+				</h:form>
+			</f:view>
 		</div>
 	</ui:define>
 </ui:composition>

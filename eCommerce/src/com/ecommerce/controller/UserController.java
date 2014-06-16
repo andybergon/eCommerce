@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.PhaseEvent;
 
 import com.ecommerce.facade.OrderFacade;
 import com.ecommerce.facade.UserFacade;
@@ -34,6 +35,7 @@ public class UserController {
 	private User newUser;
 	private User orderCreator;
 	private Long orderId;
+	private String message;
 
 	public UserController() {
 	}
@@ -60,15 +62,14 @@ public class UserController {
 				if (user.checkPassword(password)) {
 					this.portal.setSignedInState(SignedInState.USER_SIGNED_IN);
 					this.currentUser = user;
-					this.portal
-					.setMessage("You have successfuly signed in. Welcome back, " + user.getFirstName() + "!");
+					this.setMessage("You have successfuly signed in. Welcome back, " + user.getFirstName() + "!");
 					return "index" + Utils.REDIRECT;
 				} else
-					this.portal.setMessage("Incorrect password.");
+					this.setMessage("Incorrect password.");
 			} else
-				this.portal.setMessage("E-mail provided is not registered.");
+				this.setMessage("E-mail provided is not registered.");
 		} else
-			this.portal.setMessage("You must be signed out to perform this action.");
+			this.setMessage("You must be signed out to perform this action.");
 
 		return "user_signin" + Utils.REDIRECT;
 	}
@@ -81,11 +82,11 @@ public class UserController {
 
 	public String signUp() {
 		if (this.portal.isSignedIn())
-			this.portal.setMessage("You must be signed out to perform this action.");
+			this.setMessage("You must be signed out to perform this action.");
 		else {
 			boolean userExists = this.userFacade.findUser(newUser.getEmail()) != null;
 			if (userExists)
-				this.portal.setMessage("A user with this e-mail already exists.");
+				this.setMessage("A user with this e-mail already exists.");
 			else {
 				this.newUser.setRegistrationDate(new Date());
 				this.userFacade.create(newUser);
@@ -114,6 +115,10 @@ public class UserController {
 			return "order_creator" + Utils.REDIRECT;
 		}
 		return "orders_all" + Utils.REDIRECT;
+	}
+
+	public void clean(PhaseEvent event) {
+		this.message = null;
 	}
 
 	public Credentials getCredentials() {
@@ -179,6 +184,14 @@ public class UserController {
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

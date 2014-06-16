@@ -56,7 +56,7 @@ body {
 												action="#{productController.findAllProducts()}">
 											</h:commandLink>
 										</h:panelGroup>
-										<h:panelGroup rendered="#{portal.isSignedIn() == false}">
+										<h:panelGroup rendered="#{portal.isSignedIn() == false or userController.isSignedIn()}">
 											<h:commandLink value="View All Products"
 												action="#{productController.findAllProductsWithProviders()}">
 											</h:commandLink>

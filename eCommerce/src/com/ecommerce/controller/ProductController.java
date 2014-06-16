@@ -9,7 +9,6 @@ import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.ProductFacade;
 import com.ecommerce.model.Product;
-import com.ecommerce.model.SignedInState;
 import com.ecommerce.utils.Utils;
 
 @ManagedBean
@@ -36,15 +35,10 @@ public class ProductController {
 	}
 
 	public String confirmProduct() {
-		if (this.portal.getSignedInState().equals(SignedInState.ADMIN_SIGNED_IN)) {
-			this.productFacade.create(newProduct);
-			this.currentProduct = newProduct;
-			this.newProduct = new Product();
-			return "product" + Utils.REDIRECT;
-		} else {
-			this.portal.setMessage("You must be an admin to perform this action.");
-			return "new_product" + Utils.REDIRECT;
-		}
+		this.productFacade.create(newProduct);
+		this.currentProduct = newProduct;
+		this.newProduct = new Product();
+		return "product" + Utils.REDIRECT;
 	}
 
 	public String findAllProducts() {
