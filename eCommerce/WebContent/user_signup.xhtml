@@ -21,6 +21,7 @@
 							requiredMessage="E-mail is mandatory" validatorMessage="Email name is too long">
 							<f:validateLength maximum="255" />
 						</h:inputText>
+						<h:message for="email" styleClass="error"/>
 					</td>
 					</tr>
 					<tr>
@@ -60,7 +61,7 @@
 					</td>
 					</tr>
 					<tr>
-					<td>Date Of Birth<br />(dd-mm-yyy)</td>
+					<td>Date Of Birth<br />(dd-mm-yyyy)</td>
 					<td>
 						<h:inputText id="dateOfBirth" value="#{userController.newUser.dateOfBirth}">
 							<f:convertDateTime pattern="dd-mm-yyyy"/>
