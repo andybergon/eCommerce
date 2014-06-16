@@ -25,19 +25,32 @@ public class UserController {
 	@ManagedProperty(value = "#{portal}")
 	private ECommercePortal portal;
 
-	private User currentUser;
-
-	private User newUser;
-
-	private User user;
-
 	private Credentials credentials;
+	private User currentUser;
+	private User newUser;
+	private User orderCreator;
+
+	public User getOrderCreator() {
+		return orderCreator;
+	}
+
+	public void setOrderCreator(User orderCreator) {
+		this.orderCreator = orderCreator;
+	}
 
 	public UserController() {
+	}
+
+	public String createCredentials() {
 		this.credentials = new Credentials();
+		return "user_signin" + Utils.REDIRECT;
+	}
+
+	public String createNewUser() {
 		this.newUser = new User();
 		this.newUser.setAddress(new Address());
 		this.newUser.setOrders(new ArrayList<Order>());
+		return "user_signup" + Utils.REDIRECT;
 	}
 
 	public String signIn() {
@@ -92,7 +105,7 @@ public class UserController {
 	}
 
 	public String findUserByOrder(User creator) {
-		this.setUser(creator);
+		this.orderCreator = creator;
 		return "order_creator" + Utils.REDIRECT;
 	}
 
@@ -134,13 +147,5 @@ public class UserController {
 
 	public void setNewUser(User newUser) {
 		this.newUser = newUser;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 }

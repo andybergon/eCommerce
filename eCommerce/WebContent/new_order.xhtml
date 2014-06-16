@@ -46,7 +46,7 @@
 									</c:forEach>
 								</h:selectOneMenu>
 								&#160;
-								<h:commandLink value="add" action="#{orderController.addProductToOrder(product.id)}"
+								<h:commandLink value="add" action="#{orderController.addProductToOrder(product)}"
 									styleClass="btn btn-inverse">
 								</h:commandLink>
 						</h:column>
@@ -60,10 +60,10 @@
 							value="#{orderController.order.orderLines}"
 							styleClass="table table-striped table-bordered">
 						<h:column>
-							<f:facet name="header">ID</f:facet>
+							<f:facet name="header">Code</f:facet>
 								<h:commandLink
 									action="#{productController.findProduct(orderLine.product.id)}"
-									value="#{orderLine.product.id}">
+									value="#{orderLine.product.code}">
 								</h:commandLink>
 						</h:column>
 						<h:column>

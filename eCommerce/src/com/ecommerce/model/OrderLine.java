@@ -81,7 +81,7 @@ public class OrderLine {
 		ProductSupply randomSupply = supplyCandidates.get(n);
 
 		randomSupply.decrementQuantity(this.quantity);
-		this.setConfirmedProvider(randomSupply.getProvider());
+		this.confirmedProvider = randomSupply.getProvider();
 	}
 
 	// getters & setters

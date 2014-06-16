@@ -25,7 +25,11 @@ public class AdminController {
 	private Credentials credentials;
 
 	public AdminController() {
+	}
+
+	public String createCredentials() {
 		this.credentials = new Credentials();
+		return "admin_signin" + Utils.REDIRECT;
 	}
 
 	public String signIn() {

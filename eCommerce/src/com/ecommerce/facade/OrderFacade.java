@@ -1,6 +1,5 @@
 package com.ecommerce.facade;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -65,7 +64,8 @@ public class OrderFacade extends AbstractFacade<Order> {
 
 	public void shipOrder(Long orderId) {
 		Order order = this.em.find(Order.class, orderId);
-		order.setShipmentDate(new Date());
+		order.shipOrder();
+		this.em.persist(order);
 	}
 
 	// not needed?

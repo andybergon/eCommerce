@@ -8,95 +8,114 @@
 		<div class="hero-unit">
 			<h1>Sign up to eCommerce!</h1>
 			<br />
+			<h2>Registered users may conveniently place orders, and review their current status.</h2>
+			<br />
 			<h:form>
-				<h:dataTable var="user" value="#{userController.newUser}"
-						styleClass="table table-striped table-bordered">
-					<h:column>
-						<f:facet name="header">E-Mail</f:facet>
-						<h:inputText id="email" value="#{user.email}" required="true"
-							requiredMessage="E-mail is mandatory" validatorMessage="Email name is too long">
-							<f:validateLength maximum="255" />
-						</h:inputText>
-						<h:message for="email" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Password</f:facet>
-						<h:inputSecret id="password" value="#{user.password}" required="true" requiredMessage="Password is mandatory" validatorMessage="Password name is too long">
-							<f:validateLength maximum="255" />
-						</h:inputSecret>
-						<h:message for="password" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">First Name</f:facet>
-						<h:inputText id="firstName" value="#{user.firstName}" required="true" requiredMessage="First name is mandatory" validatorMessage="Frist name is too long">
-							<f:validateLength maximum="255" />
-						</h:inputText>
-						<h:message for="firstName" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Last Name</f:facet>
-						<h:inputText id="lastName" value="#{user.lastName}" required="true" requiredMessage="Last name is mandatory" validatorMessage="Last name is too long">
-							<f:validateLength maximum="255" />
-						</h:inputText>
-						<h:message for="lastName" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Phone Number</f:facet>
-						<h:inputText id="phoneNumber" value="#{user.phoneNumber}" validatorMessage="Phone number be between 3 and 50 charachters in length">
-							<f:validateLength minimum="3" maximum="50" />
-						</h:inputText>
-						<h:message for="phoneNumber" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Date Of Birth<br/>(dd-mm-yyyy)</f:facet>
-						<h:inputText id="dateOfBirth" value="#{user.dateOfBirth}">
-							<f:convertDateTime pattern="dd-mm-yyyy"/>
-						</h:inputText>
-						<h:message for="dateOfBirth" styleClass="error"/>
-					</h:column>
-					</h:dataTable>
-					<br />
+				<table>
+				<tr>
+				<td>E-Mail</td>
+				<td>
+					<h:inputText id="email" value="#{userController.newUser.email}" required="true"
+						requiredMessage="E-mail is mandatory" validatorMessage="Email name is too long">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+				</td>
+				</tr>
+				<tr>
+				<td>Password</td>
+				<td>
+					<h:inputSecret id="password" value="#{userController.newUser.password}" required="true" requiredMessage="Password is mandatory" validatorMessage="Password name is too long">
+						<f:validateLength maximum="255" />
+					</h:inputSecret>
+					<h:message for="password" styleClass="error"/>
+				</td>
+				</tr>
+				<tr>
+				<td>First Name</td>
+				<td>
+					<h:inputText id="firstName" value="#{userController.newUser.firstName}" required="true" requiredMessage="First name is mandatory" validatorMessage="Frist name is too long">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:message for="firstName" styleClass="error"/>
+				</td>
+				</tr>
+				<tr>
+				<td>Last Name</td>
+				<td>
+					<h:inputText id="lastName" value="#{userController.newUser.lastName}" required="true" requiredMessage="Last name is mandatory" validatorMessage="Last name is too long">
+						<f:validateLength maximum="255" />
+					</h:inputText>
+					<h:message for="lastName" styleClass="error"/>
+				</td>
+				</tr>
+				<tr>
+				<td>Phone Number&#160;&#160;&#160;</td>
+				<td>
+					<h:inputText id="phoneNumber" value="#{userController.newUser.phoneNumber}" validatorMessage="Phone number be between 3 and 50 charachters in length">
+						<f:validateLength minimum="3" maximum="50" />
+					</h:inputText>
+					<h:message for="phoneNumber" styleClass="error"/>
+				</td>
+				</tr>
+				<tr>
+				<td>Date Of Birth<br />(dd-mm-yyy)</td>
+				<td>
+					<h:inputText id="dateOfBirth" value="#{userController.newUser.dateOfBirth}">
+						<f:convertDateTime pattern="dd-mm-yyyy"/>
+					</h:inputText>
+					<h:message for="dateOfBirth" styleClass="error"/>
+				</td>
+				</tr>
+				</table>
+				<br />
 					<h3>Address</h3>
-					<h:dataTable var="address" value="#{userController.newUser.address}"
-						styleClass="table table-striped table-bordered">
-						<h:column>
-							<f:facet name="header">Country</f:facet>
-							<h:inputText id="country" value="#{address.country}" required="true" requiredMessage="Country is mandatory" validatorMessage="Country name is too long">
-								<f:validateLength maximum="255" />
-							</h:inputText>
-							<h:message for="country" styleClass="error"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">State</f:facet>
-							<h:inputText id="state" value="#{address.state}" required="true" requiredMessage="State is mandatory" validatorMessage="State name is too long">
-									<f:validateLength maximum="255" /></h:inputText>
-							<h:message for="state" styleClass="error"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">City</f:facet>
-							<h:inputText id="city" value="#{address.city}" required="true" requiredMessage="City is mandatory" validatorMessage="City name is too long">
+					<table>
+					<tr>
+					<td>Country</td>
+					<td>
+						<h:inputText id="country" value="#{userController.newUser.address.country}" required="true" requiredMessage="Country is mandatory" validatorMessage="Country name is too long">
+							<f:validateLength maximum="255" />
+						</h:inputText>
+						<h:message for="country" styleClass="error"/>
+					</td>
+					</tr>
+					<tr>
+					<td>State</td>
+					<td>
+						<h:inputText id="state" value="#{userController.newUser.address.state}" required="true" requiredMessage="State is mandatory" validatorMessage="State name is too long">
 								<f:validateLength maximum="255" /></h:inputText>
-							<h:message for="city" styleClass="error"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">Zipcode</f:facet>
-							<h:inputText id="zipcode" value="#{address.zipcode}" required="true" requiredMessage="Zipcode is mandatory"></h:inputText>
-							<h:message for="zipcode" styleClass="error"/>
-						</h:column>
-						<h:column>
-							<f:facet name="header">Street</f:facet>
-							<h:inputText id="street" value="#{address.street}" required="true" requiredMessage="Street is mandatory" validatorMessage="Street name is too long">
-								<f:validateLength maximum="255" />
-							</h:inputText>
-							<h:message for="street" styleClass="error"/>
-						</h:column>
-					</h:dataTable>
+						<h:message for="state" styleClass="error"/>
+					</td>
+					</tr>
+					<tr>
+					<td>City</td>
+					<td>
+						<h:inputText id="city" value="#{userController.newUser.address.city}" required="true" requiredMessage="City is mandatory" validatorMessage="City name is too long">
+							<f:validateLength maximum="255" /></h:inputText>
+						<h:message for="city" styleClass="error"/>
+					</td>
+					</tr>
+					<tr>
+					<td>Zipcode&#160;&#160;&#160;</td>
+					<td>
+						<h:inputText id="zipcode" value="#{userController.newUser.address.zipcode}" required="true" requiredMessage="Zipcode is mandatory"></h:inputText>
+						<h:message for="zipcode" styleClass="error"/>
+					</td>
+					</tr>
+					<tr>
+					<td>Street</td>
+					<td>
+						<h:inputText id="street" value="#{userController.newUser.address.street}" required="true" requiredMessage="Street is mandatory" validatorMessage="Street name is too long">
+							<f:validateLength maximum="255" />
+						</h:inputText>
+						<h:message for="street" styleClass="error"/>
+					</td>
+					</tr>
+					</table>
 					<br />
 					<br />
 				<h:commandButton action="#{userController.signUp}" value="Sign up"></h:commandButton>
 			</h:form>
-			<br/><br/>
-			<h:link outcome="index" value="Return to home"/>
 		</div>
 	</ui:define>
 </ui:composition>

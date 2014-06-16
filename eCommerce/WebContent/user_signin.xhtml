@@ -13,22 +13,25 @@
 			<h3>If you are having trouble signing in please contact an administrator.</h3>
 			<br />
 			<h:form>
-				<h:dataTable var="uc" value="#{userController}"
-					styleClass="table table-striped table-bordered">
-					<h:column>
-						<f:facet name="header">E-Mail</f:facet>
-						<h:inputText value="#{uc.credentials.email}" required="true"
+				<table>
+					<tr>
+					<td>E-Mail</td>
+					<td>
+						<h:inputText value="#{userController.credentials.email}" required="true"
 							requiredMessage="E-mail is mandatory" id="email"></h:inputText>
 						<h:message for="email" styleClass="error"/>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Password</f:facet>
-						<h:inputSecret value="#{uc.credentials.password}" required="true"
+					</td>
+					</tr>
+					<tr>
+					<td>Password&#160;&#160;&#160;</td>
+					<td>
+						<h:inputSecret value="#{userController.credentials.password}" required="true"
 							requiredMessage="Password is mandatory" id="password">
 						</h:inputSecret>
 						<h:message for="password" styleClass="error"/>
-					</h:column>
-				</h:dataTable>
+					</td>
+					</tr>
+				</table>
 				<br />
 				<br />
 				<h:commandButton styleClass="btn btn-inverse btn-large"

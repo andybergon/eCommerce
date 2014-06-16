@@ -67,23 +67,20 @@ public class OrderController {
 		return "orders_all" + Utils.REDIRECT;
 	}
 
-	public String addProductToOrder(Long productId) {
+	public String addProductToOrder(Product product) {
 		Integer quantity = Integer.parseInt(this.quantity);
-		if (quantity > 0) {
-			Product product = this.productFacade.find(productId);
-			Float unitPrice = product.getPrice();
-			boolean alreadyPresent = false;
-			for (OrderLine orderLine : this.order.getOrderLines()) {
-				if (orderLine.getProduct().getId().equals(productId)) {
-					alreadyPresent = true;
-					// change existing order line
-					orderLine.addQuantity(quantity);
-				}
+		Float unitPrice = product.getPrice();
+		boolean alreadyPresent = false;
+		for (OrderLine orderLine : this.order.getOrderLines()) {
+			if (orderLine.getProduct().getId().equals(product.getId())) {
+				alreadyPresent = true;
+				orderLine.addQuantity(quantity);
+				break;
 			}
-			if (!alreadyPresent) {
-				OrderLine orderLine = new OrderLine(quantity, unitPrice, product);
-				this.order.addOrderLine(orderLine);
-			}
+		}
+		if (!alreadyPresent) {
+			OrderLine orderLine = new OrderLine(quantity, unitPrice, product);
+			this.order.addOrderLine(orderLine);
 		}
 		this.quantity = "0";
 		return "new_order" + Utils.REDIRECT;

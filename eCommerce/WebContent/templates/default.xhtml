@@ -105,10 +105,18 @@ body {
 								<li class="dropdown">
 									<a href="#" data-toggle="dropdown" class="dropdown-toggle">Enter <b class="caret"></b></a>
 									<ul class="dropdown-menu">
-										<li><a href="user_signin.xhtml">Sign in</a></li>
-										<li><a href="user_signup.xhtml">Register</a></li>
-										<li class="divider"></li>
-										<li><a href="admin_signin.xhtml">Administration</a></li>
+										<li>
+											<h:commandLink value="Sign in"
+												action="#{userController.createCredentials()}"></h:commandLink>
+										</li>
+										<li>
+											<h:commandLink value="Register"
+												action="#{userController.createNewUser()}"></h:commandLink>
+										</li>
+										<li>
+											<h:commandLink value="Administration"
+												action="#{adminController.createCredentials()}"></h:commandLink>
+										</li>
 									</ul>
 								</li>
 							</h:panelGroup>
@@ -119,7 +127,7 @@ body {
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-												<h:commandLink value="Sign out" action="#{userController.signOut()}"></h:commandLink>	
+											<h:commandLink value="Sign out" action="#{userController.signOut()}"></h:commandLink>	
 										</li>
 									</ul>
 								</li>
@@ -127,11 +135,11 @@ body {
 							<h:panelGroup rendered="#{adminController.isSignedIn()}">
 								<li class="dropdown">
 									<a href="#" data-toggle="dropdown"
-										class="dropdown-toggle">#{adminController.currentAdmin.email} <b class="caret"></b>
+										class="dropdown-toggle">ADMIN #{adminController.currentAdmin.email} <b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-												<h:commandLink value="Sign out" action="#{adminController.signOut()}"></h:commandLink>
+											<h:commandLink value="Sign out" action="#{adminController.signOut()}"></h:commandLink>
 										</li>
 									</ul>
 								</li>

@@ -94,6 +94,12 @@ public class Order {
 		return true;
 	}
 
+	public void shipOrder() {
+		for (OrderLine ol : this.orderLines)
+			ol.shipOrderLine();
+		this.shipmentDate = new Date();
+	}
+
 	public boolean isEmpty() {
 		return this.orderLines.isEmpty();
 	}
