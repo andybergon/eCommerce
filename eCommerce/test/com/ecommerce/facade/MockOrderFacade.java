@@ -1,4 +1,4 @@
-package com.ecommerce.model;
+package com.ecommerce.facade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;

@@ -31,7 +31,7 @@
 		<class>com.ecommerce.model.Order</class>
 		<class>com.ecommerce.model.OrderLine</class>
 		<class>com.ecommerce.model.Product</class>
-		<class>com.ecommerce.model.ProductRegister</class>
+		<class>com.ecommerce.model.ProductSupply</class>
 		<class>com.ecommerce.model.Provider</class>
 		<class>com.ecommerce.model.User</class>
 		<properties>
@@ -51,7 +51,7 @@
 			<property
 				name="openjpa.jdbc.DBDictionary"
 				value="postgres" />
-			<!-- SchemaAction=deleteTableContents, should be removed to create tables -->
+			<!-- SchemaAction=deleteTableContents, should be removed to create tables the first time -->
 			<property
 				name="openjpa.jdbc.SynchronizeMappings"
 				value="buildSchema(SchemaAction=add,SchemaAction=deleteTableContents,ForeignKeys=true)" />
