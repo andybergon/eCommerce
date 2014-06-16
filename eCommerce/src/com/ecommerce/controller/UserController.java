@@ -49,6 +49,7 @@ public class UserController {
 		this.newUser = new User();
 		this.newUser.setAddress(new Address());
 		this.newUser.setOrders(new ArrayList<Order>());
+		this.credentials = new Credentials();
 		return "user_signup" + Utils.REDIRECT;
 	}
 
