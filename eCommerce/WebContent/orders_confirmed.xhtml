@@ -9,7 +9,8 @@
 			<h:panelGroup rendered="#{adminController.isSignedIn()}">
 				<h1>Confirmed Orders</h1>
 				<h2>The following are all the confirmed orders that have not yet been shipped.</h2>
-				<h:dataTable var="order" value="#{orderController.orders}" class="ctable">
+				<h:dataTable var="order" value="#{orderController.orders}"
+					styleClass="table table-striped table-bordered">
 					<h:column>
 						<f:facet name="header">Order ID</f:facet>
 						<h:form>
@@ -22,7 +23,7 @@
 					<h:column>
 						<f:facet name="header">Confirmation Date</f:facet>
 						<h:outputText value="#{order.confirmationDate}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
+							<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
 						</h:outputText>
 					</h:column>
 					
