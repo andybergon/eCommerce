@@ -6,38 +6,40 @@
 	template="templates/default.xhtml">
 	<ui:define name="content">
 		<div class="hero-unit">
-			<h1>Sign in</h1>
-			<br />
-			<h2>Please fill in your credentials.</h2>
-			<h2><h:outputLabel value="#{portal.message}" style="color: red;"/></h2>
-			<h3>If you are having trouble signing in please contact an administrator.</h3>
-			<br />
-			<h:form>
-				<table>
-					<tr>
-					<td>E-Mail</td>
-					<td>
-						<h:inputText value="#{userController.credentials.email}" required="true"
-							requiredMessage="E-mail is mandatory" id="email"></h:inputText>
-						<h:message for="email" styleClass="error"/>
-					</td>
-					</tr>
-					<tr>
-					<td>Password&#160;&#160;&#160;</td>
-					<td>
-						<h:inputSecret value="#{userController.credentials.password}" required="true"
-							requiredMessage="Password is mandatory" id="password">
-						</h:inputSecret>
-						<h:message for="password" styleClass="error"/>
-					</td>
-					</tr>
-				</table>
+			<f:view afterPhase="#{userController.clean}">
+				<h1>Sign in</h1>
 				<br />
+				<h2>Please fill in your credentials.</h2>
+				<h3>If you are having trouble signing in please contact an administrator.</h3>
 				<br />
-				<h:commandButton value="Sign in »" action="#{userController.signIn}"
-					styleClass="btn btn-inverse btn-large">
-				</h:commandButton>
-			</h:form>
+				<h:outputLabel value="#{userController.message}" style="font-size: 18px; color: red;"/>
+				<h:form>
+					<table>
+						<tr>
+						<td>E-Mail</td>
+						<td>
+							<h:inputText value="#{userController.credentials.email}" required="true"
+								requiredMessage="E-mail is mandatory" id="email"></h:inputText>
+							<h:message for="email" styleClass="error"/>
+						</td>
+						</tr>
+						<tr>
+						<td>Password&#160;&#160;&#160;</td>
+						<td>
+							<h:inputSecret value="#{userController.credentials.password}" required="true"
+								requiredMessage="Password is mandatory" id="password">
+							</h:inputSecret>
+							<h:message for="password" styleClass="error"/>
+						</td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<h:commandButton value="Sign in »" action="#{userController.signIn}"
+						styleClass="btn btn-inverse btn-large">
+					</h:commandButton>
+				</h:form>
+			</f:view>
 		</div>
 	</ui:define>
 </ui:composition>

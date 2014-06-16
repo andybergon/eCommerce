@@ -73,9 +73,6 @@ public class ProviderController {
 			this.providerFacade.update(currentProvider);
 			this.newProductCode = null;
 			this.newProductQuantity = 0;
-			this.portal.setMessage("Products successfully added!");
-		} else {
-			this.portal.setMessage("Code provided does not correspond to any product.");
 		}
 		return "provider" + Utils.REDIRECT;
 	}
