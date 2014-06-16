@@ -9,16 +9,35 @@
 			<h:panelGroup rendered="#{adminController.isSignedIn()}">
 				<h1>All Orders</h1>
 				<br />
-				<h2>The following are all the orders created by all customers.</h2>
+				<h2>The following is a list of all the products for sale.</h2>
 				<br />
+				<h:form>
+					<table>
+						<tr>
+							<td>
+								<h3>ID&#160;</h3>
+							</td>
+							<td>
+								<h:inputText id="order_id" value="#{userController.orderId}" required="true"
+									requiredMessage="ID is mandatory" style="width: 80px; margin-top: 10px;">
+								</h:inputText>
+								<h:message for="order_id" styleClass="error"/>
+								&#160;
+							</td>
+							<td>
+								<h:commandButton value="find »" action="#{userController.findUserByOrder()}"
+									styleClass="btn btn-inverse">
+								</h:commandButton>
+							</td>
+						</tr>
+					</table>
+				</h:form>
 				<h:dataTable var="order" value="#{orderController.orders}"
 					styleClass="table table-striped table-bordered">
 					<h:column>
 						<f:facet name="header">Order ID</f:facet>
 						<h:form>
-							<h:commandLink
-								value="#{order.id}"
-								action="#{orderController.findOrder(order.id)}"></h:commandLink>
+							<h:commandLink value="#{order.id}" action="#{orderController.findOrder(order.id)}"></h:commandLink>
 						</h:form>
 					</h:column>
 					

@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.OrderFacade;
 import com.ecommerce.facade.ProductFacade;
+import com.ecommerce.facade.ProductSupplyFacade;
 import com.ecommerce.model.Order;
 import com.ecommerce.model.OrderLine;
 import com.ecommerce.model.Product;
@@ -19,6 +20,21 @@ import com.ecommerce.utils.Utils;
 @ManagedBean
 @SessionScoped
 public class OrderController {
+	@EJB
+	private OrderFacade orderFacade;
+
+	@EJB
+	private ProductFacade productFacade;
+
+	@EJB
+	private ProductSupplyFacade productSupplyFacade;
+
+	@ManagedProperty(value = "#{userController}")
+	private UserController userController;
+
+	@ManagedProperty(value = "#{portal}")
+	private ECommercePortal portal;
+
 	private Long id;
 	private Date creationDate;
 	private Date confirmationDate;
@@ -28,15 +44,6 @@ public class OrderController {
 	private List<Order> orders;
 	private String quantity;
 	private User creator;
-
-	@EJB
-	private OrderFacade orderFacade;
-
-	@EJB
-	private ProductFacade productFacade;
-
-	@ManagedProperty(value = "#{userController}")
-	private UserController userController;
 
 	public String createOrder() {
 		this.order = new Order();
@@ -88,28 +95,36 @@ public class OrderController {
 
 	public String updateQuantity(OrderLine orderLine) {
 		if (orderLine.getQuantity() == 0)
-			this.order.removeOrderLine(orderLine);
+			this.order.getOrderLines().remove(orderLine);
 		return "new_order" + Utils.REDIRECT;
 	}
 
 	public String confirmOrder() {
-		if (!this.order.isEmpty()) {
+		boolean allProductsHaveProvider = true;
+		for (OrderLine ol : this.order.getOrderLines())
+			if (!ol.getProduct().hasProvider()) {
+				Product p = ol.getProduct();
+				this.portal.setMessage("Sorry, product " + p.getCode() + " (" + p.getName() + ") does not have any providers.");
+				allProductsHaveProvider = false;
+				break;
+			}
+		if (allProductsHaveProvider && !this.order.isEmpty()) {
 			this.order.setConfirmationDate(new Date());
-			// check CASCADE persist of order/orderlines
-			this.orderFacade.confirmOrder(this.order);
-			return "my_orders" + Utils.REDIRECT;
+			this.orderFacade.create(this.order);
+			return findOrders(this.userController.getCurrentUser().getId());
 		} else {
 			return "new_order" + Utils.REDIRECT;
 		}
 	}
 
-	public String shipOrder(Long orderId) {
-		Order order = this.orderFacade.find(orderId);
-		for (OrderLine ol : order.getOrderLines())
+	public String shipOrder(Order order) {
+		for (OrderLine ol : order.getOrderLines()) {
 			ol.shipOrderLine();
+			this.productSupplyFacade.confirmSupply(ol.getConfirmedProvider(), ol.getProduct());
+		}
 		order.setShipmentDate(new Date());
 		this.orderFacade.update(order);
-		return "orders" + Utils.REDIRECT;
+		return findConfirmedOrders();
 	}
 
 	//getters & setters
@@ -191,6 +206,22 @@ public class OrderController {
 
 	public void setProductFacade(ProductFacade productFacade) {
 		this.productFacade = productFacade;
+	}
+
+	public ProductSupplyFacade getProductSupplyFacade() {
+		return productSupplyFacade;
+	}
+
+	public void setProductSupplyFacade(ProductSupplyFacade productSupplyFacade) {
+		this.productSupplyFacade = productSupplyFacade;
+	}
+
+	public ECommercePortal getPortal() {
+		return portal;
+	}
+
+	public void setPortal(ECommercePortal portal) {
+		this.portal = portal;
 	}
 
 	public User getCreator() {

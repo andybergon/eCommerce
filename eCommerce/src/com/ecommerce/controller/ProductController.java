@@ -52,6 +52,11 @@ public class ProductController {
 		return "products" + Utils.REDIRECT;
 	}
 
+	public String findAllProductsWithProviders() {
+		this.products = this.productFacade.findAllProductsWithProviders();
+		return "products" + Utils.REDIRECT;
+	}
+
 	public ProductFacade getProductFacade() {
 		return productFacade;
 	}

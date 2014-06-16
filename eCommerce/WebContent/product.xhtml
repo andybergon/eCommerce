@@ -8,6 +8,8 @@
 		<div class="hero-unit">
 			<h1>Product Details</h1>
 			<br />
+			<h2>The following are all the details relative to the product.</h2>
+			<br />
 			<h:dataTable var="product" value="#{productController.currentProduct}" styleClass="table table-striped table-bordered">
 				<h:column>
 					<f:facet name="header">Code</f:facet>
@@ -25,11 +27,31 @@
 					<f:facet name="header">Description</f:facet>
 					<h:outputText value="#{product.description}"></h:outputText>
 				</h:column>
-				<h:column>
-					<f:facet name="header">Code</f:facet>
-					<h:outputText value="#{product.code}"></h:outputText>
-				</h:column>
 			</h:dataTable>
+			<br />
+			<h:panelGroup rendered="#{productController.currentProduct.hasProvider() == false}">
+				<h2>This product is not currently supplied by any provider.</h2>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{productController.currentProduct.hasProvider()}">
+				<h2>
+					Total current supply: <h:outputText value="#{productController.currentProduct.getSupplySize()}"></h:outputText>
+				<br />
+					This product is currently supplied by the following providers.</h2>
+				<h:dataTable var="supply" value="#{productController.currentProduct.supplies}"
+					styleClass="table table-striped table-bordered">
+					<h:column>
+						<f:facet name="header">Provider</f:facet>
+						<h:form>
+							<h:commandLink value="#{supply.provider.name}"
+								action="#{providerController.findProvider(supply.provider.id)}"></h:commandLink>
+						</h:form>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Stock</f:facet>
+						<h:outputText value="#{supply.quantity}"></h:outputText>
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
 		</div>
 	</ui:define>
 </ui:composition>

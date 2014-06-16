@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -40,6 +41,7 @@ public class Provider {
 	private Address address;
 
 	public Provider() {
+		this.inventories = new ArrayList<ProductSupply>();
 	}
 
 	public Long getId() {

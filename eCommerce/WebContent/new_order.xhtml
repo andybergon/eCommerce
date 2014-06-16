@@ -8,101 +8,115 @@
 	<ui:define name="content">
 		<div class="hero-unit">
 			<h:panelGroup rendered="#{userController.isSignedIn() and orderController.order != null}">
+				<h1>New Order</h1>
+				<br />
+				<h2>Choose the products you wish to add to your order.</h2>
+				<br />
+				<h2><h:outputLabel value="#{portal.message}" style="color: red;"/></h2>
+				<h:dataTable
+					var="product"
+					value="#{productController.productFacade.findAllProductsWithProviders()}"
+					styleClass="table table-striped table-bordered">
+					<h:column>
+						<f:facet name="header">Code</f:facet>
+						<h:form>
+							<h:commandLink
+								value="#{product.code}"
+								action="#{productController.findProduct(product.id)}">
+							</h:commandLink>
+						</h:form>
+					</h:column>
+			
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{product.name}"></h:outputText>
+					</h:column>
+			
+					<h:column>
+						<f:facet name="header">Price</f:facet>
+						<h:outputText value="#{product.price}$"></h:outputText>
+					</h:column>
+			
+					<h:column>
+						<f:facet name="header">Quantity</f:facet>
+						<h:form>
+							<h:selectOneMenu value="#{orderController.quantity}" style="width: 50px; margin: 0px;">
+								<f:selectItem
+									itemValue="0"
+									itemLabel="-" />
+								<c:forEach var="i" begin="1" end="20">
+									<f:selectItem
+										itemValue="${i}"
+										itemLabel="${i}" />
+								</c:forEach>
+							</h:selectOneMenu>
+							&#160;
+							<h:commandLink value="add" action="#{orderController.addProductToOrder(product)}"
+								styleClass="btn btn-inverse">
+							</h:commandLink>
+						</h:form>
+					</h:column>
+				</h:dataTable>
+				<br />
+				<br />
+				<h2>Current Order</h2>
+				<h:dataTable
+					var="orderLine"
+					value="#{orderController.order.orderLines}"
+					styleClass="table table-striped table-bordered">
+					<h:column>
+						<f:facet name="header">Code</f:facet>
+						<h:form>
+							<h:commandLink
+								action="#{productController.findProduct(orderLine.product.id)}"
+								value="#{orderLine.product.code}">
+							</h:commandLink>
+						</h:form>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{orderLine.product.name}"></h:outputText>
+					</h:column>
+			
+					<h:column>
+						<f:facet name="header">Unit Price</f:facet>
+						<h:outputText value="#{orderLine.product.price}$"></h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Subtotal</f:facet>
+						<h:outputText value="#{orderLine.subtotal}$"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Quantity</f:facet>
+						<h:outputText value="#{orderLine.quantity}"></h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Quantity</f:facet>
+						<h:form>
+							<h:selectOneMenu value="#{orderLine.quantity}" style="width: 50px; margin: 0px;">
+								<f:selectItem
+									itemValue="0"
+									itemLabel="-" />
+								<c:forEach var="i" begin="1" end="20">
+									<f:selectItem
+										itemValue="${i}"
+										itemLabel="${i}" />
+								</c:forEach>
+							</h:selectOneMenu>
+							&#160;
+							<h:commandLink value="update" action="#{orderController.updateQuantity(orderLine)}"
+								styleClass="btn btn-inverse">
+							</h:commandLink>
+						</h:form>
+					</h:column>
+				</h:dataTable>
+				<br />
+				<h3>Total Price: <h:outputText value="#{orderController.order.total}"></h:outputText>$</h3>
+				<br />
+				<br />
 				<h:form>
-					<h1>New Order</h1>
-					<br />
-					<h2>Choose the products you wish to add to your order.</h2>
-					<h:dataTable
-						var="product"
-						value="#{productController.productFacade.findAll()}"
-						styleClass="table table-striped table-bordered">
-						<h:column>
-							<f:facet name="header">Code</f:facet>
-								<h:commandLink
-									value="#{product.code}"
-									action="#{productController.findProduct(product.id)}"></h:commandLink>
-						</h:column>
-				
-						<h:column>
-							<f:facet name="header">Name</f:facet>
-							<h:outputText value="#{product.name}"></h:outputText>
-						</h:column>
-				
-						<h:column>
-							<f:facet name="header">Price</f:facet>
-							<h:outputText value="#{product.price}$"></h:outputText>
-						</h:column>
-				
-						<h:column>
-							<f:facet name="header">Quantity</f:facet>
-								<h:selectOneMenu value="#{orderController.quantity}" style="width: 50px; margin: 0px;">
-									<f:selectItem
-										itemValue="0"
-										itemLabel="-" />
-									<c:forEach var="i" begin="1" end="20">
-										<f:selectItem
-											itemValue="${i}"
-											itemLabel="${i}" />
-									</c:forEach>
-								</h:selectOneMenu>
-								&#160;
-								<h:commandLink value="add" action="#{orderController.addProductToOrder(product)}"
-									styleClass="btn btn-inverse">
-								</h:commandLink>
-						</h:column>
-						
-					</h:dataTable>
-					<br />
-					<br />
-					<h2>Current Order</h2>
-						<h:dataTable
-							var="orderLine"
-							value="#{orderController.order.orderLines}"
-							styleClass="table table-striped table-bordered">
-						<h:column>
-							<f:facet name="header">Code</f:facet>
-								<h:commandLink
-									action="#{productController.findProduct(orderLine.product.id)}"
-									value="#{orderLine.product.code}">
-								</h:commandLink>
-						</h:column>
-						<h:column>
-							<f:facet name="header">Name</f:facet>
-							<h:outputText value="#{orderLine.product.name}"></h:outputText>
-						</h:column>
-				
-						<h:column>
-							<f:facet name="header">Unit Price</f:facet>
-							<h:outputText value="#{orderLine.product.price}$"></h:outputText>
-						</h:column>
-						
-						<h:column>
-							<f:facet name="header">Subtotal</f:facet>
-							<h:outputText value="#{orderLine.subtotal}$"></h:outputText>
-						</h:column>
-						
-						<h:column>
-							<f:facet name="header">Quantity</f:facet>
-								<h:selectOneMenu value="#{orderLine.quantity}" style="width: 50px; margin: 0px;">
-									<f:selectItem
-										itemValue="0"
-										itemLabel="-" />
-									<c:forEach var="i" begin="1" end="20">
-										<f:selectItem
-											itemValue="${i}"
-											itemLabel="${i}" />
-									</c:forEach>
-								</h:selectOneMenu>
-								&#160;
-								<h:commandLink value="update" action="#{orderController.updateQuantity(orderLine)}"
-									styleClass="btn btn-inverse">
-								</h:commandLink>
-						</h:column>
-					</h:dataTable>
-					<br />
-					<h3>Total Price: <h:outputText value="#{orderController.order.total}"></h:outputText>$</h3>
-					<br />
-					<br />
 					<h:commandButton value="Confirm »" action="#{orderController.confirmOrder()}"
 						styleClass="btn btn-inverse btn-large">
 					</h:commandButton>

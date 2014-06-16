@@ -19,6 +19,7 @@ public class OrderLine {
 	@Column(nullable = false)
 	private Integer quantity;
 
+	@Column(nullable = false)
 	private Float unitPrice;
 
 	@OneToOne
@@ -80,7 +81,7 @@ public class OrderLine {
 
 		ProductSupply randomSupply = supplyCandidates.get(n);
 
-		randomSupply.decrementQuantity(this.quantity);
+		randomSupply.removeQuantity(this.quantity);
 		this.confirmedProvider = randomSupply.getProvider();
 	}
 

@@ -30,11 +30,11 @@ public class ProductSupply {
 		this.quantity = quantity;
 	}
 
-	public void incrementQuantity(Integer quantity) {
+	public void addQuantity(Integer quantity) {
 		this.quantity += quantity;
 	}
 
-	public void decrementQuantity(Integer quantity) {
+	public void removeQuantity(Integer quantity) {
 		this.quantity -= quantity;
 	}
 

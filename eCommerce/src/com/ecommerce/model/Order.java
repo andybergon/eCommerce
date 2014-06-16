@@ -2,7 +2,6 @@ package com.ecommerce.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,14 +25,14 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date creationDate;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date confirmationDate;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date shipmentDate;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -56,15 +55,6 @@ public class Order {
 
 	public void addOrderLine(OrderLine orderLine) {
 		this.orderLines.add(orderLine);
-	}
-
-	public void removeOrderLine(OrderLine orderLine) {
-		for (Iterator<OrderLine> iterator = this.orderLines.listIterator(); iterator.hasNext();) {
-			OrderLine currentOrderLine = iterator.next();
-			if (currentOrderLine.equals(orderLine)) {
-				iterator.remove();
-			}
-		}
 	}
 
 	public int countOrderLines() {

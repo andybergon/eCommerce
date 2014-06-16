@@ -9,7 +9,7 @@
 			<h1>All Products</h1>
 			<br />
 			<h:dataTable var="product" value="#{productController.products}"
-					styleClass="table table-striped table-bordered">
+				styleClass="table table-striped table-bordered">
 				<h:column>
 					<f:facet name="header">Code</f:facet>
 					<h:form>
@@ -28,6 +28,15 @@
 				<h:column>
 					<f:facet name="header">Description</f:facet>
 					<h:outputText value="#{product.description}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">In Supply</f:facet>
+					<h:panelGroup rendered="#{product.isInSupply()}">
+						<h:graphicImage library="gfx" name="check.png"></h:graphicImage>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{product.isInSupply() == false}">
+						<h:graphicImage library="gfx" name="cross.png"></h:graphicImage>
+					</h:panelGroup>
 				</h:column>
 			</h:dataTable>
 		</div>

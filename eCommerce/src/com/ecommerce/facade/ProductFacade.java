@@ -27,6 +27,12 @@ public class ProductFacade extends AbstractFacade<Product> {
 		return null;
 	}
 
+	public List<Product> findAllProductsWithProviders() {
+		TypedQuery<Product> result = this.em.createQuery("SELECT p FROM Product p WHERE p.supplies IS NOT NULL",
+				Product.class);
+		return result.getResultList();
+	}
+
 	@Override
 	protected EntityManager getEntityManager() {
 		return this.em;

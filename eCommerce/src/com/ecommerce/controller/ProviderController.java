@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.ecommerce.facade.ProductFacade;
+import com.ecommerce.facade.ProductSupplyFacade;
 import com.ecommerce.facade.ProviderFacade;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.ProductSupply;
@@ -23,16 +24,16 @@ public class ProviderController {
 	@EJB
 	private ProductFacade productFacade;
 
+	@EJB
+	private ProductSupplyFacade productSupplyFacade;
+
 	@ManagedProperty(value = "#{portal}")
 	private ECommercePortal portal;
 
 	private Provider currentProvider;
-
 	private List<Provider> providers;
-
 	private String newProductCode;
-
-	private int newProductQuantity;
+	private Integer newProductQuantity;
 
 	public ProviderController() {
 	}
@@ -54,7 +55,8 @@ public class ProviderController {
 			boolean supplyExists = false;
 			for (ProductSupply ps : this.currentProvider.getInventories()) {
 				if (ps.getProduct().getCode().equals(newProductCode)) {
-					ps.incrementQuantity(newProductQuantity);
+					ps.addQuantity(newProductQuantity);
+					this.productSupplyFacade.update(ps);
 					supplyExists = true;
 					break;
 				}
@@ -64,7 +66,7 @@ public class ProviderController {
 				ProductSupply productSupply = new ProductSupply(newProductQuantity);
 				productSupply.setProduct(product);
 				productSupply.setProvider(currentProvider);
-
+				this.productSupplyFacade.create(productSupply);
 				this.currentProvider.getInventories().add(productSupply);
 			}
 
@@ -92,6 +94,22 @@ public class ProviderController {
 
 	public void setProviderFacade(ProviderFacade providerFacade) {
 		this.providerFacade = providerFacade;
+	}
+
+	public ProductFacade getProductFacade() {
+		return productFacade;
+	}
+
+	public void setProductFacade(ProductFacade productFacade) {
+		this.productFacade = productFacade;
+	}
+
+	public ProductSupplyFacade getProductSupplyFacade() {
+		return productSupplyFacade;
+	}
+
+	public void setProductSupplyFacade(ProductSupplyFacade productSupplyFacade) {
+		this.productSupplyFacade = productSupplyFacade;
 	}
 
 	public Provider getCurrentProvider() {

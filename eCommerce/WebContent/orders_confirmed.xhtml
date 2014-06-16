@@ -8,6 +8,7 @@
 		<div class="hero-unit">
 			<h:panelGroup rendered="#{adminController.isSignedIn()}">
 				<h1>Confirmed Orders</h1>
+				<br />
 				<h2>The following are all the confirmed orders that have not yet been shipped.</h2>
 				<h:dataTable var="order" value="#{orderController.orders}"
 					styleClass="table table-striped table-bordered">
@@ -41,7 +42,10 @@
 			
 					<h:column>
 						<h:form>
-							<h:commandButton action="#{orderController.shipOrder(order.id)}" value="ship" disabled="#{order.isSupplied() == false}"></h:commandButton>
+							<f:facet name="header">Action</f:facet>
+							<h:commandButton value="ship" action="#{orderController.shipOrder(order)}"
+								disabled="#{order.isSupplied() == false}" styleClass="btn btn-inverse">
+							</h:commandButton>
 						</h:form>
 					</h:column>
 				</h:dataTable>

@@ -1,5 +1,6 @@
 package com.ecommerce.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,6 +34,25 @@ public class Product {
 
 
 	public Product() {
+		this.supplies = new ArrayList<ProductSupply>();
+	}
+
+	public boolean isInSupply() {
+		for (ProductSupply ps : this.supplies)
+			if (ps.getQuantity() > 0)
+				return true;
+		return false;
+	}
+
+	public int getSupplySize() {
+		int total = 0;
+		for (ProductSupply ps : this.supplies)
+			total += ps.getQuantity();
+		return total;
+	}
+
+	public boolean hasProvider() {
+		return this.supplies.size() > 0;
 	}
 
 	public Long getId() {

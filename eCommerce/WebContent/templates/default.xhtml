@@ -51,8 +51,16 @@ body {
 										</li>
 									</h:panelGroup>
 									<li>
-										<h:commandLink value="View All Products" action="#{productController.findAllProducts()}">
-										</h:commandLink>
+										<h:panelGroup rendered="#{adminController.isSignedIn()}">
+											<h:commandLink value="View All Products"
+												action="#{productController.findAllProducts()}">
+											</h:commandLink>
+										</h:panelGroup>
+										<h:panelGroup rendered="#{portal.isSignedIn() == false}">
+											<h:commandLink value="View All Products"
+												action="#{productController.findAllProductsWithProviders()}">
+											</h:commandLink>
+										</h:panelGroup>
 									</li>
 								</ul>
 							</li>
@@ -135,7 +143,7 @@ body {
 							<h:panelGroup rendered="#{adminController.isSignedIn()}">
 								<li class="dropdown">
 									<a href="#" data-toggle="dropdown"
-										class="dropdown-toggle">ADMIN #{adminController.currentAdmin.email} <b class="caret"></b>
+										class="dropdown-toggle"><b>ADMIN</b>&#160;#{adminController.currentAdmin.email} <b class="caret"></b>
 									</a>
 									<ul class="dropdown-menu">
 										<li>

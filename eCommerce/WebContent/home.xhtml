@@ -16,9 +16,11 @@
 			</f:view>
 			<br />
 			<br />
-			<h:commandButton styleClass="btn btn-inverse btn-large"
-				action="#{productController.findAllProducts()}" value="View Products »">
-			</h:commandButton>
+			<h:form>
+				<h:commandButton styleClass="btn btn-inverse btn-large"
+					action="#{productController.findAllProducts()}" value="View Products »">
+				</h:commandButton>
+			</h:form>
 		</div>
 	</ui:define>
 </ui:composition>

@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import com.ecommerce.facade.OrderFacade;
 import com.ecommerce.facade.UserFacade;
 import com.ecommerce.model.Address;
 import com.ecommerce.model.Credentials;
@@ -22,6 +23,9 @@ public class UserController {
 	@EJB
 	private UserFacade userFacade;
 
+	@EJB
+	private OrderFacade orderFacade;
+
 	@ManagedProperty(value = "#{portal}")
 	private ECommercePortal portal;
 
@@ -29,14 +33,7 @@ public class UserController {
 	private User currentUser;
 	private User newUser;
 	private User orderCreator;
-
-	public User getOrderCreator() {
-		return orderCreator;
-	}
-
-	public void setOrderCreator(User orderCreator) {
-		this.orderCreator = orderCreator;
-	}
+	private Long orderId;
 
 	public UserController() {
 	}
@@ -109,6 +106,16 @@ public class UserController {
 		return "order_creator" + Utils.REDIRECT;
 	}
 
+	public String findUserByOrder() {
+		Order order = this.orderFacade.find(this.orderId);
+		if (order != null) {
+			this.orderId = null;
+			this.orderCreator = order.getCreator();
+			return "order_creator" + Utils.REDIRECT;
+		}
+		return "orders_all" + Utils.REDIRECT;
+	}
+
 	public Credentials getCredentials() {
 		return credentials;
 	}
@@ -124,6 +131,15 @@ public class UserController {
 	public void setUserFacade(UserFacade userFacade) {
 		this.userFacade = userFacade;
 	}
+
+	public OrderFacade getOrderFacade() {
+		return orderFacade;
+	}
+
+	public void setOrderFacade(OrderFacade orderFacade) {
+		this.orderFacade = orderFacade;
+	}
+
 
 	public ECommercePortal getPortal() {
 		return portal;
@@ -148,4 +164,21 @@ public class UserController {
 	public void setNewUser(User newUser) {
 		this.newUser = newUser;
 	}
+
+	public User getOrderCreator() {
+		return orderCreator;
+	}
+
+	public void setOrderCreator(User orderCreator) {
+		this.orderCreator = orderCreator;
+	}
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
 }

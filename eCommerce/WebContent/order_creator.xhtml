@@ -11,7 +11,7 @@
 				<br />
 				<h2>The following user created the order.</h2>
 				<br />
-				<h:dataTable var="user" value="#{userController.user}"
+				<h:dataTable var="user" value="#{userController.orderCreator}"
 						styleClass="table table-striped table-bordered">
 					<h:column>
 						<f:facet name="header">First Name</f:facet>
@@ -23,7 +23,7 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">E-Mail</f:facet>
-						<h:outputText value="#{user.email}$"></h:outputText>
+						<h:outputText value="#{user.email}"></h:outputText>
 					</h:column>
 					<h:column>
 						<f:facet name="header">Phone Number</f:facet>
@@ -37,7 +37,7 @@
 				<br />
 				<h3>Address</h3>
 				<br />
-				</h:dataTable var="address" value="#{userController.user.address}"
+				<h:dataTable var="address" value="#{userController.orderCreator.address}"
 					styleClass="table table-striped table-bordered">
 					<h:column>
 						<f:facet name="header">Country</f:facet>
