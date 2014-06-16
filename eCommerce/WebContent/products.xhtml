@@ -6,11 +6,16 @@
 	template="templates/default.xhtml">
 	<ui:define name="content">
 		<div class="hero-unit">
+			<h1>All Products</h1>
+			<br />
 			<h:dataTable var="product" value="#{productController.products}"
 					styleClass="table table-striped table-bordered">
 				<h:column>
 					<f:facet name="header">Code</f:facet>
-					<h:outputText value="#{product.code}"></h:outputText>
+					<h:form>
+						<h:commandLink action="#{productController.findProduct(product.id)}" value="#{product.code}">
+						</h:commandLink>
+					</h:form>
 				</h:column>
 				<h:column>
 					<f:facet name="header">Name</f:facet>
