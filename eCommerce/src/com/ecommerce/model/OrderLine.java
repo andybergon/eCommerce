@@ -44,6 +44,10 @@ public class OrderLine {
 		return false;
 	}
 
+	public float getSubtotal() {
+		return this.quantity * this.product.getPrice();
+	}
+
 	public Long getId() {
 		return id;
 	}

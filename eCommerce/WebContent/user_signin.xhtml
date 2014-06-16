@@ -1,42 +1,39 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
-</h:head>
-<h:body>
-	<div id="header">
-		<ui:include src="templates/nav-bar.xhtml"/>
-	</div>
-	<div id="container">
-		<b:container>
-			<h1>Please fill in your credentials.</h1>
-			<h2 style="color: red;"><h:outputLabel value="#{portal.message}"/></h2>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h1>Sign in</h1>
+			<br />
+			<h2>Please fill in your credentials.</h2>
+			<h2><h:outputLabel value="#{portal.message}" style="color: red;"/></h2>
+			<h3>If you are having trouble signing in please contact an administrator.</h3>
+			<br />
 			<h:form>
-				<table class="ctable">
-					<tr>
-						<td>email:</td>
-						<td>
-							<h:inputText value="#{userController.credentials.email}" required="true" requiredMessage="Email is mandatory" id="email"></h:inputText>
-							<h:message for="email" styleClass="error"/>
-						</td>
-					</tr>
-					<tr>
-						<td>password:</td>
-						<td>
-							<h:inputSecret value="#{userController.credentials.password}" required="true" requiredMessage="Password is mandatory" id="password">
-							</h:inputSecret>
-							<h:message for="password" styleClass="error"/>
-						</td>
-					</tr>
-				</table>
-				<h:commandButton action="#{userController.signIn}" value="Sign in"></h:commandButton>
+				<h:dataTable var="provider" value="#{providerController.currentProvider}"
+					styleClass="table table-striped table-bordered">
+					<h:column>
+						<f:facet name="header">E-Mail</f:facet>
+						<h:inputText value="#{userController.credentials.email}" required="true"
+							requiredMessage="E-mail is mandatory" id="email"></h:inputText>
+						<h:message for="email" styleClass="error"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Password</f:facet>
+						<h:inputSecret value="#{userController.credentials.password}" required="true"
+							requiredMessage="Password is mandatory" id="password">
+						</h:inputSecret>
+						<h:message for="password" styleClass="error"/>
+					</h:column>
+				</h:dataTable>
+				<br />
+				<br />
+				<h:commandButton styleClass="btn btn-inverse btn-large"
+					action="#{userController.signIn}" value="Sign in »"></h:commandButton>
 			</h:form>
-		</b:container>
-	</div>
-</h:body>
-</html>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,141 +1,113 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>eCommerce</title>
-</h:head>
-<h:body>
-	<ui:include src="templates/nav-bar.xhtml" />
-	<h:panelGroup rendered="#{userController.isSignedIn()}">
-		<h1>Add Products to current Order</h1>
-		
-		<h3>Products in Store:</h3>
-		<h:dataTable
-			id = "table_products"
-			value="#{productController.productFacade.findAll()}"
-			var="product">
-	
-			<h:column>
-				<f:facet name="header">Name</f:facet>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h:panelGroup rendered="#{userController.isSignedIn() and orderController.order != null}">
 				<h:form>
-					<h:commandLink
-						value="#{product.name}"
-						action="#{productController.findProduct(product.id)}"></h:commandLink>
+					<h1>New Order</h1>
+					<br />
+					<h2>Choose the products you wish to add to your order.</h2>
+					<h:dataTable
+						var="product"
+						value="#{productController.productFacade.findAll()}"
+						styleClass="table table-striped table-bordered">
+						<h:column>
+							<f:facet name="header">Code</f:facet>
+								<h:commandLink
+									value="#{product.code}"
+									action="#{productController.findProduct(product.id)}"></h:commandLink>
+						</h:column>
+				
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{product.name}"></h:outputText>
+						</h:column>
+				
+						<h:column>
+							<f:facet name="header">Price</f:facet>
+							<h:outputText value="#{product.price}$"></h:outputText>
+						</h:column>
+				
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
+								<h:selectOneMenu value="#{orderController.quantity}" style="width: 50px; margin: 0px;">
+									<f:selectItem
+										itemValue="0"
+										itemLabel="-" />
+									<c:forEach var="i" begin="1" end="20">
+										<f:selectItem
+											itemValue="${i}"
+											itemLabel="${i}" />
+									</c:forEach>
+								</h:selectOneMenu>
+								&#160;
+								<h:commandLink value="add" action="#{orderController.addProductToOrder(product.id)}"
+									styleClass="btn btn-inverse">
+								</h:commandLink>
+						</h:column>
+						
+					</h:dataTable>
+					<br />
+					<br />
+					<h2>Current Order</h2>
+						<h:dataTable
+							var="orderLine"
+							value="#{orderController.order.orderLines}"
+							styleClass="table table-striped table-bordered">
+						<h:column>
+							<f:facet name="header">ID</f:facet>
+								<h:commandLink
+									action="#{productController.findProduct(orderLine.product.id)}"
+									value="#{orderLine.product.id}">
+								</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{orderLine.product.name}"></h:outputText>
+						</h:column>
+				
+						<h:column>
+							<f:facet name="header">Unit Price</f:facet>
+							<h:outputText value="#{orderLine.product.price}$"></h:outputText>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Subtotal</f:facet>
+							<h:outputText value="#{orderLine.subtotal}$"></h:outputText>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
+								<h:selectOneMenu value="#{orderLine.quantity}" style="width: 50px; margin: 0px;">
+									<f:selectItem
+										itemValue="0"
+										itemLabel="-" />
+									<c:forEach var="i" begin="1" end="20">
+										<f:selectItem
+											itemValue="${i}"
+											itemLabel="${i}" />
+									</c:forEach>
+								</h:selectOneMenu>
+								&#160;
+								<h:commandLink value="update" action="#{orderController.updateQuantity(orderLine)}"
+									styleClass="btn btn-inverse">
+								</h:commandLink>
+						</h:column>
+					</h:dataTable>
+					<br />
+					<h3>Total Price: <h:outputText value="#{orderController.order.total}"></h:outputText>$</h3>
+					<br />
+					<br />
+					<h:commandButton value="Confirm »" action="#{orderController.confirmOrder()}"
+						styleClass="btn btn-inverse btn-large">
+					</h:commandButton>
 				</h:form>
-			</h:column>
-	
-			<h:column>
-				<f:facet name="header">Price</f:facet>
-				<h:outputText value="#{product.price}">
-				</h:outputText>
-			</h:column>
-	
-			<h:column>
-				<f:facet name="header">Quantity</f:facet>
-				<h:form>
-					<h:selectOneMenu value="#{orderController.quantity}">
-						<f:selectItem
-							itemValue="0"
-							itemLabel="-" />
-						<f:selectItem
-							itemValue="1"
-							itemLabel="1" />
-						<f:selectItem
-							itemValue="2"
-							itemLabel="2" />
-						<f:selectItem
-							itemValue="3"
-							itemLabel="3" />
-						<f:selectItem
-							itemValue="5"
-							itemLabel="5" />
-					</h:selectOneMenu>
-					<h:commandButton
-						value="add"
-						action="#{orderController.addProductToOrder(product.id)}" />
-				</h:form>
-			</h:column>
-			
-		</h:dataTable>
-		
-		<hr/>
-		
-		<h3>Current Order:</h3>
-			<h:dataTable
-			id = "table_current_order"
-			value="#{orderController.order.getOrderLines()}"
-			var="orderLine">
-	
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-				<h:form>
-					<h:commandLink
-						action="#{productController.findProduct(orderLine.product.id)}"
-						value="#{orderLine.product.name}"></h:commandLink>
-				</h:form>
-			</h:column>
-	
-			<h:column>
-				<f:facet name="header">Unit Price</f:facet>
-				<h:outputText value="#{orderLine.product.price}">
-				</h:outputText>
-			</h:column>
-	
-			<h:column>
-				<f:facet name="header">Quantity</f:facet>
-				<h:outputText value="#{orderLine.quantity}">
-				</h:outputText>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Total Price</f:facet>
-				<h:outputText value="#{orderLine.getPrice()}">
-				</h:outputText>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Quantity</f:facet>
-				<h:form>
-					<h:selectOneMenu value="#{orderController.quantity}">
-						<f:selectItem
-							itemValue="0"
-							itemLabel="-" />
-						<f:selectItem
-							itemValue="1"
-							itemLabel="1" />
-						<f:selectItem
-							itemValue="2"
-							itemLabel="2" />
-						<f:selectItem
-							itemValue="3"
-							itemLabel="3" />
-						<f:selectItem
-							itemValue="5"
-							itemLabel="5" />
-					</h:selectOneMenu>
-					<h:commandButton
-						value="remove"
-						action="#{orderController.removeProductFromOrder(orderLine.product.id)}" />
-				</h:form>
-			</h:column>
-	
-		</h:dataTable>
-		Total Price: <h:outputText value="#{orderController.order.total}"></h:outputText>
-		<h:form>
-			<h:commandLink
-				value="Confirm current order"
-				action="#{orderController.confirmOrder()}">
-			</h:commandLink>
-		</h:form>
-		<hr/>
-		<br/>
-		(to Debug)Current order size: <h:outputText value="#{orderController.order.countProducts()}"></h:outputText>
-		<br/>
-		(to Debug)Order Creator: <h:outputText value="#{orderController.order.creator}"></h:outputText>
-		<br/><br/>
-		<h:link outcome="index" value="Return Home" />
-	</h:panelGroup>
-</h:body>
-</html>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+</ui:composition>

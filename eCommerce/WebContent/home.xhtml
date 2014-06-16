@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h1>Welcome to eCommerce!</h1>
+			<br />
+			<h2>A wonderful site where you can buy all you want.</h2>
+			<f:view afterPhase="#{portal.clean}">
+				<h2>
+					<h:outputLabel value="#{portal.message}" rendered="#{portal.isSignedIn()}"/>
+				</h2>
+			</f:view>
+			<br />
+			<br />
+			<h:commandButton styleClass="btn btn-inverse btn-large"
+				action="products.xhtml" value="View Products »">
+			</h:commandButton>
+		</div>
+	</ui:define>
+</ui:composition>

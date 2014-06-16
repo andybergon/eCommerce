@@ -29,6 +29,8 @@ public class UserController {
 
 	private User newUser;
 
+	private User user;
+
 	private Credentials credentials;
 
 	public UserController() {
@@ -54,7 +56,7 @@ public class UserController {
 				} else
 					this.portal.setMessage("Incorrect password.");
 			} else
-				this.portal.setMessage("Email provided is not registered.");
+				this.portal.setMessage("E-mail provided is not registered.");
 		} else
 			this.portal.setMessage("You must be signed out to perform this action.");
 
@@ -71,17 +73,27 @@ public class UserController {
 		if (this.portal.isSignedIn())
 			this.portal.setMessage("You must be signed out to perform this action.");
 		else {
-			this.newUser.setRegistrationDate(new Date());
-			this.userFacade.create(newUser);
-			this.credentials.setEmail(newUser.getEmail());
-			this.credentials.setPassword(newUser.getPassword());
-			return this.signIn();
+			boolean userExists = this.userFacade.findUser(newUser.getEmail()) != null;
+			if (userExists)
+				this.portal.setMessage("A user with this e-mail already exists.");
+			else {
+				this.newUser.setRegistrationDate(new Date());
+				this.userFacade.create(newUser);
+				this.credentials.setEmail(newUser.getEmail());
+				this.credentials.setPassword(newUser.getPassword());
+				return this.signIn();
+			}
 		}
 		return "user_signup" + Utils.REDIRECT;
 	}
 
 	public boolean isSignedIn() {
 		return this.portal.getSignedInState() == SignedInState.USER_SIGNED_IN;
+	}
+
+	public String findUserByOrder(User creator) {
+		this.setUser(creator);
+		return "order_creator" + Utils.REDIRECT;
 	}
 
 	public Credentials getCredentials() {
@@ -122,5 +134,13 @@ public class UserController {
 
 	public void setNewUser(User newUser) {
 		this.newUser = newUser;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

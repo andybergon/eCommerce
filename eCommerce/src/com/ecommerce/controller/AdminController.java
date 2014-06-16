@@ -43,7 +43,7 @@ public class AdminController {
 				} else
 					this.portal.setMessage("Incorrect password.");
 			} else
-				this.portal.setMessage("Email provided is not registered.");
+				this.portal.setMessage("E-mail provided is not registered.");
 		} else
 			this.portal.setMessage("You must be signed out to perform this action.");
 

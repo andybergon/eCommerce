@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
-</h:head>
-<h:body>
-	<ui:include src="templates/nav-bar.xhtml"/>
-	<center>
-		<h1>Product details</h1>
-		<table class="ctable">
-			<tr>
-				<td>CODE:</td>
-				<td>#{productController.currentProduct.code}</td>
-			</tr>
-			<tr>
-				<td>NAME:</td>
-				<td>#{productController.currentProduct.name}</td>
-			</tr>
-			<tr>
-				<td>PRICE:</td>
-				<td>#{productController.currentProduct.price}$</td>
-			</tr>
-			<tr>
-				<td>DESCRIPTION:</td>
-				<td>#{productController.currentProduct.description}</td>
-			</tr>
-		</table>
-		<br/>
-		<h:link outcome="products" value="Return to all products"/>
-	</center>
-</h:body>
-</html>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h1>Product Details</h1>
+			<br />
+			<h:dataTable var="product" value="#{productController.currentProduct}" styleClass="table table-striped table-bordered">
+				<h:column>
+					<f:facet name="header">Code</f:facet>
+					<h:outputText value="#{product.code}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{product.name}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{product.price}$"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					<h:outputText value="#{product.description}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Code</f:facet>
+					<h:outputText value="#{product.code}"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>

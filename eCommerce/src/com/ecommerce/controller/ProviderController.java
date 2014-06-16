@@ -42,7 +42,7 @@ public class ProviderController {
 		return "provider" + Utils.REDIRECT;
 	}
 
-	public String listProviders() {
+	public String findAllProviders() {
 		this.providers = this.providerFacade.findAll();
 		return "providers" + Utils.REDIRECT;
 	}

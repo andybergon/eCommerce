@@ -1,65 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
-
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css" />
-</h:head>
-
-<h:body>
-		<div id="header">
-		<ui:include src="templates/nav-bar.xhtml"/>
-	</div>
-	<div id ="container">
-		<h:panelGroup rendered="#{adminController.isSignedIn()}">
-			<h1>All Orders</h1>
-			<h:dataTable var="order" value="#{orderController.orders}" class="ctable">
-				<h:column>
-					<f:facet name="header">Order Id</f:facet>
-					<h:form>
-						<h:commandLink
-							value="#{order.id}"
-							action="#{orderController.findOrder(order.id)}"></h:commandLink>
-					</h:form>
-				</h:column>
-		
-<!-- 				<h:column> -->
-<!-- 					<f:facet name="header">Creation Date</f:facet> -->
-<!-- 					<h:outputText value="#{order.creationDate}"> -->
-<!-- 						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" /> -->
-<!-- 					</h:outputText> -->
-<!-- 				</h:column> -->
-		
-<!-- 				<h:column> -->
-<!-- 					<f:facet name="header">Confirmation Date</f:facet> -->
-<!-- 					<h:outputText value="#{order.confirmationDate}"> -->
-<!-- 						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" /> -->
-<!-- 					</h:outputText> -->
-<!-- 				</h:column> -->
-				
-<!-- 				<h:column> -->
-<!-- 					<f:facet name="header">Confirmation Date</f:facet> -->
-<!-- 					<h:outputText value="#{order.shipmentDate}"> -->
-<!-- 						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" /> -->
-<!-- 					</h:outputText> -->
-<!-- 				</h:column> -->
-
-				<h:column>
-					<f:facet name="header">Customer Contact</f:facet>
-					<h:form>
-						<h:commandButton value="see" action="#{orderController.getCreatorDetails(order.id)}"></h:commandButton>
-					</h:form>
-				</h:column>
-				
-			</h:dataTable>
-			<br />
-			<h:link outcome="index" value="Return to home" />
-		</h:panelGroup>
-	</div>
-</h:body>
-</html>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h:panelGroup rendered="#{adminController.isSignedIn()}">
+				<h1>All Orders</h1>
+				<br />
+				<h2>The following are all the orders created by all customers.</h2>
+				<br />
+				<h:dataTable var="order" value="#{orderController.orders}"
+					styleClass="table table-striped table-bordered">
+					<h:column>
+						<f:facet name="header">Order ID</f:facet>
+						<h:form>
+							<h:commandLink
+								value="#{order.id}"
+								action="#{orderController.findOrder(order.id)}"></h:commandLink>
+						</h:form>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Confirmation Date</f:facet>
+						<h:outputText value="#{order.confirmationDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Total Price</f:facet>
+						<h:outputText value="#{order.total}$">
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Number Of Items</f:facet>
+						<h:outputText value="#{order.countProducts()}">
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Shipment Date</f:facet>
+						<h:panelGroup rendered="#{order.shipmentDate != null}">
+							<h:outputText value="#{order.shipmentDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{order.shipmentDate == null}">
+							<h:outputText value="not shipped"></h:outputText>
+						</h:panelGroup>
+					</h:column>
+	
+					<h:column>
+						<f:facet name="header">Customer Contact</f:facet>
+						<h:form>
+							<h:commandButton value="view" action="#{userController.findUserByOrder(order.creator)}"
+								styleClass="btn btn-inverse">
+							</h:commandButton>
+						</h:form>
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+</ui:composition>

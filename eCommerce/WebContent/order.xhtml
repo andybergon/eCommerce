@@ -1,46 +1,87 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
-</h:head>
-<h:body>
-	<ui:include src="templates/nav-bar.xhtml"/>
-	<center>
-		<h1>Order Details</h1>
-		<h3>
-			order ID: #{orderController.order.id}
-			<br/>
-			total price: #{orderController.order.total}$
-		</h3>
-		<table class="ctable-header" style="width: 400px;">
-			<tr>
-				<td width="100px">PRODUCT CODE</td>
-				<td width="100px">NAME</td>
-				<td width="100px">PRICE</td>
-				<td width="100px">QUANTITY</td>
-			</tr>
-		</table>
-		<table class="ctable" style="width: 400px">
-			<!-- from order or from orderFacade? -->
-			<ui:repeat var="orderLine" value="#{orderController.order.getOrderLines()}">
-				<tr>
-					<td width="100px">
-						<h:form><h:commandLink action="#{productController.findProduct(product.id)}" value="#{orderLine.product.code}"></h:commandLink></h:form>
-					</td>
-					<td width="100px">#{orderLine.product.name}</td>
-					<td width="100px">#{orderLine.unitPrice}</td>
-					<td width="100px">#{orderLine.quantity}</td>
-				</tr>
-			</ui:repeat>
-		</table>
-		<br/>
-		<h:link outcome="my_orders" value="Return to all orders"/>
-		<br/>
-		<h:link outcome="index" value="Return to home"/>
-	</center>
-</h:body>
-</html>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h1>Order Details</h1>
+			<h2>The following are all the details relative to the order.</h2>
+			<br />
+			<h:dataTable var="order" value="#{orderController.order}" styleClass="table table-striped table-bordered">
+				<h:column>
+					<f:facet name="header">Order ID</f:facet>
+					<h:outputText value="#{order.id}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Customer</f:facet>
+					<h:form>
+						<h:commandButton value="view" action="#{userController.findUserByOrder(order.creator)}"
+							styleClass="btn btn-inverse">
+						</h:commandButton>
+					</h:form>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Creation Date</f:facet>
+						<h:outputText value="#{order.creationDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+						</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Confirmation Date</f:facet>
+					<h:outputText value="#{order.confirmationDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Shipment Date</f:facet>
+					<h:panelGroup rendered="#{order.shipmentDate != null}">
+						<h:outputText value="#{order.shipmentDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
+						</h:outputText>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{order.shipmentDate == null}">
+						not shipped
+					</h:panelGroup>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Number Of Items</f:facet>
+					<h:outputText value="#{order.countProducts()}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Total Price</f:facet>
+					<h:outputText value="#{order.total}$"></h:outputText>
+				</h:column>
+			</h:dataTable>
+			<br />
+			<h:dataTable var="orderLine" value="#{orderController.order.orderLines}"
+				styleClass="table table-striped table-bordered">
+				<h:column>
+					<f:facet name="header">Product Code</f:facet>
+					<h:form>
+						<h:commandLink action="#{productController.findProduct(orderLine.product.id)}" 
+							value="#{orderLine.product.code}">
+						</h:commandLink>
+					</h:form>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{orderLine.product.name}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Price</f:facet>
+					<h:outputText value="#{orderLine.unitPrice}$"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Quantity</f:facet>
+					<h:outputText value="#{orderLine.quantity}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Subtotal</f:facet>
+					<h:outputText value="#{orderLine.subtotal}$"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>

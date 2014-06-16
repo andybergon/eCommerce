@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>eCommerce</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/DT_bootstrap.css" />
+
+	<style type="text/css">
+body {
+	font-family: sans-serif;
+	font-size: 18px;
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+</style>
+
+	<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</h:head>
+<h:body>
+	<h:form>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="home.xhtml">eCommerce</a>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<h:panelGroup rendered="#{adminController.isSignedIn()}">
+										<li>
+											<h:commandLink value="New Product" action="#{productController.createProduct()}">
+											</h:commandLink>
+										</li>
+									</h:panelGroup>
+									<li>
+										<h:commandLink value="View All Products" action="#{productController.findAllProducts()}">
+										</h:commandLink>
+									</li>
+								</ul>
+							</li>
+							<h:panelGroup rendered="#{userController.isSignedIn()}">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li>
+											<h:commandLink value="New Order" action="#{orderController.createOrder()}">
+											</h:commandLink>
+										</li>
+										<li>
+											<h:commandLink value="My Orders"
+												action="#{orderController.findOrders(userController.currentUser.id)}">
+											</h:commandLink>
+										</li>
+									</ul>
+								</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{adminController.isSignedIn()}">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li>
+											<h:commandLink value="Ship Order"
+												action="#{orderController.findConfirmedOrders()}"></h:commandLink>	
+										</li>
+										<li>
+											<h:commandLink value="View All Orders"
+												action="#{orderController.findAllOrders()}"></h:commandLink>	
+										</li>
+									</ul>
+								</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{adminController.isSignedIn()}">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Providers <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li>
+											<h:commandLink value="View All Orders"
+												action="#{providerController.findAllProviders()}"></h:commandLink>	
+										</li>
+									</ul>
+								</li>
+							</h:panelGroup>
+							<li><a href="about.xhtml">About</a></li>
+						</ul>
+						<ul class="nav pull-right">
+							<h:panelGroup rendered="#{portal.isSignedIn() == false}">
+								<li class="dropdown">
+									<a href="#" data-toggle="dropdown" class="dropdown-toggle">Enter <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<li><a href="user_signin.xhtml">Sign in</a></li>
+										<li><a href="user_signup.xhtml">Register</a></li>
+										<li class="divider"></li>
+										<li><a href="admin_signin.xhtml">Administration</a></li>
+									</ul>
+								</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{userController.isSignedIn()}">
+								<li class="dropdown">
+									<a href="#" data-toggle="dropdown"
+										class="dropdown-toggle">#{userController.currentUser.firstName} <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+												<h:commandLink value="Sign out" action="#{userController.signOut()}"></h:commandLink>	
+										</li>
+									</ul>
+								</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{adminController.isSignedIn()}">
+								<li class="dropdown">
+									<a href="#" data-toggle="dropdown"
+										class="dropdown-toggle">#{adminController.currentAdmin.email} <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+												<h:commandLink value="Sign out" action="#{adminController.signOut()}"></h:commandLink>
+										</li>
+									</ul>
+								</li>
+							</h:panelGroup>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<div class="container">
+		<ui:insert name="content"></ui:insert>
+	</div>
+
+	<h:outputScript name="js/jquery-1.7.2.min.js" />
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/jquery.dataTables.min.js" />
+	<h:outputScript name="js/DT_bootstrap.js" />
+</h:body>
+</html>

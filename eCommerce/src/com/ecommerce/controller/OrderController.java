@@ -1,7 +1,6 @@
 package com.ecommerce.controller;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -44,6 +43,7 @@ public class OrderController {
 		User currentUser = this.userController.getCurrentUser();
 		this.order.setCreator(currentUser);
 		this.order.setCreationDate(new Date());
+		this.quantity = "0";
 		return "new_order" + Utils.REDIRECT;
 	}
 
@@ -61,7 +61,7 @@ public class OrderController {
 		this.orders = this.orderFacade.findAllOrders(userId);
 		return "my_orders" + Utils.REDIRECT;
 	}
-	
+
 	public String findAllOrders() {
 		this.orders = this.orderFacade.findAllOrders();
 		return "orders_all" + Utils.REDIRECT;
@@ -85,21 +85,13 @@ public class OrderController {
 				this.order.addOrderLine(orderLine);
 			}
 		}
+		this.quantity = "0";
 		return "new_order" + Utils.REDIRECT;
 	}
 
-	public String removeProductFromOrder(Long productId) {
-		for (OrderLine orderLine : this.order.getOrderLines()) {
-			if (orderLine.getProduct().getId().equals(productId)) {
-				orderLine.removeQuantity(Integer.parseInt(this.quantity));
-			}
-		}
-		for (Iterator<OrderLine> iterator = this.order.getOrderLines().listIterator(); iterator.hasNext();) {
-			OrderLine currentOrderLine = iterator.next();
-			if (currentOrderLine.getQuantity() <= 0) {
-				iterator.remove();
-			}
-		}
+	public String updateQuantity(OrderLine orderLine) {
+		if (orderLine.getQuantity() == 0)
+			this.order.removeOrderLine(orderLine);
 		return "new_order" + Utils.REDIRECT;
 	}
 
@@ -121,13 +113,6 @@ public class OrderController {
 		order.setShipmentDate(new Date());
 		this.orderFacade.update(order);
 		return "orders" + Utils.REDIRECT;
-	}
-	
-	public String getCreatorDetails(Long orderId) {
-		this.order = this.orderFacade.find(orderId);
-		// fetch eager is ok?
-		// this.creator = this.order.getCreator();
-		return "order_creator";
 	}
 
 	//getters & setters

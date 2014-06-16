@@ -1,60 +1,56 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css"
-		href="#{request.contextPath}/styles/style.css" />
-</h:head>
-<h:body>
-	<ui:include src="templates/nav-bar.xhtml" />
-	<h:panelGroup rendered="#{adminController.isSignedIn()}">
-		<center>
-			<h1>Add a new product!</h1>
-			<h3 style="color: red;">
-				<h:outputLabel value="#{portal.message}" />
-			</h3>
-			<h:form>
-				<table>
-					<tr>
-						<td>code:</td>
-						<td><h:inputText id="code"
-								value="#{productController.newProduct.code}" required="true"
-								requiredMessage="Product code is mandatory">
-								<f:validateLength maximum="255" />
-							</h:inputText> <h:message for="code" styleClass="error" /></td>
-					</tr>
-					<tr>
-						<td>name:</td>
-						<td><h:inputText id="name"
-								value="#{productController.newProduct.name}" required="true"
-								requiredMessage="Name is mandatory">
-								<f:validateLength maximum="255" />
-							</h:inputText> <h:message for="name" styleClass="error" /></td>
-					</tr>
-					<tr>
-						<td>price:</td>
-						<td><h:inputText id="price"
-								value="#{productController.newProduct.price}" required="true"
-								requiredMessage="Price is mandatory">
-							</h:inputText> <h:message for="price" styleClass="error" /></td>
-					</tr>
-					<tr>
-						<td>description:</td>
-						<td><h:inputText id="description"
-								value="#{productController.newProduct.description}">
-								<f:validateLength maximum="255" />
-							</h:inputText> <h:message for="description" styleClass="error" /></td>
-					</tr>
-				</table>
-				<h:commandLink action="#{productController.createProduct}"
-					value="Add product"></h:commandLink>
-			</h:form>
-			<br /> <br />
-			<h:link outcome="index" value="Return to home" />
-		</center>
-	</h:panelGroup>
-</h:body>
-</html>
+	template="templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h:panelGroup rendered="#{adminController.isSignedIn()}">
+				<h1>New product!</h1>
+				<br />
+				<h2>Please describe the product you would like to add.</h2>
+				<br />
+				<h:form>
+					<table>
+						<tr>
+							<td>Code</td>
+							<td><h:inputText id="code"
+									value="#{productController.newProduct.code}" required="true"
+									requiredMessage="Product code is mandatory">
+									<f:validateLength maximum="255" />
+								</h:inputText> <h:message for="code" styleClass="error" /></td>
+						</tr>
+						<tr>
+							<td>Name</td>
+							<td><h:inputText id="name"
+									value="#{productController.newProduct.name}" required="true"
+									requiredMessage="Name is mandatory">
+									<f:validateLength maximum="255" />
+								</h:inputText> <h:message for="name" styleClass="error" /></td>
+						</tr>
+						<tr>
+							<td>Price</td>
+							<td><h:inputText id="price"
+									value="#{productController.newProduct.price}" required="true"
+									requiredMessage="Price is mandatory">
+								</h:inputText> <h:message for="price" styleClass="error" /></td>
+						</tr>
+						<tr>
+							<td>Description&#160;&#160;&#160;</td>
+							<td><h:inputText id="description"
+									value="#{productController.newProduct.description}">
+									<f:validateLength maximum="255" />
+								</h:inputText> <h:message for="description" styleClass="error" /></td>
+						</tr>
+					</table>
+					<br />
+					<br />
+					<h:commandButton value="Add Product »" action="#{productController.confirmProduct}"
+						styleClass="btn btn-inverse btn-large">
+					</h:commandButton>
+				</h:form>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -28,10 +28,14 @@ public class ProductController {
 	private List<Product> products;
 
 	public ProductController() {
-		this.newProduct = new Product();
 	}
 
 	public String createProduct() {
+		this.newProduct = new Product();
+		return "new_product" + Utils.REDIRECT;
+	}
+
+	public String confirmProduct() {
 		if (this.portal.getSignedInState().equals(SignedInState.ADMIN_SIGNED_IN)) {
 			this.productFacade.create(newProduct);
 			this.currentProduct = newProduct;
@@ -43,7 +47,7 @@ public class ProductController {
 		}
 	}
 
-	public String listProducts() {
+	public String findAllProducts() {
 		this.products = this.productFacade.findAll();
 		return "products" + Utils.REDIRECT;
 	}

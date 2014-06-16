@@ -1,9 +1,7 @@
 package com.ecommerce.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +16,6 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Basic
 	@Column(unique = true, nullable = false)
 	private String code;
 
@@ -36,7 +33,6 @@ public class Product {
 
 
 	public Product() {
-		this.supplies = new ArrayList<ProductSupply>();
 	}
 
 	public Long getId() {
@@ -91,11 +87,6 @@ public class Product {
 	public boolean equals(Object obj) {
 		Product product = (Product) obj;
 		return this.getCode().equals(product.getCode());
-	}
-
-	@Override
-	public int hashCode() {
-		return this.code.hashCode();
 	}
 
 	@Override

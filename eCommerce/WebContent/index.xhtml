@@ -1,52 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
-<h:head>
-	<title>eCommerce</title>
-	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/styles/style.css"/>
-</h:head>
-<h:body>
-	<div id="header">
-		<ui:include src="templates/nav-bar.xhtml"/>
-	</div>	
-	<div id ="container">
-		<b:container>
-			<b:jumbotron>
-				<h1>Welcome to eCommerce!</h1>
-				<p>A wonderful site where you can buy all you want.</p>
-				<p><a href="products.xhtml" class="btn btn-lg btn-info">View Products »</a></p>
-
-				<f:view afterPhase="#{portal.clean}">
-						<h2>
-							<h:outputLabel value="#{portal.message}" rendered="#{portal.isSignedIn()}"/>
-						</h2>
-						<!--
-						<div>
-							<h:panelGroup rendered="#{userController.isSignedIn()}">
-								<br/>
-								<br/>
-								<h:form>Make new <h:commandLink action="#{orderController.createOrder()}" value="order"></h:commandLink>.</h:form>
-								<h:form>My <h:commandLink action="#{orderController.findOrders(userController.currentUser.id)}" value="orders"></h:commandLink>.</h:form>
-							</h:panelGroup>
-							
-							<h:panelGroup rendered="#{adminController.isSignedIn()}">
-								To add a product, please click <h:link outcome="new_product" value="here"/>.<br/>
-								To view providers, please click <h:link outcome="providers" value="here"/>.
-								<h:form>To view all confirmed orders, please click 
-									<h:commandLink action="#{orderController.findConfirmedOrders()}" value="here"></h:commandLink>.
-								</h:form>
-								<h:form>To view all orders, please click 
-									<h:commandLink action="#{orderController.findAllOrders()}" value="here"></h:commandLink>.
-								</h:form>
-							</h:panelGroup>
-						</div>  -->
-				</f:view>
-			</b:jumbotron>
-		</b:container>
-    </div>
-</h:body>
+<html>
+  <head>
+    <meta http-equiv="Refresh" content="0; URL=home.xhtml" />
+  </head>
 </html>
