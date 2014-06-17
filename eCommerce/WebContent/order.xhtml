@@ -15,14 +15,6 @@
 					<h:outputText value="#{order.id}"></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Customer</f:facet>
-					<h:form>
-						<h:commandButton value="view" action="#{userController.findUserByOrder(order.creator)}"
-							styleClass="btn btn-inverse">
-						</h:commandButton>
-					</h:form>
-				</h:column>
-				<h:column>
 					<f:facet name="header">Creation Date</f:facet>
 						<h:outputText value="#{order.creationDate}">
 							<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" />
@@ -52,6 +44,14 @@
 				<h:column>
 					<f:facet name="header">Total Price</f:facet>
 					<h:outputText value="#{order.total}$"></h:outputText>
+				</h:column>
+				<h:column rendered="#{adminController.isSignedIn()}">
+					<f:facet name="header">Customer</f:facet>
+					<h:form>
+						<h:commandButton value="view" action="#{userController.findUserByOrder(order.creator)}"
+							styleClass="btn btn-inverse">
+						</h:commandButton>
+					</h:form>
 				</h:column>
 			</h:dataTable>
 			<br />
